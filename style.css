@@ -11,7 +11,7 @@ body {
 
 a:link,
 a:visited {
-    color: cadetblue;
+/*    color: cadetblue;*/
 }
 
 p {
@@ -41,6 +41,73 @@ article.post:last-of-type {
 
 /* Footer */
 .site-footer {
-    border-top: 2px solid #999;
+/*    border-top: 2px solid #999;*/
     margin-top: 30px;
+}
+
+/* Navigation Menus */
+.site-nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav ul:before, .site-nav ul:after { content: ""; display: table; }
+.site-nav ul:after { clear: both; }
+.site-nav ul { *zoom: 1; }
+
+.site-nav ul li {
+    list-style: none;
+    float: left;
+}
+
+/* Site Header Menu */
+.site-header nav ul li a:link,
+.site-header nav ul li a:visited {
+    display: block;
+    padding: 10px 18px;
+    border: none;
+    text-decoration: none;
+}
+
+.site-header nav ul li a:hover {
+    background-color: #f1f1f1;
+/*    color: #f1f1f1;*/
+}
+
+.site-header nav ul li.current-menu-item a:link,
+.site-header nav ul li.current-menu-item a:visited {
+    background-color: #ac1455;
+    color: #f1f1f1;
+}
+
+/* Footer Menu */
+
+.site-footer nav ul{ /* Center the footer menu */
+    display: table;
+    margin: 0 auto;
+
+}
+.site-footer nav ul li a:link,
+.site-footer nav ul li a:visited {
+    display: inline-block;
+/*    margin-right: 0px;*/
+    padding: 10px 10px;
+    text-decoration: none;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}
+.site-footer nav ul li:first-child {
+    border-left: 1px solid;
+}
+
+/* McMaster Footer */
+#mcmaster-footer {
+    background-color: #ac1455;
+    padding: 10px;
+}
+#mcmaster-footer p {
+    margin: 0 auto;
+    display: table;
+    color: #f1f1f1;
+    padding: 10px;
 }
