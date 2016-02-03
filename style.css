@@ -5,13 +5,26 @@ Author URI:
 Version: 1.0
 */
 
+/* Fonts */
+@font-face {
+    font-family: 'League Gothic';
+    src: url('leaguegothic-italic-webfont.eot');
+    src: url('leaguegothic-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('leaguegothic-italic-webfont.woff') format('woff'),
+         url('leaguegothic-italic-webfont.ttf') format('truetype'),
+         url('leaguegothic-italic-webfont.svg#league_gothic_italicregular') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
 body {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
 a:link,
 a:visited {
-/*    color: cadetblue;*/
+    color: black;
+    text-decoration: none;
 }
 
 p {
@@ -37,6 +50,11 @@ article.post:last-of-type {
 /* Header */
 .site-header {
     border-bottom: 2px solid #999;
+}
+.site-header h1 {
+    margin: 0 0 10px;
+    font-size: 250%;
+    font-family: 'League Gothic', sans-serif
 }
 
 /* Footer */
@@ -95,6 +113,8 @@ article.post:last-of-type {
     text-decoration: none;
     border-right: 1px solid black;
     border-top: 1px solid black;
+    background-color: #ac1455;
+    color: #f1f1f1;
 }
 .site-footer nav ul li:first-child {
     border-left: 1px solid;
@@ -111,3 +131,8 @@ article.post:last-of-type {
     color: #f1f1f1;
     padding: 10px;
 }
+#mcmaster-footer img {
+    display: block;
+    margin: 0 auto;
+}
+
