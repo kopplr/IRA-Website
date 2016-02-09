@@ -23,10 +23,12 @@ body {
 
 a:link,
 a:visited {
-/*
     color: black;
     text-decoration: none;
-*/
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 p {
@@ -45,7 +47,13 @@ div.container {
 
 article.post {
     border-bottom: 2px dotted #bbb;
+    margin-bottom: 20px;
+    margin-right: 20px;
 }
+article.post:hover {
+    background-color: #EEE;
+}
+
 
 article.post:last-of-type {
     border-bottom: none;
@@ -59,6 +67,9 @@ article.post:last-of-type {
     margin: 0 0 10px;
     font-size: 250%;
     font-family: 'League Gothic', sans-serif
+}
+.main-column h1 {
+    color: #ac1455;
 }
 
 /* Footer */
@@ -145,3 +156,28 @@ article.post:last-of-type {
     width: 30%;
     float: left;
 }
+
+.main-column {
+    width: 50%;
+    float: right;
+}
+.main-column a {
+    text-decoration: none;
+}
+
+.sidebar-column {
+    width: 20%;
+    float: left;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+.secondary-column {
+    float: right;
+    width: 30%;
+
+}
+
+
