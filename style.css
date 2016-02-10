@@ -52,6 +52,7 @@ article.post {
 }
 article.post:hover {
     background-color: #EEE;
+
 }
 
 
@@ -179,5 +180,4 @@ article.post:last-of-type {
     width: 30%;
 
 }
-
 
