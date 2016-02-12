@@ -15,17 +15,6 @@ get_header(); ?>
 -->
 
 
-<nav class="nav-sidebar">
-    <?php
-
-    $args = array(
-        'theme_location' => 'sidebar'
-    );
-
-    ?>
-    <?php wp_nav_menu( $args ); ?>
-
-</nav>
 
 <?php
 if (have_posts()) :

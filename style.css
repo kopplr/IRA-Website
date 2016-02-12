@@ -80,7 +80,7 @@ article.post:last-of-type {
 }
 
 /* Navigation Menus */
-.site-nav ul {
+ul {
     margin: 0;
     padding: 0;
 }
@@ -153,10 +153,7 @@ article.post:last-of-type {
 }
 
 
-.nav-sidebar {
-    width: 30%;
-    float: left;
-}
+
 
 .main-column {
     width: 50%;
@@ -180,4 +177,27 @@ article.post:last-of-type {
     width: 30%;
 
 }
+
+
+
+/*
+.button-group {
+    padding-top: 1em;
+    text-align: center;
+}
+.button-group ul {
+    width: 70%;
+    margin: auto;
+}
+.button-group li {
+    padding-top: 0.5em;
+}
+*/
+
+.sub-menu {
+    display: none;
+}
+
+
+
 

@@ -5,21 +5,44 @@ get_header();
 
 <div class="site-content clearfix">
     <div class="sidebar-column">
-        <ul>
-            <li>Show All</li>
-            <?php wp_list_categories('orderby=name&title_li=&child_of=2'); ?> <!-- Get all child categories of Publications and sort alphabetically-->
+<!--
+        <div class="button-group filter-button-group">
+        <ul style="list-style-type:none">
+            <li><button data-filter="*">show all</button></li>
+            <li><button data-filter=".fact-sheets">fact sheets</button></li>
+            <li><button data-filter=".fact-book">fact book</button></li>
+            <li><button data-filter=".surveys">surveys</button></li>
+
         </ul>
+
+        </div>
+-->
+
+        <nav>
+            <?php
+
+            $walker = new my_nav_walker;
+
+            $args = array(
+                'theme_location' => 'sidebar',
+                'container_class' => 'button-group filter-button-group',
+                'walker' => $walker
+            );
+
+            ?>
+
+            <?php
+            wp_nav_menu($args)
+
+            ?>
+        </nav>
+
     </div>
     <div class="secondary-column">
         <p>widget area</p>
     </div>
     <div class="main-column">
-        <div class="button-group filter-button-group">
-            <button data-filter="*">show all</button>
-            <button data-filter=".fact-sheets">fact sheets</button>
-            <button data-filter=".fact-book">fact book</button>
-            <button data-filter=".surveys">surveys</button>
-        </div>
+
         <div class="grid">
             <?php
             query_posts('cat=2&orderby=title&order=asc'); // Category 2 is Publications, order alphabetically

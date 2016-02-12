@@ -1,8 +1,9 @@
 <?php
+require_once('custom_nav.php');
 
 function IRAWebsite_resources() {
 
-    wp_enqueue_style('style', get_stylesheet_uri());
+    wp_enqueue_style('style', get_stylesheet_uri(), array(), '1.0');
 
     wp_register_style('animate-css', get_stylesheet_directory_uri() . '/animate.min.css', array(), '20160209', 'screen');
     wp_enqueue_style('animate-css');
@@ -10,7 +11,7 @@ function IRAWebsite_resources() {
     wp_enqueue_script('roboto-google-font', 'https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
     wp_enqueue_script('jquery', get_template_directory_uri() . '/jquery-1.12.0.min.js', array(), '1.12.0', true);
-    wp_enqueue_script('test-isotope', get_template_directory_uri() . '/js/test_isotope.js', array('jquery'));
+    wp_enqueue_script('test-isotope', get_template_directory_uri() . '/js/test_isotope.js', array('jquery'), '1.0');
 
     wp_enqueue_script('isotope', get_template_directory_uri() . '/isotope.pkgd.min.js', array(), '2.2.2', 'true');
 }
