@@ -51,6 +51,8 @@ jQuery(document).ready(function($) {
         }
     );
 
+
+
     // Extra jQuery functions
     $.fn.exists = function () {
         return this.length !== 0;

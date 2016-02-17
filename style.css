@@ -27,9 +27,11 @@ a:visited {
     text-decoration: none;
 }
 
+/*
 a:hover {
     text-decoration: underline;
 }
+*/
 
 p {
     line-height: 1.65em;
@@ -138,8 +140,10 @@ ul {
 
 /* McMaster Footer */
 #mcmaster-footer {
+/*
     background-color: #ac1455;
     padding: 10px;
+*/
 }
 #mcmaster-footer p {
     margin: 0 auto;
