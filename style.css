@@ -163,10 +163,7 @@ ul {
     text-decoration: none;
 }
 
-.sidebar-column {
-    width: 20%;
-    float: left;
-}
+
 
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
@@ -178,25 +175,38 @@ ul {
 
 }
 
-
-
-/*
+/* Sidebar Menu */
+.sidebar-column {
+    width: 20%;
+    float: left;
+}
+button {
+    width: 100%;
+}
 .button-group {
     padding-top: 1em;
+    padding-right: 1em;
     text-align: center;
 }
+.button-group li {
+    padding-bottom: 0.5em;
+}
+.sub-menu {
+    display: none;
+    width: 70%;
+}
+button.is-checked {
+    background-color: #ac1455;
+    color: white;
+}
+/*
 .button-group ul {
     width: 70%;
     margin: auto;
 }
-.button-group li {
-    padding-top: 0.5em;
-}
 */
 
-.sub-menu {
-    display: none;
-}
+
 
 
 
