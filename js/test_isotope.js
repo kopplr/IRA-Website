@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
     });
   });
 
-    //Dropdown menu
+    // Dropdown menu filter
     $('.menu-item-has-children').hover(
         function(){
             $(this).children('.sub-menu').slideDown(200);
@@ -50,6 +50,17 @@ jQuery(document).ready(function($) {
             }
         }
     );
+
+    // Dropdown menu attachment
+    $('.item-selected').on("click", function(){
+        var options = $(this).siblings('.dropdown-options');
+        if(options.css('display') == 'none'){
+            options.slideDown(200);
+        }
+        else {
+            options.slideUp(200);
+        }
+    });
 
 
 

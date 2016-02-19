@@ -23,17 +23,38 @@ get_header();
                         'post_parent' => get_post($post->post_parent)->ID
                     ));
                     ?>
-                    <h1><?php echo $post->post_title ?></h1>
-                    <ul>
-                        <?php foreach ( $post_attachments as $post_attachment ) {
-                            echo '<li>' . wp_get_attachment_link( $post_attachment->ID, '', true, false ) . '</li>';
-                        } ?>
+                    <ul class="dropdown-list">
+
+                        <li id="category-selection">
+                            <p class="item-selected">Fact Book<span class="fa fa-caret-down fa-fw fa-border fa-pull-right"></span></p>
+                            <ul class="dropdown-options">
+                                <?php wp_list_categories('orderby=name&title_li=&child_of=2'); ?> <!-- Get all child categories of Publications and sort alphabetically-->
+
+                            </ul>
+                        </li>
+
+                        <li id="year-selection">
+                            <p class="item-selected"><?php echo $post->post_title ?>&nbsp;<span class="fa fa-caret-down fa-fw fa-border"></span></p>
+                            <ul class="dropdown-options">
+                            <?php
+                                $myCurrentYear = $post->post_title;
+                                foreach ( $post_attachments as $post_attachment ) {
+                                    $myYear = wp_get_attachment_link( $post_attachment->ID, '', true, false );
+                                    $myYearSelected = $post_attachment->post_title;
+                                    echo '<li' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . '>' . $myYear . '</li>';
+                                }
+                            ?>
+                            </ul>
+                        </li>
+
                     </ul>
 
                 <?php endwhile;
                 else :
                     echo '<p>NO content found</p>';
-            endif;?>
+            endif;
+            wp_reset_postdata();
+            ?>
 
         </div>
         <div>
