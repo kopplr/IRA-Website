@@ -29,7 +29,6 @@ get_header();
                             <p class="item-selected">Fact Book<span class="fa fa-caret-down fa-fw fa-border fa-pull-right"></span></p>
                             <ul class="dropdown-options">
                                 <?php wp_list_categories('orderby=name&title_li=&child_of=2'); ?> <!-- Get all child categories of Publications and sort alphabetically-->
-
                             </ul>
                         </li>
 
@@ -38,6 +37,7 @@ get_header();
                             <ul class="dropdown-options">
                             <?php
                                 $myCurrentYear = $post->post_title;
+                                $myYearsSelected = array();
                                 foreach ( $post_attachments as $post_attachment ) {
                                     $myYear = wp_get_attachment_link( $post_attachment->ID, '', true, false );
                                     $myYearSelected = $post_attachment->post_title;
@@ -45,6 +45,9 @@ get_header();
                                 }
                             ?>
                             </ul>
+                        </li>
+                        <li id="downloads">
+                            <a href="<?php echo wp_get_attachment_url($post->ID) ?>"><i class="fa fa-file-pdf-o fa-fw fa-border"></i></a>
                         </li>
 
                     </ul>
