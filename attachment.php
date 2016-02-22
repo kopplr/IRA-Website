@@ -41,15 +41,39 @@ get_header();
                                 foreach ( $post_attachments as $post_attachment ) {
                                     $myYear = wp_get_attachment_link( $post_attachment->ID, '', true, false );
                                     $myYearSelected = $post_attachment->post_title;
-                                    echo '<li' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . '>' . $myYear . '</li>';
+
+                                    $attachmentPath = wp_get_attachment_url($post_attachment->ID);
+                                    if (wp_check_filetype($attachmentPath)['ext'] == 'pdf'){ // Checks for pdf so does not duplicate list
+                                        echo '<li' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . '>' . $myYear . '</li>';
+                                    }
                                 }
                             ?>
                             </ul>
                         </li>
                         <li id="downloads">
-                            <a href="<?php echo wp_get_attachment_url($post->ID) ?>"><i class="fa fa-file-pdf-o fa-fw fa-border"></i></a>
-                        </li>
+                            <ul id="download-options">
+                                <li id="download-pdf">
+                                    <a href="<?php echo wp_get_attachment_url($post->ID) ?>"><i class="fa fa-file-pdf-o fa-fw fa-border"></i></a>
+                                </li>
+                                <?php
+                                    global $wpdb;
+                                    $title_exists = $wpdb->get_results(
+                                        $wpdb->prepare(
+                                            "SELECT ID FROM wp_posts
+                                            WHERE post_title = %s
+                                            AND post_type = 'attachment'", $post->post_title
+                                        )
+                                    );
+                                    foreach ($title_exists as $title_exist){
+                                        $attachmentPathExcel = wp_get_attachment_url($title_exist->ID);
+                                        if (wp_check_filetype($attachmentPathExcel)['ext'] == 'xlsx'|| wp_check_filetype($attachmentPathExcel)['ext'] == 'xls') {
+                                            echo '<li id="download-excel"><a href="' . $attachmentPathExcel . '"><i class="fa fa-file-excel-o fa-fw fa-border"></i></a></li>';
+                                        }
+                                    }
+                                ?>
 
+                            </ul>
+                        </li>
                     </ul>
 
                 <?php endwhile;

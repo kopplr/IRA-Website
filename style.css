@@ -240,3 +240,7 @@ p {
     background-color: aquamarine;
 }
 
+
+#download-options li {
+    display: inline-block;
+}
