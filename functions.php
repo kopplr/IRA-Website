@@ -1,5 +1,6 @@
 <?php
 require_once('custom_nav.php');
+require_once('custom_nav_2.php');
 
 function IRAWebsite_resources() {
 
@@ -29,5 +30,6 @@ register_nav_menus(array(
     'primary' => __( 'Primary Menu'),
     'footer' => __( 'Footer Menu'),
     'sidebar' => __( 'Sidebar Menu'),
+    'home-page' => __( 'Home Page Menu'),
 
 ));

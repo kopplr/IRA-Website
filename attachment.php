@@ -1,5 +1,6 @@
 <?php
 get_header();
+global $wpdb
 ?>
 
 <div class="site-content clearfix">
@@ -16,7 +17,7 @@ get_header();
             if (have_posts()) :
                 while (have_posts()) : the_post(); ?>
 
-                  <?php // get post attachments
+                  <?php // get post attachments (Different years)
                     $post_attachments = get_posts( array (
                         'post_type' => 'attachment',
                         'orderby' => 'title',
@@ -28,7 +29,10 @@ get_header();
                         <li id="category-selection">
                             <p class="item-selected">Fact Book<span class="fa fa-caret-down fa-fw fa-border fa-pull-right"></span></p>
                             <ul class="dropdown-options">
-                                <?php wp_list_categories('orderby=name&title_li=&child_of=2'); ?> <!-- Get all child categories of Publications and sort alphabetically-->
+                                <?php
+                                    $attachment_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_parent = '$post->ID' AND post_status = 'inherit' AND post_type='attachment' ORDER BY post_title DESC LIMIT 1");
+
+                                ?>
                             </ul>
                         </li>
 
@@ -44,7 +48,7 @@ get_header();
 
                                     $attachmentPath = wp_get_attachment_url($post_attachment->ID);
                                     if (wp_check_filetype($attachmentPath)['ext'] == 'pdf'){ // Checks for pdf so does not duplicate list
-                                        echo '<li' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . '>' . $myYear . '</li>';
+                                        echo '<li' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . '>' . $myYear . '</li>'; // Highlights the selected year
                                     }
                                 }
                             ?>
@@ -53,18 +57,17 @@ get_header();
                         <li id="downloads">
                             <ul id="download-options">
                                 <li id="download-pdf">
-                                    <a href="<?php echo wp_get_attachment_url($post->ID) ?>"><i class="fa fa-file-pdf-o fa-fw fa-border"></i></a>
+                                    <a target="_blank" href="<?php echo wp_get_attachment_url($post->ID) ?>"><i class="fa fa-file-pdf-o fa-fw fa-border"></i></a>
                                 </li>
                                 <?php
-                                    global $wpdb;
-                                    $title_exists = $wpdb->get_results(
+                                    $title_exists = $wpdb->get_results( // looks for other attachments with same name (ie. excel files)
                                         $wpdb->prepare(
                                             "SELECT ID FROM wp_posts
                                             WHERE post_title = %s
                                             AND post_type = 'attachment'", $post->post_title
                                         )
                                     );
-                                    foreach ($title_exists as $title_exist){
+                                    foreach ($title_exists as $title_exist){ // checks to see if the file is an excel file and then adds an icon
                                         $attachmentPathExcel = wp_get_attachment_url($title_exist->ID);
                                         if (wp_check_filetype($attachmentPathExcel)['ext'] == 'xlsx'|| wp_check_filetype($attachmentPathExcel)['ext'] == 'xls') {
                                             echo '<li id="download-excel"><a href="' . $attachmentPathExcel . '"><i class="fa fa-file-excel-o fa-fw fa-border"></i></a></li>';

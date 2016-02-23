@@ -15,7 +15,7 @@
                 </nav>
 
 
-                <footer id="mcmaster-footer" class="slate">
+                <footer id="mcmaster-footer" class="maroon">
                     <ul id="social-links">
                       <li class="twitter">
                         <a href="http://www.twitter.com/mcmasteru" target="_blank"><span class="sr-only">Twitter</span>

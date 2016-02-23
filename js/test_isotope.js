@@ -62,6 +62,18 @@ jQuery(document).ready(function($) {
         }
     });
 
+    // Add in icons for home page
+    $('#menu-home-page-menu-links > li').each(function(){
+        if ($(this).text() == 'IRA Portals'){
+            $('a',this).append('<i class="fa fa-external-link" style="display:block;font-size:3em;padding: 10px 0 10px 0"></i>');
+        }
+        if ($(this).text() == 'Data'){
+            $('a',this).append('<i class="fa fa-bar-chart" style="display:block;font-size:3em;padding: 10px 0 10px 0"></i>');
+        }
+        if ($(this).text() == 'Publications'){
+            $('a',this).append('<i class="fa fa-newspaper-o" style="display:block;font-size:3em;padding: 10px 0 10px 0"></i>');
+        }
+    })
 
 
     // Extra jQuery functions
