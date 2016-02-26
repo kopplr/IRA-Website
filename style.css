@@ -221,7 +221,6 @@ p {
     width: auto;
     position: relative;
     margin-right: 20px;
-
 }
 #category-selection {
     width: 150px;
@@ -232,8 +231,15 @@ p {
     background-color: white;
     width: 100%;
 }
+.dropdown-options > li {
+    cursor: pointer;
+}
 .item-selected {
+    cursor: default;
     color: black;
+}
+.item-selected span {
+    margin-left: 5px;
     cursor: pointer;
 }
 .selected {

@@ -50,13 +50,10 @@ get_header();
                 while (have_posts()) : the_post();
             ?>
 
-                <?php // Get the most recent attachment
-                    global $wpdb;
-                    $attachment_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_parent = '$post->ID' AND post_status = 'inherit' AND post_type='attachment' ORDER BY post_title DESC LIMIT 1");
-                ?>
+
                 <div class="element-item <?php $cats = get_the_category(); foreach ($cats as $cat){ echo $cat->slug . ' ';} ?>"> <!-- Add in categories as classes to be able to filter in Isotope -->
 
-                    <a href="<?php echo get_attachment_link($attachment_id); ?>"> <!-- Link to most recent attachment -->
+                    <a href="<?php echo get_permalink(); ?>"> <!-- Link to most recent attachment -->
                         <article class="post">
                             <h1><?php the_title() ?></h1>
                             <?php the_content()?>

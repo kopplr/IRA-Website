@@ -24,9 +24,9 @@ get_header(); ?>
 
     $args = array(
         'theme_location' => 'home-page',
-//        'container' => 'table',
-//        'items_wrap' => '<tr id="%1$s" class="%2$s">%3$s</tr>',
-//        'walker' => new my_nav_walker_2,
+       // 'container' => 'false',
+     //   'items_wrap' => '<tr id="%1$s" class="%2$s">%3$s</tr>',
+        'walker' => new my_nav_walker_2,
 
     );
 
