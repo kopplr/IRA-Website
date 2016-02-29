@@ -9,9 +9,9 @@ add_action('wp_enqueue_scripts', 'year_posts_scripts');
 function filter_year_post() {
     global $wpdb;
     error_reporting(0);
-//    if ( !wp_verify_nonce( $_POST['nonce'], 'yearpost')) {
-//      die();
-//   }
+    if ( !wp_verify_nonce( $_POST['nonce'], 'yearpost')) {
+      die();
+   }
 
     $post = get_post($_POST['postid']);
     $post->url = wp_get_attachment_url($post->ID);
