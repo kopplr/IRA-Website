@@ -42,10 +42,28 @@ global $wpdb
                     <ul class="dropdown-list">
 
                         <li id="category-selection">
-                            <p class="item-selected">Fact Book<span class="fa fa-caret-down fa-fw fa-border fa-pull-right"></span></p>
+                            <p class="item-selected"><?php the_title(); ?><span class="fa fa-caret-down fa-fw fa-border fa-pull-right"></span></p>
                             <ul class="dropdown-options">
                                 <?php
+                                    $categories = get_the_category();
+                                    $last_category = $categories[0];
 
+                                    foreach($categories as $i => $category)
+                                    {
+                                        if($category->parent == $last_category->cat_ID)
+                                        {
+                                            $last_category = $category; // Find most sub category (last child category)
+                                        }
+                                    }
+                                    $posts_array = get_posts(array(
+                                        'cat' => $last_category->term_id,
+                                        'order' => 'ASC',
+                                        'orderby' => 'title',
+                                        'numberposts' => -1
+                                    ));
+                                    foreach($posts_array as $one_post){
+                                        echo '<li' . (($one_post->ID == $post->ID)?' class = "selected"':"") . '>' . '<a href="' . get_permalink($one_post->ID) . '">' . $one_post->post_title . '</a></li>';
+                                    }
                                 ?>
                             </ul>
                         </li>
@@ -78,7 +96,8 @@ global $wpdb
                                         $wpdb->prepare(
                                             "SELECT ID FROM wp_posts
                                             WHERE post_title = %s
-                                            AND post_type = 'attachment'", $myCurrentYear
+                                            AND post_type = 'attachment'
+                                            AND post_parent = %s", $myCurrentYear, $post->ID
                                         )
                                     );
                                     $foo = true;

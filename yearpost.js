@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
             $(this).addClass("selected");
 
             // Slide options back up>?
-//            $('.item-selected').siblings('.dropdown-options').slideUp(200);
+            $('.item-selected').siblings('.dropdown-options').slideUp(200);
 
 
         }
