@@ -45,7 +45,12 @@ get_header();
 
         <div class="grid">
             <?php
-            query_posts('cat=2&orderby=title&order=asc'); // Category 2 is Publications, order alphabetically
+            query_posts(array(
+                'cat' => 2,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                'posts_per_page' => -1
+            )); // Category 2 is Publications, order alphabetically
             if (have_posts()) :
                 while (have_posts()) : the_post();
             ?>

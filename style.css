@@ -138,26 +138,6 @@ ul {
     border-left: 1px solid;
 }
 
-/* McMaster Footer */
-#mcmaster-footer {
-/*
-    background-color: #ac1455;
-    padding: 10px;
-*/
-}
-#mcmaster-footer p {
-    margin: 0 auto;
-    display: table;
-    color: #f1f1f1;
-    padding: 10px;
-}
-#mcmaster-footer img {
-    display: block;
-    margin: 0 auto;
-}
-
-
-
 
 .main-column {
     width: 50%;
@@ -283,4 +263,50 @@ p {
 #submit-request {
     width: 100%;
     height: 200px;
+}
+
+/* Example table */
+
+div.table
+{
+	display:table;
+	width:100px;
+	background-color:lightblue;
+	border-collapse:collapse;
+	border:1px solid red
+}
+
+div.row
+{
+	display:table-row;
+}
+
+div.cell
+{
+	display:table-cell;
+	border:1px solid red;
+	height:50px;
+	width:50%;
+}
+
+div.rowspan
+{
+	border:0;
+}
+
+div.rowspan>div
+{
+	height:1px;
+}
+
+div.rowspan>div>div
+{
+	position:relative;
+	height:100px;
+	overflow:hidden;
+}
+
+div.noborder
+{
+	border:0;
 }

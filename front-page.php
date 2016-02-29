@@ -19,13 +19,50 @@ get_header(); ?>
         <td>Glossary</td>
     </tr>
 </table>
+
+<div class="table">
+	<div class="row">
+		<div class="cell rowspan">
+			<div><div>
+				cell 1
+			</div></div>
+		</div>
+        <div class="cell rowspan">
+			<div><div>
+				cell 2
+			</div></div>
+		</div>
+        <div class="cell rowspan">
+			<div><div>
+				cell 3
+			</div></div>
+		</div>
+        <div class="cell rowspan">
+			<div><div>
+				cell 4
+			</div></div>
+		</div>
+        <div class="cell rowspan">
+			<div><div>
+				cell 5
+			</div></div>
+		</div>
+        <div class="cell">cell 6</div>
+	</div>
+    <div class="row">
+        <div class="cell">cell 7</div>
+
+    </div>
+</div>
+
+
 <nav class="home-nav">
     <?php
 
     $args = array(
         'theme_location' => 'home-page',
-       // 'container' => 'false',
-     //   'items_wrap' => '<tr id="%1$s" class="%2$s">%3$s</tr>',
+        'container' => 'false',
+        'items_wrap' => '<div id="%1$s" class="%2$s">%3$s</div>',
         'walker' => new my_nav_walker_2,
 
     );

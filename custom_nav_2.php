@@ -111,7 +111,7 @@ class my_nav_walker_2 extends Walker {
 		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args, $depth );
 		$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 
-		$output .= $indent . '<li' . $id . $class_names .'>';
+		$output .= $indent . '<div' . $id . $class_names .'>';
 
 		$atts = array();
 		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
@@ -198,7 +198,7 @@ class my_nav_walker_2 extends Walker {
 	 * @param array  $args   An array of arguments. @see wp_nav_menu()
 	 */
 	public function end_el( &$output, $item, $depth = 0, $args = array() ) {
-		$output .= "</li>\n";
+		$output .= "</div>\n";
 	}
 
 } // Walker_Nav_Menu
