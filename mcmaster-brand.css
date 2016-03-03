@@ -43,9 +43,10 @@ maroon
       height: 100px;
       width: 100%;
       font-family: 'Roboto Condensed', Arial, sans-serif;
+      position: relative;
     }
     #mcmaster-header #mcmaster-brand {
-      float: left;
+/*      display: table-cell;*/
     }
     #mcmaster-header #mcmaster-logo {
       width: 145px;

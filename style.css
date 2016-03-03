@@ -63,13 +63,14 @@ article.post:last-of-type {
 }
 
 /* Header */
-.site-header {
-    border-bottom: 2px solid #999;
-}
-.site-header h1 {
-    margin: 0 0 10px;
+#mcmaster-header h1 {
+    margin-left: 0.5em;
     font-size: 250%;
-    font-family: 'League Gothic', sans-serif
+    font-family: 'League Gothic', sans-serif;
+    font-weight: normal;
+}
+#mcmaster-header h1 a:link, #mcmaster-header h1 a:visited {
+    color: #f1f1f1;
 }
 .main-column h1 {
     color: #ac1455;
@@ -97,6 +98,15 @@ ul {
 }
 
 /* Site Header Menu */
+
+.site-header {
+    border-bottom: 2px solid #999;
+    background: #323e48;
+
+}
+.site-header a:link, .site-header a:visited {
+    color: #f1f1f1;
+}
 .site-header nav ul li a:link,
 .site-header nav ul li a:visited {
     display: block;
@@ -106,8 +116,7 @@ ul {
 }
 
 .site-header nav ul li a:hover {
-    background-color: #f1f1f1;
-/*    color: #f1f1f1;*/
+    background-color: #6a7882;
 }
 
 .site-header nav ul li.current-menu-item a:link,
@@ -149,7 +158,7 @@ ul {
 
 
 
-.clearfix:before, .clearfix:after { content: ""; display: table; }
+
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
 
@@ -161,8 +170,11 @@ ul {
 
 /* Sidebar Menu */
 .sidebar-column {
-    width: 20%;
+    width: 165px;
     float: left;
+    background: #8e979d;
+    height: 100%;
+    position: absolute;
 }
 button {
     width: 100%;
@@ -309,4 +321,44 @@ div.rowspan>div>div
 div.noborder
 {
 	border:0;
+}
+
+
+
+#mcmaster-nav-items {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+#mcmaster-nav-items ul {
+    display: table-row;
+}
+#mcmaster-nav-items li {
+    display: table-cell;
+    vertical-align:middle;
+    margin: 0;
+    white-space: nowrap;
+}
+#mcmaster-nav-items li:nth-child(2) {
+    width: 99%;
+    white-space: normal;
+    background: #7a003c;
+
+}
+
+#mcmaster-nav-items-list {
+    display: table-row;
+}
+
+.site-content {
+    display: table;
+    width: 100%;
+}
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.site-content.site-content-list {
+    display: table-row;
+}
+.site-content.site-content-list > div{
+    display: table-cell;
 }
