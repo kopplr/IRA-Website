@@ -3,7 +3,7 @@ get_header();
 ?>
 
 
-<div class="site-content clearfix">
+<div class="site-content clearfix" style="display:table;">
     <div class="sidebar-column">
 <!--
         <div class="button-group filter-button-group">
@@ -37,9 +37,6 @@ get_header();
             ?>
         </nav>
 
-    </div>
-    <div class="secondary-column">
-        <p>widget area</p>
     </div>
     <div class="main-column">
 
@@ -75,6 +72,9 @@ get_header();
             wp_reset_query();
             ?>
         </div>
+    </div>
+    <div class="secondary-column">
+        <p>widget area</p>
     </div>
 
 </div>

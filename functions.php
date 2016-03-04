@@ -61,7 +61,7 @@ function IRAWebsite_resources() {
     wp_register_style('mcmaster-brand', get_stylesheet_directory_uri() . '/mcmaster-brand.css', array(), '1.0');
     wp_enqueue_style('mcmaster-brand');
 
-    wp_register_style('font-awesome', get_stylesheet_directory_uri() . '/font-awesome.min.css', array(), '4.5.0');
+    wp_register_style('font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.5.0');
     wp_enqueue_style('font-awesome');
 
     wp_enqueue_script('roboto-google-font', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');

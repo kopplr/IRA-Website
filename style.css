@@ -5,64 +5,68 @@ Author URI:
 Version: 1.0
 */
 
-/* Fonts */
+/* Fonts ***********************************************************************************/
 @font-face {
     font-family: 'League Gothic';
-    src: url('leaguegothic-italic-webfont.eot');
-    src: url('leaguegothic-italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('leaguegothic-italic-webfont.woff') format('woff'),
-         url('leaguegothic-italic-webfont.ttf') format('truetype'),
-         url('leaguegothic-italic-webfont.svg#league_gothic_italicregular') format('svg');
+    src: url('fonts/leaguegothic-regular-webfont.eot');
+    src: url('fonts/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/leaguegothic-regular-webfont.woff') format('woff'),
+         url('fonts/leaguegothic-regular-webfont.ttf') format('truetype'),
+         url('fonts/leaguegothic-regular-webfont.svg#league_gothic_italicregular') format('svg');
     font-weight: normal;
-    font-style: italic;
+    font-style: normal;
 }
 
+/* General Layout ***********************************************************************************/
+div.container {
+/*
+    max-width: 920px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+*/
+}
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
 body {
     font-family: 'Roboto Condensed', sans-serif;
 }
-
 a:link,
 a:visited {
     color: black;
     text-decoration: none;
 }
-
-/*
-a:hover {
-    text-decoration: underline;
-}
-*/
-
 p {
     line-height: 1.65em;
+    margin: 0;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.site-content {
+    display: table;
+    width: 100%;
+    min-height: 50vh;
 }
 
-/* General Layout */
-/*
-div.container {
-    max-width: 920px;
-    margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-*/
-
+/* Isotope filtering ***********************************************************************************/
 article.post {
-    border-bottom: 2px dotted #bbb;
-    margin-bottom: 20px;
-    margin-right: 20px;
+    margin: 5px;
+    background-color: white;
 }
 article.post:hover {
-    background-color: #EEE;
+    background-color: rgba(0, 0, 0, 0.05);
 
 }
-
-
-article.post:last-of-type {
-    border-bottom: none;
+article.post h1, article.post p {
+    padding: 5px;
+    margin: 0;
 }
 
-/* Header */
+/* Header ***********************************************************************************/
 #mcmaster-header h1 {
     margin-left: 0.5em;
     font-size: 250%;
@@ -76,29 +80,22 @@ article.post:last-of-type {
     color: #ac1455;
 }
 
-/* Footer */
+/* Footer ***********************************************************************************/
 .site-footer {
 /*    border-top: 2px solid #999;*/
-    margin-top: 30px;
+/*    margin-top: 30px;*/
 }
 
-/* Navigation Menus */
-ul {
-    margin: 0;
-    padding: 0;
-}
-
+/* Navigation Menus ***********************************************************************************/
 .site-nav ul:before, .site-nav ul:after { content: ""; display: table; }
 .site-nav ul:after { clear: both; }
 .site-nav ul { *zoom: 1; }
-
 .site-nav ul li {
     list-style: none;
     float: left;
 }
 
-/* Site Header Menu */
-
+/* Site Header Menu ***********************************************************************************/
 .site-header {
     border-bottom: 2px solid #999;
     background: #323e48;
@@ -114,78 +111,92 @@ ul {
     border: none;
     text-decoration: none;
 }
-
 .site-header nav ul li a:hover {
     background-color: #6a7882;
 }
-
 .site-header nav ul li.current-menu-item a:link,
 .site-header nav ul li.current-menu-item a:visited {
     background-color: #ac1455;
     color: #f1f1f1;
 }
 
-/* Footer Menu */
-
+/* Footer Menu **********************************************************************************/
+.site-footer nav div{
+    width: 100%;
+}
 .site-footer nav ul{ /* Center the footer menu */
     display: table;
-    margin: 0 auto;
-
+    table-layout: fixed;
+    width: 100%;
+}
+.site-footer nav ul li{
+    display: table-cell;
+    text-align: center;
 }
 .site-footer nav ul li a:link,
 .site-footer nav ul li a:visited {
-    display: inline-block;
+    display: block;
 /*    margin-right: 0px;*/
-    padding: 10px 10px;
+    padding: 10px 30px;
     text-decoration: none;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
+    border-right: 1px solid white;
     background-color: #ac1455;
     color: #f1f1f1;
 }
-.site-footer nav ul li:first-child {
-    border-left: 1px solid;
+.site-footer nav ul li:last-child a:link, .site-footer nav ul li:last-child a:visited {
+    border-right: 0;
+    border-radius: 0 80px 0 0;
+}
+.site-footer nav ul li:first-child a:link, .site-footer nav ul li:first-child a:visited {
+    border-radius: 80px 0 0 0;
 }
 
-
+/* Main Column ***********************************************************************************/
 .main-column {
-    width: 50%;
-    float: right;
+    width: 70%;
+/*    float: left;*/
+    padding: 20px;
+    display: table-cell;
+    background-color: #f1f1f1;
 }
 .main-column a {
     text-decoration: none;
 }
 
-
-
-
-.clearfix:after { clear: both; }
-.clearfix { *zoom: 1; }
-
+/* Secondary (widget) column ***********************************************************************************/
 .secondary-column {
-    float: right;
-    width: 30%;
-
+    width: auto;
+    display: table-cell;
+    vertical-align: top;
+    background-color: #f1f1f1;
 }
 
-/* Sidebar Menu */
+/* Sidebar Menu ***********************************************************************************/
 .sidebar-column {
     width: 165px;
-    float: left;
     background: #8e979d;
     height: 100%;
-    position: absolute;
+    display: table-cell;
+    vertical-align: top;
 }
 button {
     width: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0.75em;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border: none;
+}
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .button-group {
-    padding-top: 1em;
-    padding-right: 1em;
+    padding:1em;
     text-align: center;
 }
 .button-group li {
-    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 .sub-menu {
     display: none;
@@ -194,6 +205,7 @@ button {
 button.is-checked {
     background-color: #ac1455;
     color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 /*
 .button-group ul {
@@ -202,11 +214,9 @@ button.is-checked {
 }
 */
 
-ul {
-    list-style: none;
-}
-p {
-    margin: 0;
+
+/* Dropdown List ***********************************************************************************/
+#category-selection, #year-selection, #downloads {
 }
 .dropdown-list > li {
     float: left;
@@ -214,8 +224,18 @@ p {
     position: relative;
     margin-right: 20px;
 }
+#category-selection, #year-selection {
+    border-style: solid solid none solid;
+    border-width: 1px;
+/*    border: 1px solid black;
+    border-radius: 5px 5px 0 0;*/
+    background-color: white;
+}
 #category-selection {
-    width: 200px;
+    width: 170px;
+}
+#download-options {
+    font-size: 130%;
 }
 .dropdown-options {
     display: none;
@@ -229,19 +249,20 @@ p {
 .item-selected {
     cursor: default;
     color: black;
+/*    padding-left: 5px;*/
 }
 .item-selected span {
     margin-left: 5px;
     cursor: pointer;
 }
 .selected {
-    background-color: aquamarine;
+    background-color: #c6cbce;
+
 }
-
-
 #download-options li {
     display: inline-block;
 }
+
 
 #clever-vis {
     width: 100%;
@@ -249,7 +270,7 @@ p {
     background-color: azure;
 }
 
-
+/* Home Page Menu ************************************************************************************/
 #menu-home-page-menu-links {
     width: 100%;
     display: table;
@@ -269,62 +290,64 @@ p {
     text-align: center;
     width: 100%;
     height: 100%;
+    padding-top 20px;
 }
 
+/* Table Home Page Menu ************************************************************************************/
+table {
+    border: 2px solid black;
+    width:100%;
+    table-layout:fixed;
+    border-collapse:collapse;
+    text-align:center;
+    background-color:rgba(241,241,241,0.8);
+}
+#col1 .fa, #col2 .fa, #col3 .fa, #col4 .fa, #col5 .fa{
+    display:block;
+    font-size:3em;
+    padding: 10px 0 10px 0;
+}
+#col1, #col2, #col3, #col4, #col5{
+    height:100%;
+    width:100%;
+    display:inline-block;
+    padding-top: 10px;
+}
+#col6_1 .fa, #col6_2 .fa {
+    font-size:2em;
+    padding-right:10px;
+    vertical-align:middle;
+}
+#col6_1, #col6_2 {
+    height:100%;
+    width:100%;
+}
 
+/* Submit a Request ************************************************************************************/
 #submit-request {
     width: 100%;
     height: 200px;
+    color: white;
 }
-
-/* Example table */
-
-div.table
-{
-	display:table;
-	width:100px;
-	background-color:lightblue;
-	border-collapse:collapse;
-	border:1px solid red
+.inner-div {
+    margin: auto;
+    width: 600px;
+    height: 100%;
+    display: table;
 }
-
-div.row
-{
-	display:table-row;
+#submit-request h2 {
+/*    background: #6a7882;*/
+    color: white;
 }
-
-div.cell
-{
-	display:table-cell;
-	border:1px solid red;
-	height:50px;
-	width:50%;
-}
-
-div.rowspan
-{
-	border:0;
-}
-
-div.rowspan>div
-{
-	height:1px;
-}
-
-div.rowspan>div>div
-{
-	position:relative;
-	height:100px;
-	overflow:hidden;
-}
-
-div.noborder
-{
-	border:0;
+#submit-request h3 {
+    background: #f1f1f1;
+    color: black;
+    padding: 10px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 
-
+/* Header Formatting *************************************************************************************/
 #mcmaster-nav-items {
     display: table;
     width: 100%;
@@ -344,21 +367,7 @@ div.noborder
     width: 99%;
     white-space: normal;
     background: #7a003c;
-
 }
-
 #mcmaster-nav-items-list {
     display: table-row;
-}
-
-.site-content {
-    display: table;
-    width: 100%;
-}
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.site-content.site-content-list {
-    display: table-row;
-}
-.site-content.site-content-list > div{
-    display: table-cell;
 }

@@ -15,17 +15,14 @@ get_header();
 global $wpdb
 ?>
 
-<div class="site-content clearfix">
+<div class="site-content">
     <div class="sidebar-column">
         <ul>
             <?php wp_list_categories('orderby=name&title_li=&child_of=2'); ?> <!-- Get all child categories of Publications and sort alphabetically-->
         </ul>
     </div>
-    <div class="secondary-column">
-        <p>widget area</p>
-    </div>
     <div class="main-column">
-        <div><?php
+            <?php
             if (have_posts()) :
                 while (have_posts()) : the_post(); ?>
 
@@ -42,7 +39,7 @@ global $wpdb
                     <ul class="dropdown-list">
 
                         <li id="category-selection">
-                            <p class="item-selected"><?php the_title(); ?><span class="fa fa-caret-down fa-fw fa-border fa-pull-right"></span></p>
+                            <p class="item-selected"><?php the_title(); ?><span class="fa fa-caret-down fa-fw"></span></p>
                             <ul class="dropdown-options">
                                 <?php
                                     $categories = get_the_category();
@@ -69,7 +66,7 @@ global $wpdb
                         </li>
 
                         <li id="year-selection">
-                            <p class="item-selected"><?php echo $myCurrentYear; ?><span class="fa fa-caret-down fa-fw fa-border"></span></p>
+                            <p class="item-selected"><?php echo $myCurrentYear; ?><span class="fa fa-caret-down fa-fw"></span></p>
                             <ul class="dropdown-options">
                             <?php
                                 $myYearsSelected = array();
@@ -88,7 +85,7 @@ global $wpdb
                         <li id="downloads">
                             <ul id="download-options">
                                 <li id="download-pdf">
-                                    <a target="_blank" href="<?php echo wp_get_attachment_url($attachment_id) ?>"><i class="fa fa-file-pdf-o fa-fw fa-border"></i></a>
+                                    <a target="_blank" href="<?php echo wp_get_attachment_url($attachment_id) ?>"><i class="fa fa-file-pdf-o fa-fw"></i></a>
                                 </li>
                                 <li id="download-excel"
                                 <?php
@@ -104,7 +101,7 @@ global $wpdb
                                     foreach ($title_exists as $title_exist){ // checks to see if the file is an excel file and then adds an icon
                                         $attachmentPathExcel = wp_get_attachment_url($title_exist->ID);
                                         if (wp_check_filetype($attachmentPathExcel)['ext'] == 'xlsx'|| wp_check_filetype($attachmentPathExcel)['ext'] == 'xls') {
-                                            echo '><a href="' . $attachmentPathExcel . '"><i class="fa fa-file-excel-o fa-fw fa-border"></i></a></li>';
+                                            echo '><a href="' . $attachmentPathExcel . '"><i class="fa fa-file-excel-o fa-fw"></i></a></li>';
                                             $foo = false;
                                         }
                                     }
@@ -123,11 +120,12 @@ global $wpdb
             endif;
             wp_reset_postdata();
             ?>
-
-        </div>
         <div>
             <iframe src="<?php echo wp_get_attachment_url($attachment_id) ?>" frameborder="0" width="100%" height="1000px"></iframe>
         </div>
+    </div>
+    <div class="secondary-column">
+        <p>widget area</p>
     </div>
 </div>
 
