@@ -371,3 +371,25 @@ table {
 #mcmaster-nav-items-list {
     display: table-row;
 }
+
+/* About Us **********************************************************************************************/
+.profile {
+    position: relative;
+    display: block;
+}
+.profile-content {
+    float: left;
+}
+.profile-picture {
+    float: left;
+}
+.profile-content h3 {
+    padding: 0;
+    margin: 5px 5px 10px 5px;
+    border-bottom: 2px solid black;
+}
+.profile-content p {
+    padding: 0;
+    margin:0 0 0 5px;
+    line-height: 1em;
+}

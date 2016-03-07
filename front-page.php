@@ -11,18 +11,18 @@ get_header(); ?>
         <tr>
             <td rowspan="2" ><a id="col1" href="http://localhost/wordpress/ira-portals/">IRA Portals<i class="fa fa-external-link"></i></a></td>
 
-            <td rowspan="2"><a id="col2" href="http://localhost/wordpress/data/">Data<i class="fa fa-bar-chart"></i></a></td>
+            <td rowspan="2"><a id="col2" href="http://localhost/wordpress/category/data/">Data<i class="fa fa-bar-chart"></i></a></td>
 
-            <td rowspan="2"><a id="col3" href="http://localhost/wordpress/publications/">Publications<i class="fa fa-newspaper-o"></i></a></td>
+            <td rowspan="2"><a id="col3" href="http://localhost/wordpress/category/publications/">Publications<i class="fa fa-newspaper-o"></i></a></td>
 
             <td rowspan="2"><a id="col4" href="http://localhost/wordpress/ira-portals/">Accountability<i class="fa fa-check-square-o"></i></a></td>
 
             <td rowspan="2"><a id="col5" href="http://localhost/wordpress/fact-book/">Fact Book<i class="fa fa-book"></i></a></td>
 
-            <td><a id="col6_1" href="#"><i class="fa fa-info-circle fa-fw"></i>About Us</a></td>
+            <td><a id="col6_1" href="http://localhost/wordpress/about-us/"><i class="fa fa-info-circle fa-fw"></i>About Us</a></td>
         </tr>
         <tr>
-            <td><a id="col6_2" href="#"><i class="fa fa-question-circle fa-fw"></i>Glossary</a></td>
+            <td><a id="col6_2" href="http://localhost/wordpress/glossary/"><i class="fa fa-question-circle fa-fw"></i>Glossary</a></td>
         </tr>
     </table>
 

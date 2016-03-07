@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
 
         var $isSubMenu = $buttonGroup.find('.is-checked').parents('.sub-menu');
         if($isSubMenu.exists() && !$(this).parents('.sub-menu').exists()){ // Selected a button filter that is NOT in the sub-menu, so slideUp
-            $isSubMenu.slideUp(400);
+            $isSubMenu.stop().slideUp(400);
         }
 
       $buttonGroup.find('.is-checked').removeClass('is-checked');
@@ -42,11 +42,11 @@ jQuery(document).ready(function($) {
     // Dropdown menu filter
     $('.menu-item-has-children').hover(
         function(){
-            $(this).children('.sub-menu').slideDown(400);
+            $(this).children('.sub-menu').stop().slideDown(400);
         },
         function(){
             if(!$(this).find('.is-checked').exists()) { // If a submenu button is NOT checked, then slideUp
-                $(this).children('.sub-menu').slideUp(400);
+                $(this).children('.sub-menu').stop().slideUp(400);
             }
         }
     );
