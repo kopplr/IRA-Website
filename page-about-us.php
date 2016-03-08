@@ -8,12 +8,20 @@ get_header();
 
 the_post(); ?>
 
-<section class="row profiles">
-	<div class="intro">
+	<div class="intro" style="margin-left: 10px;">
 		<h2>Meet The Team</h2>
 		<p class="lead">&ldquo;Individuals can and do make a difference, but it takes a team<br>to really mess things up.&rdquo;</p>
 	</div>
 
+<div class="tabs">
+    <ul class="tab-links">
+        <li class="active"><a href="#tab1"><h3>OUR STAFF</h3></a></li>
+        <li><a href="#tab2"><h3>OUR LOCATIONS</h3></a></li>
+        <li><a href="#tab3"><h3>OUR COMMUNITY</h3></a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="tab1" class="tab active">
 <!-- ASSOCIATE VICE PRESIDENT **************************************************************************************************** -->
 <?php
 $team_posts = get_posts( array(
@@ -27,8 +35,8 @@ $team_posts = get_posts( array(
 
 if ( $team_posts ):
 ?>
+    <div class="position" id="avp">
     <h3>Associate Vice President</h3>
-
 	<?php
 	foreach ( $team_posts as $post ):
 	setup_postdata($post);
@@ -44,8 +52,8 @@ if ( $team_posts ):
             <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
 		</div>
 	</article><!-- /.profile -->
+    </div>
 	<?php endforeach; ?>
-</section><!-- /.row -->
 <?php endif; ?>
 
 <!-- EXECUTIVE ASSISTANT **************************************************************************************************** -->
@@ -59,7 +67,8 @@ $team_posts = get_posts( array(
 
 if ( $team_posts ):
 ?>
-    <h3 style="display: inline-block;">Executive Assistant</h3>
+<div class="position" id="executive-assistant">
+    <h3 style="">Executive Assistant</h3>
 	<?php
 	foreach ( $team_posts as $post ):
 	setup_postdata($post);
@@ -75,8 +84,9 @@ if ( $team_posts ):
             <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
 		</div>
 	</article><!-- /.profile -->
+    </div>
 	<?php endforeach; ?>
-</section><!-- /.row -->
+
 <?php endif; ?>
 
 <!-- SENIOR PROJECT ANALYSTS **************************************************************************************************** -->
@@ -107,7 +117,7 @@ if ( $team_posts ):
 		</div>
 	</article><!-- /.profile -->
 	<?php endforeach; ?>
-</section><!-- /.row -->
+
 <?php endif; ?>
 
 <!-- STATISTICIAN AND PROGRAMMERS ************************************************************************************************ -->
@@ -138,7 +148,7 @@ if ( $team_posts ):
 		</div>
 	</article><!-- /.profile -->
 	<?php endforeach; ?>
-</section><!-- /.row -->
+
 <?php endif; ?>
 
 <!-- INFORMATION AND DATA ANALYSTS *********************************************************************************************** -->
@@ -169,7 +179,7 @@ if ( $team_posts ):
 		</div>
 	</article><!-- /.profile -->
 	<?php endforeach; ?>
-</section><!-- /.row -->
+
 <?php endif; ?>
 
 <!-- JUNIOR ANALYSTS **************************************************************************************************** -->
@@ -200,8 +210,21 @@ if ( $team_posts ):
 		</div>
 	</article><!-- /.profile -->
 	<?php endforeach; ?>
-</section><!-- /.row -->
 <?php endif; ?>
+        </div>
+
+        <div id="tab2" class="tab">
+            <div id="map" style="width:1000px; height: 500px"></div>
+
+        </div>
+
+        <div id="tab3" class="tab">
+            <img src="http://localhost/wordpress/wp-content/uploads/2016/03/Our-Community-e1457451367803.png">
+        </div>
+
+    </div>
+</div>
+
 
 <?php
 get_footer();

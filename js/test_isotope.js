@@ -75,6 +75,83 @@ jQuery(document).ready(function($) {
         }
     })
 
+    // Tabs navigation
+    $('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = $(this).attr('href');
+
+        // Show/Hide Tabs
+        $('.tabs ' + currentAttrValue).show().siblings().hide();
+
+        // Change/remove current tab to active
+        $(this).parent('li').addClass('active').siblings().removeClass('active');
+
+        // Load Google Map
+        if (currentAttrValue == '#tab2') {
+            var campus = {lat: 43.263448, lng: -79.919101};
+            var downtown = {lat: 43.2570048, lng: -79.8692459};
+
+            var map = new google.maps.Map( document.getElementById( 'map' ), {
+                zoom:           14,
+                center:         new google.maps.LatLng( 43.2656166, -79.8924281 ),
+            });
+
+            var campusContentString = '<h1>University Hall (UH)</h1>'+
+                '<p>McMaster University</p>'+
+                '<p>1280 Main Street West</p>'+
+                '<p>University Hall, Room 207</p>'+
+                '<p>Hamilton, Ontario</p>'+
+                '<p>Canada L8S 4L8</p>'
+            ;
+
+            var campusInfowindow = new google.maps.InfoWindow({
+                content: campusContentString
+            });
+
+            var downtownContentString = '<h1>One James North (OJN)</h1>'+
+                '<p>McMaster University</p>'+
+                '<p>1 James St. North</p>'+
+                '<p>2nd Floor, Room Something</p>'+
+                '<p>Hamilton, Ontario</p>'+
+                '<p>Canada L8R 2K3</p>'
+            ;
+
+            var downtownInfowindow = new google.maps.InfoWindow({
+                content: downtownContentString
+            });
+
+
+
+            var campusMarker = new google.maps.Marker({
+                position: campus,
+                map: map,
+                title: 'University Hall (UH)',
+            });
+            campusInfowindow.open(map, campusMarker);
+//            campusMarker.addListener('click', function() {
+//                campusInfowindow.open(map, campusMarker);
+//            });
+
+            var downtownMarker = new google.maps.Marker({
+                position: downtown,
+                map: map,
+                title: 'One James North (OJN)',
+            });
+
+            downtownInfowindow.open(map, downtownMarker);
+//            downtownMarker.addListener('click', function() {
+//                downtownInfowindow.open(map, downtownMarker);
+//            });
+
+
+
+
+
+
+        }
+
+        e.preventDefault(); // Stop from adding to the URL
+    });
+
 
     // Extra jQuery functions
     $.fn.exists = function () {
