@@ -6,12 +6,25 @@ get_header();
  * Template Name: Team
  */
 
-the_post(); ?>
+the_post();
+the_content();
+?>
+<!--
+<div id="catchphrase">
 
-	<div class="intro" style="margin-left: 10px;">
-		<h2>Meet The Team</h2>
-		<p class="lead">&ldquo;Individuals can and do make a difference, but it takes a team<br>to really mess things up.&rdquo;</p>
-	</div>
+The Office of Institutional Research and Analysis at McMaster supports academic activities and decision-making processes through collection, dissemination, and interpretation of data.
+
+</div>
+<div id="mandate">
+<ul>
+	<li>Provides accurate, timely, and high quality data to various academic and administrative offices at McMaster and to external agencies</li>
+	<li>Liaisons with government and external agencies</li>
+	<li>Supports and advises senior administration through the provision of effective analyses and insights based on a thorough understanding of McMaster and its external environment</li>
+	<li>Leads and supports key planning activities of McMaster</li>
+</ul>
+</div>
+-->
+
 
 <div class="tabs">
     <ul class="tab-links">

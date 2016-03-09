@@ -90,10 +90,31 @@ jQuery(document).ready(function($) {
             var campus = {lat: 43.263448, lng: -79.919101};
             var downtown = {lat: 43.2570048, lng: -79.8692459};
 
+
+
             var map = new google.maps.Map( document.getElementById( 'map' ), {
                 zoom:           14,
-                center:         new google.maps.LatLng( 43.2656166, -79.8924281 ),
+                center:         new google.maps.LatLng( 43.2676166, -79.8924281 ),
+                scrollwheel:    false,
             });
+
+            var styles = [
+//              {
+//                stylers: [
+//                  { hue: "#7a003c" },
+//                  { saturation: 100 },
+//                  { lightness: 24 }
+//                ]
+//              },
+                {
+                featureType: "poi.business",
+                elementType: "geometry",
+                stylers: [
+                  { visibility: "off" }
+                ]
+              }
+            ];
+            map.setOptions({styles: styles});
 
             var campusContentString = '<h1>University Hall (UH)</h1>'+
                 '<p>McMaster University</p>'+
@@ -126,7 +147,7 @@ jQuery(document).ready(function($) {
                 map: map,
                 title: 'University Hall (UH)',
             });
-            campusInfowindow.open(map, campusMarker);
+
 //            campusMarker.addListener('click', function() {
 //                campusInfowindow.open(map, campusMarker);
 //            });
@@ -137,14 +158,15 @@ jQuery(document).ready(function($) {
                 title: 'One James North (OJN)',
             });
 
-            downtownInfowindow.open(map, downtownMarker);
+
 //            downtownMarker.addListener('click', function() {
 //                downtownInfowindow.open(map, downtownMarker);
 //            });
 
-
-
-
+            google.maps.event.addListenerOnce(map, 'idle', function(){
+                campusInfowindow.open(map, campusMarker);
+                downtownInfowindow.open(map, downtownMarker);
+            });
 
 
         }
