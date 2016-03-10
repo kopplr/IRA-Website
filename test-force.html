@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+    circle.node {
+        stroke: #555;
+        stroke-width: .5px;
+    }
+    line.link {
+        fill: none;
+        stroke: #9ecae1;
+        stroke-width: 1.5px;
+    }
+    svg {
+        border: solid 1px gray;
+    }
+
+</style>
+<body>
+    <div id="main">
+        <div class="intgraph" />
+    </div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+
+var w = 400,
+    h = 400,
+    nodeCircles,
+    linkLines,
+    root;
+
+var scaleFactor = 1;
+var translation = [0,0];
+
+/*** Configure Force Layout ***/
+var force = d3.layout.force()
+    .on("tick", tick)
+    .charge(function (d) {
+        return d._children ? -d.size / 100 : -50;
+    })
+    .linkDistance(function (d) {
+        return d.target._children ? 80 : 30;
+    })
+    .friction(0.90) //slow down by 10% each tick
+    .size([w, h]);
+
+
+/*** Configure zoom behaviour ***/
+var zoomer = d3.behavior.zoom()
+                .scaleExtent([0.1,10])
+        //allow 10 times zoom in or out
+                .on("zoom", zoom);
+        //define the event handler function
+function zoom() {
+    console.log("zoom", d3.event.translate, d3.event.scale);
+    scaleFactor = d3.event.scale;
+    translation = d3.event.translate;
+    tick(); //update positions
+}
+
+/*** Configure drag behaviour ***/
+var drag = d3.behavior.drag()
+        .origin(function(d) { return d; }) //center of circle
+        .on("dragstart", dragstarted)
+        .on("drag", dragged)
+        .on("dragend", dragended);
+
+function dragstarted(d){
+	 	console.log("dragstarted");
+    d3.event.sourceEvent.stopPropagation();
+    d3.select(this).classed("dragging", true);
+    force.stop(); //stop ticks while dragging
+}
+function dragged(d){
+    if (d.fixed) return; //root is fixed
+
+    //get mouse coordinates relative to the visualization
+    //coordinate system:
+    var mouse = d3.mouse(vis.node());
+    d.x = (mouse[0] - translation[0])/scaleFactor;
+    d.y = (mouse[1] - translation[1])/scaleFactor;
+    tick();//re-position this node and any links
+}
+function dragended(d){
+    d3.select(this).classed("dragging", false);
+    force.resume();
+}
+
+/** Initialize SVG ***/
+var graph = d3.select(".intgraph").append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+    .append("g")
+        .attr("class", "graph")
+        .call(zoomer); //Attach zoom behaviour.
+
+// Add a transparent background rectangle to catch
+// mouse events for the zoom behaviour.
+// Note that the rectangle must be inside the element (graph)
+// which has the zoom behaviour attached, but must be *outside*
+// the group that is going to be transformed.
+var rect = graph.append("rect")
+    .attr("width", w)
+    .attr("height", h)
+    //.style("fill", "none")
+        //make transparent (vs black if commented-out)
+    .style("pointer-events", "all");
+        //respond to mouse, even when transparent
+
+var vis = graph.append("svg:g")
+            .attr("class", "plotting-area");
+//create a group that will hold all the content to be zoomed
+/*** Initialize and position node and link elements ***/
+function update() {
+    var nodes = [
+    {"name":"Myriel","group":1},
+    {"name":"Napoleon","group":1},
+    {"name":"Mlle.Baptistine","group":1},
+    {"name":"Mme.Magloire","group":1},
+    {"name":"CountessdeLo","group":1},
+    {"name":"Geborand","group":1},
+    {"name":"Champtercier","group":1},
+    {"name":"Cravatte","group":1},
+    {"name":"Count","group":1},
+    {"name":"OldMan","group":1},
+    {"name":"Labarre","group":2},
+    {"name":"Valjean","group":2},
+    {"name":"Marguerite","group":3},
+    {"name":"Mme.deR","group":2},
+    {"name":"Isabeau","group":2},
+    {"name":"Gervais","group":2},
+    {"name":"Tholomyes","group":3},
+    {"name":"Listolier","group":3},
+    {"name":"Fameuil","group":3},
+    {"name":"Blacheville","group":3},
+    {"name":"Favourite","group":3},
+    {"name":"Dahlia","group":3},
+    {"name":"Zephine","group":3},
+    {"name":"Fantine","group":3},
+    {"name":"Mme.Thenardier","group":4},
+    {"name":"Thenardier","group":4},
+    {"name":"Cosette","group":5},
+    {"name":"Javert","group":4},
+    {"name":"Fauchelevent","group":0},
+    {"name":"Bamatabois","group":2},
+    {"name":"Perpetue","group":3},
+    {"name":"Simplice","group":2},
+    {"name":"Scaufflaire","group":2},
+    {"name":"Woman1","group":2},
+    {"name":"Judge","group":2},
+    {"name":"Champmathieu","group":2},
+    {"name":"Brevet","group":2},
+    {"name":"Chenildieu","group":2},
+    {"name":"Cochepaille","group":2},
+    {"name":"Pontmercy","group":4},
+    {"name":"Boulatruelle","group":6},
+    {"name":"Eponine","group":4},
+    {"name":"Anzelma","group":4},
+    {"name":"Woman2","group":5},
+    {"name":"MotherInnocent","group":0},
+    {"name":"Gribier","group":0},
+    {"name":"Jondrette","group":7},
+    {"name":"Mme.Burgon","group":7},
+    {"name":"Gavroche","group":8},
+    {"name":"Gillenormand","group":5},
+    {"name":"Magnon","group":5},
+    {"name":"Mlle.Gillenormand","group":5},
+    {"name":"Mme.Pontmercy","group":5},
+    {"name":"Mlle.Vaubois","group":5},
+    {"name":"Lt.Gillenormand","group":5},
+    {"name":"Marius","group":8},
+    {"name":"BaronessT","group":5},
+    {"name":"Mabeuf","group":8},
+    {"name":"Enjolras","group":8},
+    {"name":"Combeferre","group":8},
+    {"name":"Prouvaire","group":8},
+    {"name":"Feuilly","group":8},
+    {"name":"Courfeyrac","group":8},
+    {"name":"Bahorel","group":8},
+    {"name":"Bossuet","group":8},
+    {"name":"Joly","group":8},
+    {"name":"Grantaire","group":8},
+    {"name":"MotherPlutarch","group":9},
+    {"name":"Gueulemer","group":4},
+    {"name":"Babet","group":4},
+    {"name":"Claquesous","group":4},
+    {"name":"Montparnasse","group":4},
+    {"name":"Toussaint","group":5},
+    {"name":"Child1","group":10},
+    {"name":"Child2","group":10},
+    {"name":"Brujon","group":4},
+    {"name":"Mme.Hucheloup","group":8}
+  ];
+
+    var links = [
+    {"source":1,"target":0,"value":1},
+    {"source":2,"target":0,"value":8},
+    {"source":3,"target":0,"value":10},
+    {"source":3,"target":2,"value":6},
+    {"source":4,"target":0,"value":1},
+    {"source":5,"target":0,"value":1},
+    {"source":6,"target":0,"value":1},
+    {"source":7,"target":0,"value":1},
+    {"source":8,"target":0,"value":2},
+    {"source":9,"target":0,"value":1},
+    {"source":11,"target":10,"value":1},
+    {"source":11,"target":3,"value":3},
+    {"source":11,"target":2,"value":3},
+    {"source":11,"target":0,"value":5},
+    {"source":12,"target":11,"value":1},
+    {"source":13,"target":11,"value":1},
+    {"source":14,"target":11,"value":1},
+    {"source":15,"target":11,"value":1},
+    {"source":17,"target":16,"value":4},
+    {"source":18,"target":16,"value":4},
+    {"source":18,"target":17,"value":4},
+    {"source":19,"target":16,"value":4},
+    {"source":19,"target":17,"value":4},
+    {"source":19,"target":18,"value":4},
+    {"source":20,"target":16,"value":3},
+    {"source":20,"target":17,"value":3},
+    {"source":20,"target":18,"value":3},
+    {"source":20,"target":19,"value":4},
+    {"source":21,"target":16,"value":3},
+    {"source":21,"target":17,"value":3},
+    {"source":21,"target":18,"value":3},
+    {"source":21,"target":19,"value":3},
+    {"source":21,"target":20,"value":5},
+    {"source":22,"target":16,"value":3},
+    {"source":22,"target":17,"value":3},
+    {"source":22,"target":18,"value":3},
+    {"source":22,"target":19,"value":3},
+    {"source":22,"target":20,"value":4},
+    {"source":22,"target":21,"value":4},
+    {"source":23,"target":16,"value":3},
+    {"source":23,"target":17,"value":3},
+    {"source":23,"target":18,"value":3},
+    {"source":23,"target":19,"value":3},
+    {"source":23,"target":20,"value":4},
+    {"source":23,"target":21,"value":4},
+    {"source":23,"target":22,"value":4},
+    {"source":23,"target":12,"value":2},
+    {"source":23,"target":11,"value":9},
+    {"source":24,"target":23,"value":2},
+    {"source":24,"target":11,"value":7},
+    {"source":25,"target":24,"value":13},
+    {"source":25,"target":23,"value":1},
+    {"source":25,"target":11,"value":12},
+    {"source":26,"target":24,"value":4},
+    {"source":26,"target":11,"value":31},
+    {"source":26,"target":16,"value":1},
+    {"source":26,"target":25,"value":1},
+    {"source":27,"target":11,"value":17},
+    {"source":27,"target":23,"value":5},
+    {"source":27,"target":25,"value":5},
+    {"source":27,"target":24,"value":1},
+    {"source":27,"target":26,"value":1},
+    {"source":28,"target":11,"value":8},
+    {"source":28,"target":27,"value":1},
+    {"source":29,"target":23,"value":1},
+    {"source":29,"target":27,"value":1},
+    {"source":29,"target":11,"value":2},
+    {"source":30,"target":23,"value":1},
+    {"source":31,"target":30,"value":2},
+    {"source":31,"target":11,"value":3},
+    {"source":31,"target":23,"value":2},
+    {"source":31,"target":27,"value":1},
+    {"source":32,"target":11,"value":1},
+    {"source":33,"target":11,"value":2},
+    {"source":33,"target":27,"value":1},
+    {"source":34,"target":11,"value":3},
+    {"source":34,"target":29,"value":2},
+    {"source":35,"target":11,"value":3},
+    {"source":35,"target":34,"value":3},
+    {"source":35,"target":29,"value":2},
+    {"source":36,"target":34,"value":2},
+    {"source":36,"target":35,"value":2},
+    {"source":36,"target":11,"value":2},
+    {"source":36,"target":29,"value":1},
+    {"source":37,"target":34,"value":2},
+    {"source":37,"target":35,"value":2},
+    {"source":37,"target":36,"value":2},
+    {"source":37,"target":11,"value":2},
+    {"source":37,"target":29,"value":1},
+    {"source":38,"target":34,"value":2},
+    {"source":38,"target":35,"value":2},
+    {"source":38,"target":36,"value":2},
+    {"source":38,"target":37,"value":2},
+    {"source":38,"target":11,"value":2},
+    {"source":38,"target":29,"value":1},
+    {"source":39,"target":25,"value":1},
+    {"source":40,"target":25,"value":1},
+    {"source":41,"target":24,"value":2},
+    {"source":41,"target":25,"value":3},
+    {"source":42,"target":41,"value":2},
+    {"source":42,"target":25,"value":2},
+    {"source":42,"target":24,"value":1},
+    {"source":43,"target":11,"value":3},
+    {"source":43,"target":26,"value":1},
+    {"source":43,"target":27,"value":1},
+    {"source":44,"target":28,"value":3},
+    {"source":44,"target":11,"value":1},
+    {"source":45,"target":28,"value":2},
+    {"source":47,"target":46,"value":1},
+    {"source":48,"target":47,"value":2},
+    {"source":48,"target":25,"value":1},
+    {"source":48,"target":27,"value":1},
+    {"source":48,"target":11,"value":1},
+    {"source":49,"target":26,"value":3},
+    {"source":49,"target":11,"value":2},
+    {"source":50,"target":49,"value":1},
+    {"source":50,"target":24,"value":1},
+    {"source":51,"target":49,"value":9},
+    {"source":51,"target":26,"value":2},
+    {"source":51,"target":11,"value":2},
+    {"source":52,"target":51,"value":1},
+    {"source":52,"target":39,"value":1},
+    {"source":53,"target":51,"value":1},
+    {"source":54,"target":51,"value":2},
+    {"source":54,"target":49,"value":1},
+    {"source":54,"target":26,"value":1},
+    {"source":55,"target":51,"value":6},
+    {"source":55,"target":49,"value":12},
+    {"source":55,"target":39,"value":1},
+    {"source":55,"target":54,"value":1},
+    {"source":55,"target":26,"value":21},
+    {"source":55,"target":11,"value":19},
+    {"source":55,"target":16,"value":1},
+    {"source":55,"target":25,"value":2},
+    {"source":55,"target":41,"value":5},
+    {"source":55,"target":48,"value":4},
+    {"source":56,"target":49,"value":1},
+    {"source":56,"target":55,"value":1},
+    {"source":57,"target":55,"value":1},
+    {"source":57,"target":41,"value":1},
+    {"source":57,"target":48,"value":1},
+    {"source":58,"target":55,"value":7},
+    {"source":58,"target":48,"value":7},
+    {"source":58,"target":27,"value":6},
+    {"source":58,"target":57,"value":1},
+    {"source":58,"target":11,"value":4},
+    {"source":59,"target":58,"value":15},
+    {"source":59,"target":55,"value":5},
+    {"source":59,"target":48,"value":6},
+    {"source":59,"target":57,"value":2},
+    {"source":60,"target":48,"value":1},
+    {"source":60,"target":58,"value":4},
+    {"source":60,"target":59,"value":2},
+    {"source":61,"target":48,"value":2},
+    {"source":61,"target":58,"value":6},
+    {"source":61,"target":60,"value":2},
+    {"source":61,"target":59,"value":5},
+    {"source":61,"target":57,"value":1},
+    {"source":61,"target":55,"value":1},
+    {"source":62,"target":55,"value":9},
+    {"source":62,"target":58,"value":17},
+    {"source":62,"target":59,"value":13},
+    {"source":62,"target":48,"value":7},
+    {"source":62,"target":57,"value":2},
+    {"source":62,"target":41,"value":1},
+    {"source":62,"target":61,"value":6},
+    {"source":62,"target":60,"value":3},
+    {"source":63,"target":59,"value":5},
+    {"source":63,"target":48,"value":5},
+    {"source":63,"target":62,"value":6},
+    {"source":63,"target":57,"value":2},
+    {"source":63,"target":58,"value":4},
+    {"source":63,"target":61,"value":3},
+    {"source":63,"target":60,"value":2},
+    {"source":63,"target":55,"value":1},
+    {"source":64,"target":55,"value":5},
+    {"source":64,"target":62,"value":12},
+    {"source":64,"target":48,"value":5},
+    {"source":64,"target":63,"value":4},
+    {"source":64,"target":58,"value":10},
+    {"source":64,"target":61,"value":6},
+    {"source":64,"target":60,"value":2},
+    {"source":64,"target":59,"value":9},
+    {"source":64,"target":57,"value":1},
+    {"source":64,"target":11,"value":1},
+    {"source":65,"target":63,"value":5},
+    {"source":65,"target":64,"value":7},
+    {"source":65,"target":48,"value":3},
+    {"source":65,"target":62,"value":5},
+    {"source":65,"target":58,"value":5},
+    {"source":65,"target":61,"value":5},
+    {"source":65,"target":60,"value":2},
+    {"source":65,"target":59,"value":5},
+    {"source":65,"target":57,"value":1},
+    {"source":65,"target":55,"value":2},
+    {"source":66,"target":64,"value":3},
+    {"source":66,"target":58,"value":3},
+    {"source":66,"target":59,"value":1},
+    {"source":66,"target":62,"value":2},
+    {"source":66,"target":65,"value":2},
+    {"source":66,"target":48,"value":1},
+    {"source":66,"target":63,"value":1},
+    {"source":66,"target":61,"value":1},
+    {"source":66,"target":60,"value":1},
+    {"source":67,"target":57,"value":3},
+    {"source":68,"target":25,"value":5},
+    {"source":68,"target":11,"value":1},
+    {"source":68,"target":24,"value":1},
+    {"source":68,"target":27,"value":1},
+    {"source":68,"target":48,"value":1},
+    {"source":68,"target":41,"value":1},
+    {"source":69,"target":25,"value":6},
+    {"source":69,"target":68,"value":6},
+    {"source":69,"target":11,"value":1},
+    {"source":69,"target":24,"value":1},
+    {"source":69,"target":27,"value":2},
+    {"source":69,"target":48,"value":1},
+    {"source":69,"target":41,"value":1},
+    {"source":70,"target":25,"value":4},
+    {"source":70,"target":69,"value":4},
+    {"source":70,"target":68,"value":4},
+    {"source":70,"target":11,"value":1},
+    {"source":70,"target":24,"value":1},
+    {"source":70,"target":27,"value":1},
+    {"source":70,"target":41,"value":1},
+    {"source":70,"target":58,"value":1},
+    {"source":71,"target":27,"value":1},
+    {"source":71,"target":69,"value":2},
+    {"source":71,"target":68,"value":2},
+    {"source":71,"target":70,"value":2},
+    {"source":71,"target":11,"value":1},
+    {"source":71,"target":48,"value":1},
+    {"source":71,"target":41,"value":1},
+    {"source":71,"target":25,"value":1},
+    {"source":72,"target":26,"value":2},
+    {"source":72,"target":27,"value":1},
+    {"source":72,"target":11,"value":1},
+    {"source":73,"target":48,"value":2},
+    {"source":74,"target":48,"value":2},
+    {"source":74,"target":73,"value":3},
+    {"source":75,"target":69,"value":3},
+    {"source":75,"target":68,"value":3},
+    {"source":75,"target":25,"value":3},
+    {"source":75,"target":48,"value":1},
+    {"source":75,"target":41,"value":1},
+    {"source":75,"target":70,"value":1},
+    {"source":75,"target":71,"value":1},
+    {"source":76,"target":64,"value":1},
+    {"source":76,"target":65,"value":1},
+    {"source":76,"target":66,"value":1},
+    {"source":76,"target":63,"value":1},
+    {"source":76,"target":62,"value":1},
+    {"source":76,"target":48,"value":1},
+    {"source":76,"target":58,"value":1}
+  ];
+    console.log(nodes);
+    console.log(links);
+
+    // Restart the force layout.
+    force.nodes(nodes)
+        .links(links)
+        .start();
+
+    // Update the links…
+    linkLines = vis.selectAll("line.link")
+        .data(links);
+
+    // Enter any new links.
+    linkLines.enter().insert("svg:line", ".node")
+        .attr("class", "link");
+
+    // Exit any old links.
+    linkLines.exit().remove();
+
+    // Update the nodes
+    nodeCircles = vis.selectAll("circle.node")
+        .data(nodes);
+//        .style("fill", color);
+
+    // Enter any new nodes.
+    nodeCircles.enter().append("svg:circle")
+        .attr("class", "node")
+        .attr("r", 4.5)
+//        .style("fill", color)
+        .call(drag); //attach drag behaviour
+
+    // Exit any old nodes.
+    nodeCircles.exit().remove();
+
+    // Set initial positions of nodes and links
+    tick();
+}
+
+function color(d) {
+    return  d===root? "#ffffff"
+    //distinguish root since it can't be dragged
+        : d.children ? "#c6dbef" : d.group;
+}
+
+/*** Set the position of the elements based on data ***/
+function tick() {
+    linkLines.attr("x1", function (d) {
+            return translation[0] + scaleFactor*d.source.x;
+        })
+        .attr("y1", function (d) {
+            return translation[1] + scaleFactor*d.source.y;
+        })
+        .attr("x2", function (d) {
+            return translation[0] + scaleFactor*d.target.x;
+        })
+        .attr("y2", function (d) {
+            return translation[1] + scaleFactor*d.target.y;
+        });
+
+    nodeCircles.attr("cx", function (d) {
+            return translation[0] + scaleFactor*d.x;
+        })
+        .attr("cy", function (d) {
+            return translation[1] + scaleFactor*d.y;
+        });
+}
+
+
+/*** Data functions ***/
+
+//take a json object, fix the root in the center of the
+//display, and call update to position everything else:
+function readfile(json) {
+    root = json;
+    root.fixed = true;
+    root.x = w / 2;
+    root.y = h / 2;
+    update();
+};
+
+// Returns all nodes under the root as an array.
+function flatten(root) {
+    var nodes = [],
+        i = 0;
+
+    function recurse(node) {
+        if (node.children) node.size = node.children.reduce(function (p, v) {
+            return p + recurse(v);
+        }, 0);
+        if (!node.id) node.id = ++i;
+        nodes.push(node);
+        return node.size;
+    }
+
+    root.size = recurse(root);
+    return nodes;
+}
+
+var data = {
+    "dist": 0.0,
+        "name": "N1",
+        "children": [ {
+        "dist": 0.000657118732584,
+            "name": "N2",
+            "children": [ {
+            "dist": 0.00193506541936,
+                "name": "N3",
+                "children": [ {
+                "dist": 0.00488832259274,
+                    "name": "N4",
+                    "children": [ {
+                        "dist": 0.00421186204991,
+                        "name": "N5",
+                        "children": [ {
+                        "dist": 0.0163437491651,
+                            "name": "N6",
+                            "children": [{
+                            "dist": 0.417946674158,
+                                "group": "blue",
+                                "name": "CHEMBL1644419",
+                                "size": 2000.0000000000866
+                        }, {
+                            "dist": 0.00543077796308,
+                                "name": "N8",
+                                "children": [{
+                                "dist": 0.0297671023157,
+                                    "name": "N9",
+                                    "children": [{
+                                    "dist": 0.359033872667,
+                                        "group": "red",
+                                        "name": "ASD03540222",
+                                        "size": 2000.0000000000866
+                                }, {
+                                    "dist": 0.362485114675,
+                                        "group": "red",
+                                        "name": "ASD01150858",
+                                        "size": 2000.0000000000866
+                                }]
+                            },{
+                                "dist": 0.0224504491652,
+                                    "name": "N12",
+                                    "children": [{
+                                    "dist": 0.00178517153851,
+                                        "name": "N13",
+                                        "children": [{
+                                        "dist": 0.364388220986,
+                                            "group": "blue",
+                                            "name": "CHEMBL197161",
+                                            "size": 2000.0000000000866
+                                    }, {
+                                        "dist": 0.0425243314393,
+                                            "name": "N15",
+                                            "children": [{
+                                            "dist": 0.336193167816,
+                                                "group": "blue",
+                                                "name": "CHEMBL1644268",
+                                                "size": 2000.0000000000866
+                                        }, {
+                                            "dist": 0.325677335782,
+                                                "group": "red",
+                                                "name": "CHEMBL593637",
+                                                "size": 2000.0000000000866
+                                        }]
+                                    }]
+                                }, {
+                                    "dist": 0.0246952948163,
+                                        "name": "N18",
+                                        "children": [{
+                                        "dist": 0.358771918732,
+                                            "group": "blue",
+                                            "name": "CHEMBL569878",
+                                            "size": 2000.0000000000866
+                                    }, {
+                                        "dist": 0.36317930078,
+                                            "group": "blue",
+                                            "name": "CHEMBL434267",
+                                            "size": 2000.0000000000866
+                                    }]
+                                }]
+                            }]
+                        }]
+                    }, {
+                        "dist": 0.00389420127272,
+                            "name": "N21",
+                            "children": [{
+                            "dist": 0.010842478752,
+                                "name": "N22",
+                                "children": [{
+                                "dist": 0.415105380276,
+                                    "group": "blue",
+                                    "name": "CHEMBL1275732",
+                                    "size": 2000.0000000000866
+                            }, {
+                                "dist": 0.0337121910412,
+                                    "name": "N24",
+                                    "children": [{
+                                    "dist": 0.0664262587727,
+                                        "name": "N25",
+                                        "children": [{
+                                        "dist": 0.315587114957,
+                                            "group": "red",
+                                            "name": "ASD00170175",
+                                            "size": 2000.0000000000866
+                                    }, {
+                                        "dist": 0.310918909139,
+                                            "group": "red",
+                                            "name": "CHEMBL292368",
+                                            "size": 2000.0000000000866
+                                    }]
+                                }, {
+                                    "dist": 0.376684365543,
+                                        "group": "red",
+                                        "name": "ASD00170052",
+                                        "size": 2000.0000000000866
+                                }]
+                            }]
+                        }, {
+                            "dist": 0.00704072756384,
+                                "name": "N29",
+                                "children": [{
+                                "dist": 0.0103358142929,
+                                    "name": "N30",
+                                    "children": [{
+                                    "dist": 0.412662682696,
+                                        "group": "blue",
+                                        "name": "CHEMBL14370",
+                                        "size": 2000.0000000000866
+                                }, {
+                                    "dist": 0.427337317304,
+                                        "group": "blue",
+                                        "name": "CHEMBL94700",
+                                        "size": 2000.0000000000866
+                                }]
+                            }, {
+                                "dist": 0.0142382687979,
+                                    "name": "N33",
+                                    "children": [{
+                                    "dist": 0.403816741996,
+                                        "group": "blue",
+                                        "name": "CHEMBL545557",
+                                        "size": 2000.0000000000866
+                                }, {
+                                    "dist": 0.0752386947609,
+                                        "name": "N35",
+                                        "children": [{
+                                        "dist": 0.316746014667,
+                                            "group": "blue",
+                                            "name": "CHEMBL506342",
+                                            "size": 2000.0000000000866
+                                    }, {
+                                        "dist": 0.314832932701,
+                                            "group": "red",
+                                            "name": "CHEMBL1256402",
+                                            "size": 2000.0000000000866
+                                    }]
+                                }]
+                            }]
+                        }]
+                    } ]
+                }]
+            }]
+        }]
+        } ] };
+
+readfile(data);  //Start eveything up
+
+    function nodeByName(name) {
+            return nodesByName[name] || (nodesByName[name] = {name: name});
+        }
+
+</script>
