@@ -3,8 +3,8 @@
 get_header(); ?>
 
 
-<div id="clever-vis" style="visibility:hidden" >
-    Clever data visualization.
+<div id="clever-vis">
+    <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; margin: 0 auto; display: block" scrolling="no" width="100%" height="100%"></iframe>
 </div>
 <div style="background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg'); background-repeat:no=repeat;"><!-- background-attachment:fixed;-->
     <table border="1">
@@ -48,6 +48,7 @@ get_header(); ?>
         </div>
 
     </div>
+
 <?php
 if (have_posts()) :
     while (have_posts()) : the_post(); ?>

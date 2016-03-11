@@ -103,6 +103,8 @@ function IRAWebsite_resources() {
     wp_enqueue_script('isotope', get_template_directory_uri() . '/isotope.pkgd.min.js', array(), '2.2.2', 'true');
 
     wp_enqueue_script('maps-google-maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBLyeSD8mwqsDddMpRSknH1P5ycTgJg_-M', array(), '1.0.0');
+
+    wp_enqueue_script('d3', '//d3js.org/d3.v3.min.js', array(), '3');
 }
 
 add_action('wp_enqueue_scripts', 'IRAWebsite_resources');
