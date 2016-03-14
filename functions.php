@@ -117,3 +117,43 @@ register_nav_menus(array(
     'home-page' => __( 'Home Page Menu'),
 
 ));
+
+//// Change email address
+//add_filter('wp_mail_from', 'my_mail_from');
+//add_filter('wp_mail_from_name', 'my_mail_from_name');
+//
+//function my_mail_from ($email){
+//    return "kopplr@mcmaster.ca";
+//}
+//function my_mail_from_name($name){
+//    return "Liam Kopp";
+//}
+
+// Attempt at configuring custom SMTP server
+//add_action( 'phpmailer_init', 'send_smtp_email' );
+//function send_smtp_email( $phpmailer ) {
+//
+//	// Define that we are sending with SMTP
+//	$phpmailer->isSMTP();
+//
+//	// The hostname of the mail server
+//	$phpmailer->Host = "smtp.gmail.com";
+//
+//	// Use SMTP authentication (true|false)
+//	$phpmailer->SMTPAuth = true;
+//
+//	// SMTP port number - likely to be 25, 465 or 587
+//	$phpmailer->Port = "25";
+//
+//	// Username to use for SMTP authentication
+//	$phpmailer->Username = "liam.r.kopp@gmail.com";
+//
+//	// Password to use for SMTP authentication
+//	$phpmailer->Password = "";
+//
+//	// Encryption system to use - ssl or tls
+//	$phpmailer->SMTPSecure = "tls";
+//
+//	$phpmailer->From = "liam.r.kopp@gmail.com";
+//	$phpmailer->FromName = "Liam Kopp";
+//}

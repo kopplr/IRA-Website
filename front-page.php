@@ -44,7 +44,7 @@ get_header(); ?>
     <div id="submit-request">
         <div class="inner-div">
             <div style="display:table-cell;vertical-align:middle;text-align:center;"><h2>Can't find what you're looking for?</h2></div>
-            <div style="display:table-cell;vertical-align:middle;text-align:center;"><h3>Submit a Request</h3></div>
+            <div style="display:table-cell;vertical-align:middle;text-align:center;"><a href="http://localhost/wordpress/submit-request"><h3>Submit a Request</h3></a></div>
         </div>
 
     </div>

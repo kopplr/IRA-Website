@@ -131,7 +131,7 @@ jQuery(document).ready(function($) {
             var downtownContentString = '<h1>One James North (OJN)</h1>'+
                 '<p>McMaster University</p>'+
                 '<p>1 James St. North</p>'+
-                '<p>2nd Floor, Room Something</p>'+
+                '<p>3rd Floor, Room 310</p>'+
                 '<p>Hamilton, Ontario</p>'+
                 '<p>Canada L8R 2K3</p>'
             ;

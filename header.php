@@ -23,7 +23,7 @@
                     <div class="input-group">
                       <input type="hidden" name="cx" value="017110053273856412988:akq6v26t6nm">
                       <label for="mcmaster-search-field" class="sr-only">Keyword Search</label>
-                      <input type="text" name="q" id="mcmaster-search-field" class="form-control input-lg" placeholder="Type your keyword here" />
+                      <input type="text" name="q" id="mcmaster-search-field" class="form-control input-lg" placeholder="Search McMaster University" />
                       <input type="hidden" name="hq" value="inurl:mcmaster.ca">
                       <input type="hidden" name="cof" value="FORID:11">
                       <span class="input-group-btn">
