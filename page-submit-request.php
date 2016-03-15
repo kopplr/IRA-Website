@@ -34,7 +34,7 @@ $headers = 'From: '. $email . "\r\n" .
 
 //validation
 if(!$human == 0){
-    if($human != 2) my_contact_form_generate_response("error", $not_human); //not human!
+    if($human != 8) my_contact_form_generate_response("error", $not_human); //not human!
     else {
 
         //validate email
@@ -71,62 +71,50 @@ else if ($_POST['submitted']) my_contact_form_generate_response("error", $missin
 <div id="primary" class="site-content">
     <div id="content" role="main">
 
-      <?php while ( have_posts() ) : the_post(); ?>
+<div class="site-content clearfix" style="display:table;">
+    <div class="sidebar-column">
+
+    </div>
+    <div class="main-column">
+        <?php while ( have_posts() ) : the_post(); ?>
 
 
-          <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-            <header class="entry-header">
-              <h1 class="entry-title"><?php the_title(); ?></h1>
-            </header>
+        <header class="entry-header">
+            <h1 class="entry-title"><?php the_title(); ?></h1>
+        </header>
 
-            <div class="entry-content">
-              <?php the_content(); ?>
+        <div class="entry-content">
+            <?php the_content(); ?>
 
-                <style type="text/css">
-                  .error{
-                    padding: 5px 9px;
-                    border: 1px solid red;
-                    color: red;
-                    border-radius: 3px;
-                  }
 
-                  .success{
-                    padding: 5px 9px;
-                    border: 1px solid green;
-                    color: green;
-                    border-radius: 3px;
-                  }
-
-                  form span{
-                    color: red;
-                  }
-                </style>
-
-                <?php $mname = ( isset( $_POST['message_name'] ) ) ? $_POST['message_name'] : ''; ?>
             <div id="respond">
-              <?php echo $response;  ?>
-              <form action="<?php the_permalink(); ?>" method="post">
+                <?php echo $response;  ?>
+                <form action="<?php the_permalink(); ?>" method="post">
 
-                  <p><label for="name">Name: <span>*</span> <br><input type="text" name="message_name" value="<?php echo ( isset( $_POST['message_name'] ) ) ? esc_attr($_POST['message_name']) : ''; ?>"></label></p>
+                    <p><label for="name"><h3>Name: <span>*</span></h3> <br><input type="text" name="message_name" value="<?php echo ( isset( $_POST['message_name'] )) ? esc_attr($_POST['message_name']) : ''; ?>"></label></p>
 
-                  <p><label for="message_email">Email: <span>*</span> <br><input type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>"></label></p>
+                    <p><label for="message_email"><h3>Email: <span>*</span></h3><br><input type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>"></label></p>
 
-                  <p><label for="message_text">Message: <span>*</span> <br><textarea type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea></label></p>
+                    <p><label for="message_text"><h3>Message: <span>*</span></h3><br><textarea type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea></label></p>
 
-                  <p><label for="message_human">Human Verification: <span>*</span> <br><input type="text" style="width: 60px;" name="message_human"> + 3 = 5</label></p>
-                <input type="hidden" name="submitted" value="1">
-                <p><input type="submit"></p>
-              </form>
+                    <p><label for="message_human"><h3>Human Verification: <span>*</span></h3><br><input type="text" style="width: 60px;" name="message_human"> + 3 = 11</label></p>
+
+                    <input type="hidden" name="submitted" value="1">
+
+                    <p style="margin-top:20px"><input type="submit"></p>
+                </form>
             </div>
 
-            </div><!-- .entry-content -->
+        </div><!-- .entry-content -->
+        </article><!-- #post -->
 
-          </article><!-- #post -->
+        <?php endwhile; // end of the loop. ?>
+    </div>
+    <div class="secondary-column">
+        <p>widget area</p>
+    </div>
+</div>
 
-      <?php
-                endwhile; // end of the loop. ?>
-
-    </div><!-- #content -->
-  </div><!-- #primary -->
 <?php get_footer(); ?>

@@ -386,7 +386,24 @@
 
                     ?>
 
-                    <?php if (!is_front_page()) {wp_nav_menu( $args );} ?>
+                <?php if (!is_front_page()) {wp_nav_menu( $args );} ?>
+                <?php if (!is_front_page()){
+                    echo '</nav>';
+                }?>
+
+                <?php if (!is_front_page()){
+                    echo '<nav class="site-nav" id="nav-right">';
+                }?>
+                    <?php
+
+                    $args2 = array(
+                        'theme_location' => 'primary-right'
+                    );
+
+                    ?>
+
+
+                <?php if (!is_front_page()) {wp_nav_menu( $args2 );} ?>
                 <?php if (!is_front_page()){
                     echo '</nav>';
                 }?>

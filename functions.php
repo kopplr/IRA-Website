@@ -82,6 +82,94 @@ function team_post_type() {
 }
 add_action( 'init', 'team_post_type', 0 );
 
+// Register 'glossary' post type
+function glossary_post_type() {
+
+   // Labels
+	$labels = array(
+		'name' => _x("Glossary", "post type general name"),
+		'singular_name' => _x("Glossary", "post type singular name"),
+		'menu_name' => 'Glossary Items',
+		'add_new' => _x("Add New", "glossary item"),
+		'add_new_item' => __("Add New Glossary Item"),
+		'edit_item' => __("Edit Glossary Item"),
+		'new_item' => __("New Glossary Item"),
+		'view_item' => __("View Glossary Item"),
+		'search_items' => __("Search Glossary Items"),
+		'not_found' =>  __("No Glossary Items Found"),
+		'not_found_in_trash' => __("No Glossary Items Found in Trash"),
+		'parent_item_colon' => ''
+	);
+
+	// Register post type
+	register_post_type('glossary' , array(
+		'labels' => $labels,
+		'public' => true,
+		'has_archive' => false,
+		'menu_icon' => get_stylesheet_directory_uri() . '/images/favicon.png',
+		'rewrite' => false,
+		'supports' => array('title', 'editor', 'thumbnail', 'custom-fields')
+	) );
+}
+add_action( 'init', 'glossary_post_type', 0 );
+
+function alphaindex_alpha_tax() {
+	register_taxonomy( 'alpha',array (
+		0 => 'glossary',
+	),
+	array( 'hierarchical' => false,
+		'label' => 'Alpha',
+		'show_ui' => false,
+		'query_var' => true,
+		'show_admin_column' => false,
+	) );
+}
+add_action('init', 'alphaindex_alpha_tax');
+
+
+
+function alphaindex_save_alpha( $post_id ) {
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+	return;
+	//only run for glossary items
+	$slug = 'glossary';
+	$letter = '';
+	// If this isn't a 'glossary' post, don't update it.
+	if ( isset( $_POST['post_type'] ) && ( $slug != $_POST['post_type'] ) )
+	return;
+	// Check permissions
+	if ( !current_user_can( 'edit_post', $post_id ) )
+	return;
+	// OK, we're authenticated: we need to find and save the data
+	$taxonomy = 'alpha';
+	if ( isset( $_POST['post_type'] ) ) {
+		// Get the title of the post
+		$title = strtolower( $_POST['post_title'] );
+
+		// The next few lines remove A, An, or The from the start of the title
+		$splitTitle = explode(" ", $title);
+		$blacklist = array("an","the");
+		$splitTitle[0] = str_replace($blacklist,"",strtolower($splitTitle[0]));
+		$title = implode(" ", $splitTitle);
+
+		// Get the first letter of the title
+		$letter = substr( $title, 0, 1 );
+
+		// Set to 0-9 if it's a number
+		if ( is_numeric( $letter ) ) {
+			$letter = '0-9';
+		}
+	}
+	//set term as first letter of post title, lower case
+	wp_set_post_terms( $post_id, $letter, $taxonomy );
+
+    //delete the transient that is storing the alphabet letters
+    delete_transient( 'kia_archive_alphabet');
+}
+add_action( 'save_post', 'alphaindex_save_alpha' );
+
+
+
 function IRAWebsite_resources() {
 
     wp_enqueue_style('style', get_stylesheet_uri(), array(), '1.0');
@@ -98,7 +186,7 @@ function IRAWebsite_resources() {
     wp_enqueue_script('roboto-google-font', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
 
     wp_enqueue_script('jquery', get_template_directory_uri() . '/jquery-1.12.0.min.js', array(), '1.12.0', true);
-    wp_enqueue_script('test-isotope', get_template_directory_uri() . '/js/test_isotope.js', array('jquery'), '1.0');
+    wp_enqueue_script('javascript', get_template_directory_uri() . '/js/all_javascript.js', array('jquery'), '1.0');
 
     wp_enqueue_script('isotope', get_template_directory_uri() . '/isotope.pkgd.min.js', array(), '2.2.2', 'true');
 
@@ -109,9 +197,11 @@ function IRAWebsite_resources() {
 
 add_action('wp_enqueue_scripts', 'IRAWebsite_resources');
 
+
 // Navigation Menus
 register_nav_menus(array(
     'primary' => __( 'Primary Menu'),
+    'primary-right' => __( 'Primary Right Menu'),
     'footer' => __( 'Footer Menu'),
     'sidebar' => __( 'Sidebar Menu'),
     'home-page' => __( 'Home Page Menu'),

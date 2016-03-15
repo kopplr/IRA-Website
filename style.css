@@ -94,6 +94,12 @@ article.post h1, article.post p {
     list-style: none;
     float: left;
 }
+.site-nav {
+    display: inline-block;
+}
+#nav-right {
+    float: right;
+}
 
 /* Site Header Menu ***********************************************************************************/
 .site-header {
@@ -498,4 +504,34 @@ li a, li a:hover {
 #mandate ul {
     list-style: disc outside none;
     margin-left: 20px;
+}
+
+/* Submit Request *******************************************************************************************************/
+.error {
+    padding: 5px 9px;
+    border: 1px solid red;
+    color: red;
+    border-radius: 3px;
+}
+.success {
+    padding: 5px 9px;
+    border: 1px solid green;
+    color: green;
+    border-radius: 3px;
+}
+form span {
+    color: red;
+}
+form h3 {
+    display: inline-block;
+    margin: 20px 0 0 0;
+}
+
+/* Glossary *******************************************************************************************************/
+#letters li {
+    display: inline-block;
+}
+#alphabet-menu li{
+    display: inline-block;
+    margin: 0 10px 0 0;
 }
