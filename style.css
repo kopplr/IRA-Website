@@ -528,10 +528,55 @@ form h3 {
 }
 
 /* Glossary *******************************************************************************************************/
-#letters li {
-    display: inline-block;
+#alphabet-menu {
+    border-bottom: 4px solid #c6cbce;
+    border-top: 4px solid #c6cbce;
 }
-#alphabet-menu li{
-    display: inline-block;
-    margin: 0 10px 0 0;
+#alphabet-menu {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse:collapse;
+
+}
+#alphabet-menu li {
+    display: table-cell;
+    text-align: center;
+/*    margin: 0 15px 0 0;*/
+    color: #8e979d;
+    font-size: 200%;
+}
+#alphabet-menu li:first-child {
+    width: 50px;
+/*    margin: 0 11px 0 1px;*/
+}
+#alphabet-menu a:link, #alphabet-menu a:visited {
+    color: #7a003c;
+}
+section h2 {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 250%;
+    color: #7a003c;
+
+
+}
+section {
+    padding-bottom: 16px;
+    border-bottom: 2px solid #6a7882;
+}
+a.back-to-top {
+    display: none;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding-top: 10px;
+    background: #272727;
+    color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 8px;
+    z-index: 9999999;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
 }

@@ -168,7 +168,49 @@ function alphaindex_save_alpha( $post_id ) {
 }
 add_action( 'save_post', 'alphaindex_save_alpha' );
 
+// Register 'external_organization' post type
+function external_organization_post_type() {
 
+   // Labels
+	$labels = array(
+		'name' => _x("Organization", "post type general name"),
+		'singular_name' => _x("Organization", "post type singular name"),
+		'menu_name' => 'External Organizations',
+		'add_new' => _x("Add New", "external organization"),
+		'add_new_item' => __("Add New External Organization"),
+		'edit_item' => __("Edit External Organization"),
+		'new_item' => __("New External Organization"),
+		'view_item' => __("View External Organization"),
+		'search_items' => __("Search External Organizations"),
+		'not_found' =>  __("No External Organizations Found"),
+		'not_found_in_trash' => __("No External Organizations Found in Trash"),
+		'parent_item_colon' => ''
+	);
+
+	// Register post type
+	register_post_type('external' , array(
+		'labels' => $labels,
+		'public' => true,
+		'has_archive' => false,
+		'menu_icon' => get_stylesheet_directory_uri() . '/images/favicon.png',
+		'rewrite' => false,
+		'supports' => array('title', 'editor', 'thumbnail', 'custom-fields')
+	) );
+}
+add_action( 'init', 'external_organization_post_type', 0 );
+
+function external_cats_tax() {
+	register_taxonomy( 'ext_cats', array (
+		0 => 'external',
+	),
+	array( 'hierarchical' => true,
+		'label' => 'External Organization Categories',
+		'query_var' => true,
+          'rewrite' => true,
+          'show_admin_column' => true
+	) );
+}
+add_action('init', 'external_cats_tax');
 
 function IRAWebsite_resources() {
 

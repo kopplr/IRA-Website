@@ -90,7 +90,7 @@
                   </svg>
                 </a>
             </footer>
-
+            <a href="#" class="back-to-top"><i class="fa fa-angle-up fa-fw"></i></a>
         </div><!-- /container -->
 
         <?php wp_footer(); ?>

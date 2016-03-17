@@ -174,6 +174,22 @@ jQuery(document).ready(function($) {
         e.preventDefault(); // Stop from adding to the URL
     });
 
+    // Showing "Return to Top" button
+    var amountScrolled = 300;
+
+    $(window).scroll(function() {
+        if ( $(window).scrollTop() > amountScrolled ) {
+            $('a.back-to-top').fadeIn('slow');
+        } else {
+            $('a.back-to-top').fadeOut('slow');
+        }
+    });
+
+    // Scroll back up to top smoothly
+    $('a.back-to-top').click(function(){
+        $('html, body').animate({scrollTop : 0},800);
+        return false;
+    });
 
     // Extra jQuery functions
     $.fn.exists = function () {
