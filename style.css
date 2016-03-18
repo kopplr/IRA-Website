@@ -51,6 +51,15 @@ ul {
     width: 100%;
     min-height: 50vh;
 }
+/* Title of each page *************************************************************************************/
+.main-column > article:first-child {
+    text-align: left;
+}
+
+.main-column > article h1 {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 250%;
+}
 
 /* Isotope filtering ***********************************************************************************/
 article.post {
@@ -64,6 +73,39 @@ article.post:hover {
 article.post h1, article.post p {
     padding: 5px;
     margin: 0;
+}
+.inline-layout article{
+    display: inline-block;
+}
+article {
+    display: block;
+    position: relative;
+/*    text-align: center;*/
+}
+
+article .overlay {
+    text-align: center;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 999999;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    margin: auto;
+    background-color: #c6cbce;
+    display: table;
+    transition: all 0.5s;
+}
+article .overlay-text {
+    display: table-cell;
+    padding: 10px;
+}
+article:hover .overlay {
+    visibility: visible;
+    opacity: 0.95;
 }
 
 /* Header ***********************************************************************************/

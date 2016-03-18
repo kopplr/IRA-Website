@@ -10,10 +10,8 @@ jQuery(document).ready(function($) {
     $('#menu-sidebar-menu-links li').first().children().addClass('is-checked');
 
     // init Isotope
-    var $grid = $('.grid').isotope({
-      // options
-        itemSelector: '.element-item'
-    });
+    var $grid = $('.grid').isotope({itemSelector: '.element-item'});
+
 
     // filter items on button click
     $('.filter-button-group').on( 'click', 'button', function() {
@@ -28,6 +26,7 @@ jQuery(document).ready(function($) {
   $('.button-group').each( function( i, buttonGroup ) {
     var $buttonGroup = $( buttonGroup );
     $buttonGroup.on( 'click', 'button', function() {
+        console.log("clicked");
 
         var $isSubMenu = $buttonGroup.find('.is-checked').parents('.sub-menu');
         if($isSubMenu.exists() && !$(this).parents('.sub-menu').exists()){ // Selected a button filter that is NOT in the sub-menu, so slideUp
