@@ -16,24 +16,35 @@
         position: absolute;
         text-align: center;
         line-height: 1;
-        font-weight: bold;
         padding: 12px;
         background: rgba(0, 0, 0, 0.8);
         color: #fff;
         border-radius: 2px;
         pointer-events: none;
+        font-family: 'Roboto', sans-serif;
+    }
+    g {
+        font-family: 'Roboto', sans-serif;
     }
 
 
 </style>
 <body>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="js/d3-legend.min.js"></script>
     <script>
 //            var width = 2000,
 //                height = 535;
 
             var scaleFactor = 1;
             var translation = [0,0];
+
+            var smallCircleSize = 4.5;
+            var largeCircleSize = 9;
+
+            // Linear size scale
+            var linearSize = d3.scale.linear().domain([0,1]).range([smallCircleSize, largeCircleSize]);
 
             // Initialize Ordinal Colour Scale
             var color = d3.scale.ordinal()
@@ -113,8 +124,6 @@
 
                 //Initialize SVG
                 var graph = d3.select("body").append("svg")
-//                    .attr("width", "100%")
-//                    .attr("height", "100%")
                   .append("g")
                     .attr("class", "graph")
                     .call(zoomer);
@@ -124,10 +133,11 @@
                     .attr("width", "80%")
                     .attr("height", "100%")
                     .attr("x", "10%")
-                    .style("margin", "0 auto")
+             //       .style("margin", "0 auto")
                     .style("fill", "none")
                     .style("pointer-events", "all")
 
+                // Tooptip in top left corner
                 var div = d3.select("body").append("div")
                     .attr("class", "tooltip")
                     .attr("x", "10%")
@@ -137,6 +147,49 @@
                 var vis = graph.append("svg:g")
                     .attr("class", "plotting-area");
 
+                // Create a legend
+                graph.append("g")
+                    .attr("class", "legendOrdinal")
+                    .attr("transform", "translate(20,100)");
+
+                var legend = d3.legend.color()
+                    .shape("circle")
+                    .shapePadding(10)
+                    .scale(color)
+                    .labels(["Science",
+                             "Engineering",
+                             "Health Science",
+                             "Nursing",
+                             "Business",
+                             "Arts and Science",
+                             "Divinity",
+                             "Humanities",
+                             "Social Science",
+                             "Medicine",
+                             "Midwifery",
+                             "Interns and Residents",
+                             "Collaborative Nursing"
+                            ]);
+
+                graph.select(".legendOrdinal")
+                    .call(legend);
+
+
+
+                graph.append("g")
+                    .attr("class", "legendSize")
+                    .attr("transform", "translate(20, 500)");
+
+                var legendSize = d3.legend.size()
+                    .scale(linearSize)
+                    .shape('circle')
+                    .shapePadding(15)
+                    .labels(["Other","Entry-level Program"])
+                    .cells(2) // Number of objects (circles)
+                    .ascending(true);
+
+                graph.select(".legendSize")
+                    .call(legendSize);
 
                 // Create nodes for each unique source and target.
                 var nodesByName = {};
@@ -188,9 +241,9 @@
                              d.name == "MIDWIFERY" ||
                              d.name == "MEDICINE"
                             ){
-                              return 9;
+                              return largeCircleSize;
                           }
-                          else{return 4.5}
+                          else{return smallCircleSize}
                       })
                       .style("fill", function(d) {return color(lookupTable[d.name]);})
                       .on("click", function(d){

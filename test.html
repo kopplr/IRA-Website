@@ -12,92 +12,101 @@
         stroke-width: 1.5px;
     }
 
-    .d3-tip {
-        line-height: 1;
-        font-weight: bold;
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.8);
-        color: #fff;
-        border-radius: 2px;
-    }
-    /* Creates a small triangle extender for the tooltip */
-    .d3-tip:after {
-        box-sizing: border-box;
-        display: inline;
-        font-size: 10px;
-        width: 100%;
-        line-height: 1;
-        color: rgba(0, 0, 0, 0.8);
-        content: "\25BC";
-        position: absolute;
-        text-align: center;
-    }
-    /* Style northward tooltips differently */
-    .d3-tip.n:after {
-        margin: -1px 0 0 0;
-        top: 100%;
-        left: 0;
-    }
-    .d3-tip.animate {
-        transition: opacity 1s ease;
-    }
-
     div.tooltip {
         position: absolute;
         text-align: center;
         line-height: 1;
-        font-weight: bold;
         padding: 12px;
         background: rgba(0, 0, 0, 0.8);
         color: #fff;
         border-radius: 2px;
         pointer-events: none;
+        font-family: 'Roboto', sans-serif;
+    }
+    g {
+        font-family: 'Roboto', sans-serif;
+    }
+    .cell {
+        cursor: pointer;
     }
 
 
 </style>
 <body>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="//d3js.org/d3.v3.min.js"></script>
-    <script type='text/javascript' src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"> </script>
+    <script src="js/d3-legend.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
     <script>
-        var width = "100%",
-            height = "100%";
+//            var width = 2000,
+//                height = 535;
 
-        var scaleFactor = 1;
-        var translation = [0,0];
+            var scaleFactor = 1;
+            var translation = [0,0];
 
-        // Initialize Ordinal Colour Scale
-        var color = d3.scale.ordinal()
-            .domain(["02", "03", "04", "05", "06", "07", "13", "14", "15", "21", "22", "23", "24"])
-            .range([
-                "#009933", // Science
-                "#ff0000", // Engineering
-                "#003366", // Health Science
-                "#ffff00", // Nursing
-                "#996633", // Business
-                "#ff9933", // Arts and Science
-                "#cc00cc", // Divinity
-                "#ffcccc", // Humanities
-                "#ff66ff", // Social Science
-                "#0000cc", // Medicine
-                "#cc9900", // Midwifery
-                "#00ccff", // Interns and Residents
-                "#ffff00"  // Collaborative Nursing
-        ]);
+            var smallCircleSize = 4.5;
+            var largeCircleSize = 9;
 
-        // Configure force layout
-        var force = d3.layout.force()
-            .size([width, height]);
+            // Linear size scale
+            var linearSize = d3.scale.linear().domain([0,1]).range([smallCircleSize, largeCircleSize]);
 
-    d3.tsv("Program-Faculty-Lookup.txt", function(error, lookup) { // Load Program-Faculty lookup table
-        if(error) throw error;
-        var lookupTable = {};
-        lookup.forEach(function(program) {
-            lookupTable[program.name] = program.faculty;
-        });
+            // Initialize Ordinal Colour Scale
+            var color = d3.scale.ordinal()
+                .domain(["02", "03", "04", "05", "06", "07", "13", "14", "15", "21", "22", "23", "24"])
+                .range([
+                    "#009933", // Science
+                    "#ff0000", // Engineering
+                    "#003366", // Health Science
+                    "#ffff00", // Nursing
+                    "#996633", // Business
+                    "#ff9933", // Arts and Science
+                    "#cc00cc", // Divinity
+                    "#ffcccc", // Humanities
+                    "#ff66ff", // Social Science
+                    "#0000cc", // Medicine
+                    "#cc9900", // Midwifery
+                    "#00ccff", // Interns and Residents
+                    "#ffff00"  // Collaborative Nursing
+            ]);
+        // Faculty Name to Number
+        var lookupTableName = {
+            "Science": "02",
+            "Engineering": "03",
+            "Health Science": "04",
+            "Nursing": "05",
+            "Business": "06",
+            "Arts and Science": "07",
+            "Divinity": "13",
+            "Humanities": "14",
+            "Social Science": "15",
+            "Medicine": "21",
+            "Midwifery": "22",
+            "Interns and Residents": "23",
+            "Collaborative Nursing": "24"
+        };
+        console.log(lookupTableName);
 
-        d3.tsv("3-year-program-transfer.txt", function(error, links) { // Load data
+
+            // Configure force layout
+            var force = d3.layout.force();
+
+        queue()
+            .defer(d3.tsv, "Program-Faculty-Lookup.txt")
+            .defer(d3.tsv, "3-year-program-transfer.txt")
+            .await(ready);
+
+        function ready(error, lookup, links){
             if (error) throw error;
+
+            // The 'lookup' variable refers to data from the Program-Faculty-Lookup.txt file
+            // The 'linnks' variable refers to data from the 3-year-program-transfer.txt file
+
+            // Set up Program/Faculty lookup table
+            var lookupTable = {};
+            lookup.forEach(function(program) {
+                lookupTable[program.name] = program.faculty;
+            });
+            console.log(lookupTable);
 
             /*** Configure zoom behaviour ***/
             var zoomer = d3.behavior.zoom()
@@ -141,44 +150,83 @@
                 force.resume();
             }
 
-            var div = d3.select("body").append("div")
-                .attr("class", "tooltip")
-                .style("opacity", 0);
-
-            //Set up tooltip
-            var tip = d3.tip()
-                .attr('class', 'd3-tip')
-                .offset([50, 0])
-                .html(function (d) {
-                return  d.name + "";
-                });
 
 
             //Initialize SVG
             var graph = d3.select("body").append("svg")
-                .attr("width", width)
-                .attr("height", height)
               .append("g")
                 .attr("class", "graph")
-                .call(zoomer)
-                .call(tip);
+                .call(zoomer);
 
             // Rectangle to catch mouse events for zoom
             var rect = graph.append("rect")
-                .attr("width", width)
-                .attr("height", height)
-                .style("margin", "0 auto")
+                .attr("width", "80%")
+                .attr("height", "100%")
+                .attr("x", "10%")
+         //       .style("margin", "0 auto")
                 .style("fill", "none")
                 .style("pointer-events", "all")
 
+            // Tooptip in top left corner
             var div = d3.select("body").append("div")
                 .attr("class", "tooltip")
+                .attr("x", "10%")
                 .style("opacity", "0");
 
             // Create a group that will hold all content to be zoomed
             var vis = graph.append("svg:g")
                 .attr("class", "plotting-area");
 
+            // Create a legend
+            graph.append("g")
+                .attr("class", "legendOrdinal")
+                .attr("transform", "translate(20,100)");
+
+            var legend = d3.legend.color()
+                .shape("circle")
+                .shapePadding(10)
+                .scale(color)
+                .labels(["Science",
+                         "Engineering",
+                         "Health Science",
+                         "Nursing",
+                         "Business",
+                         "Arts and Science",
+                         "Divinity",
+                         "Humanities",
+                         "Social Science",
+                         "Medicine",
+                         "Midwifery",
+                         "Interns and Residents",
+                         "Collaborative Nursing"
+                        ]);
+
+            graph.select(".legendOrdinal")
+                .call(legend);
+
+            d3.selectAll(".cell")
+                .on("click", function(d){
+                    if (d3.event.defaultPrevented) return;
+                    console.log("searchNode Called");
+                    searchNode(d);
+
+                });
+
+
+            graph.append("g")
+                .attr("class", "legendSize")
+                .attr("transform", "translate(20, 500)");
+
+            var legendSize = d3.legend.size()
+                .scale(linearSize)
+                .shape('circle')
+                .shapePadding(15)
+                .labels(["Other","Entry-level Program"])
+                .cells(2) // Number of objects (circles)
+                .ascending(true);
+
+            graph.select(".legendSize")
+                .call(legendSize);
 
             // Create nodes for each unique source and target.
             var nodesByName = {};
@@ -209,6 +257,7 @@
                       if(d.name == "NURSING" ||
                          d.name == "ENGINEERING 1" ||
                          d.name == "ENGINEERING 1 CO-OP" ||
+                         d.name == "ENVIRONMENTAL & EARTH SCIENCES 1" ||
                          d.name == "HUMANITIES 1" ||
                          d.name == "SOCIAL SCIENCES 1" ||
                          d.name == "INTEGRATED SCIENCE 1" ||
@@ -216,19 +265,27 @@
                          d.name == "COMPUTER SCIENCE 1" ||
                          d.name == "COMPUTER SCIENCE 1 CO-OP" ||
                          d.name == "BUSINESS 1" ||
+                         d.name == "BUSINESS" ||
                          d.name == "LIFE SCIENCES 1" ||
+                         d.name == "MATHEMATICS & STATISTICS 1" ||
+                         d.name == "MEDICAL RADIATION SCIENCES" ||
+                         d.name == "MUSIC 1" ||
+                         d.name == "PHYSICAL SCIENCES 1" ||
+                         d.name == "STUDIO ART I" ||
+                         d.name == "TECHNOLOGY 1" ||
                          d.name == "HONOURS BACHELOR OF HEALTH SCIENCES" ||
+                         d.name == "HONOURS KINESIOLOGY 1" ||
                          d.name == "MIDWIFERY" ||
                          d.name == "MEDICINE"
                         ){
-                          return 9;
+                          return largeCircleSize;
                       }
-                      else{return 4.5}
+                      else{return smallCircleSize}
                   })
                   .style("fill", function(d) {return color(lookupTable[d.name]);})
                   .on("click", function(d){
                       if (d3.event.defaultPrevented) return; // click suppressed
-                      console.log(tip.show);
+                      console.log(d);
                       connectedNodes(d); // else highlight connected nodes
                   })
                   .on("mouseover", function(d){
@@ -246,15 +303,6 @@
                             .duration(500)
                             .style("opacity", 0);
                   })
-//                  .on("mouseover", function(d){
-//                      if(d3.select(this).style("opacity") == 1 && !d3.select(this).classed("dragging")) {
-//                        tip.attr('class', 'd3-tip animate').show(d, document.getElementById("tooltip-area"));
-//
-//                      }
-//                  })
-//                  .on("mouseout", function(d){
-//                      tip.attr('class', 'd3-tip').hide(d);
-//                  })
                   .call(drag);
 
             // Add program name
@@ -309,6 +357,22 @@
                 }
 
             }
+            function searchNode(searchVal) {
+                var searchNode = d3.selectAll(".node");
+                var selected = searchNode.filter(function (d, i){
+                    return lookupTable[d.name] != searchVal
+                });
+                selected.style("opacity", "0.1");
+                var link = d3.selectAll(".link");
+                link.style("opacity", "0.1");
+                d3.selectAll(".node, .link").transition()
+                    .duration(5000)
+                    .style("opacity", "1");
+                console.log(selected);
+            }
+
+            resize();
+            d3.select(window).on("resize", resize);
 
             // Update positions of nodes and links
             function tick() {
@@ -321,9 +385,14 @@
                     .attr("cy", function(d) { return translation[1] + scaleFactor*d.y; });
             }
 
-        });
+            function resize() {
+                console.log("resize");
+                width = window.innerWidth, height = window.innerHeight;
+                d3.select("svg").attr("width", width).attr("height", height);
+                force.size([width, height]).resume();
+            }
 
-    });
 
-    </script>
+        }
+        </script>
 </body>
