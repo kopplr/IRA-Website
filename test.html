@@ -116,6 +116,7 @@
                     //define the event handler function
 
             function zoom() {
+                d3.event.sourceEvent.stopPropagation();
                 console.log("zoom", d3.event.translate, d3.event.scale);
                 scaleFactor = d3.event.scale;
                 translation = d3.event.translate;
@@ -166,6 +167,12 @@
          //       .style("margin", "0 auto")
                 .style("fill", "none")
                 .style("pointer-events", "all")
+                .on("click", function(){
+                    if (d3.event.defaultPrevented) return;
+                    showAllNodes();
+                    console.log("clicked on background");
+                });
+
 
             // Tooptip in top left corner
             var div = d3.select("body").append("div")
@@ -204,11 +211,16 @@
             graph.select(".legendOrdinal")
                 .call(legend);
 
-            d3.selectAll(".cell")
+            d3.selectAll("g.cell")
                 .on("click", function(d){
                     if (d3.event.defaultPrevented) return;
-                    console.log("searchNode Called");
-                    searchNode(d);
+                    var self = this;
+                    var activeLegends = d3.selectAll("g.cell");
+                  //  console.log(activeLegends);
+                    activeLegends.filter(function (x) {return self != this;})
+                        .classed("active", false);
+//                    d3.selectAll("g.cell.active").classed("active",false);
+                    searchNode(d, this);
 
                 });
 
@@ -246,7 +258,7 @@
                   .data(links)
                 .enter().append("line")
                   .attr("class", "link");
-
+            var allShowing = true;
             var timeout;
             // Create the node circles.
             var node = vis.selectAll(".node")
@@ -283,10 +295,10 @@
                       else{return smallCircleSize}
                   })
                   .style("fill", function(d) {return color(lookupTable[d.name]);})
+                  .classed("activeNode", true)
                   .on("click", function(d){
-                      if (d3.event.defaultPrevented) return; // click suppressed
-                      console.log(d);
-                      connectedNodes(d); // else highlight connected nodes
+                      if (d3.event.defaultPrevented || !d3.select(this).classed("activeNode")) return; // click suppressed
+                      connectedNodes(d, allShowing, this); // else highlight connected nodes
                   })
                   .on("mouseover", function(d){
                       if(d3.select(this).style("opacity") == 1){
@@ -318,6 +330,9 @@
                   .on("tick", function(){tick();})
                   .start();
 
+            // Configure highlighting of faculty
+            var toggleSearch = 0;
+
             /* Configure highlighting of connected nodes */
             var toggle = 0;
 
@@ -337,38 +352,134 @@
             }
 
             // Change opacity to highlight connected nodes
-            function connectedNodes(clickedOn) {
-                if(toggle == 0){
-                    //Reduce the opacity of all but the neighbouring nodes
-                   // d = d3.select(clickedOn).node().__data__;
+            function connectedNodes(clickedOn, firstClick, nodeClicked) {
+                console.log(clickedOn);
+                if (firstClick){
+                    d3.select(nodeClicked).classed("baseNode","true");
+                    node.classed("activeNode", function(o){
+                        return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? true : false;
+                    })
                     node.style("opacity", function (o) {
                         return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? 1 : 0.1;
                     });
                     link.style("opacity", function (o) {
                         return clickedOn.index==o.source.index | clickedOn.index==o.target.index ? 1 : 0.1;
                     });
-                    toggle = 1;
+                    allShowing = false;
                 }
                 else {
-                    //Put them back to opacity=1
-                    node.style("opacity", 1);
-                    link.style("opacity", 1);
-                    toggle = 0;
+                    console.log(d3.select(nodeClicked));
+                    if (d3.select(nodeClicked).classed("baseNode")){
+                        console.log("base clicked!");
+                        showAllNodes();
+                        return;
+                    }
+                    if (d3.select(nodeClicked).classed("clickedNode")){
+                        console.log("clickedNode!");
+                        node.each(function(d){
+                        if( ( neighboring(clickedOn, d) | neighboring(d, clickedOn) ) && !d3.select(this).classed("baseNode") && !d3.select(this).classed("clickedNode")){
+                           d3.select(this)
+                            .classed("activeNode", false)
+                            .style("opacity", 0.1);
+                        }
+                        });
+
+                        link.each(function(d){
+                           if(clickedOn.index==d.source.index | clickedOn.index==d.target.index){
+                               d3.select(this).style("opacity", 0.1);
+                           }
+                        });
+                        d3.select(nodeClicked).classed("clickedNode",false);
+                        return;
+                    }
+
+                    node.each(function(d){
+                        if(neighboring(clickedOn, d) | neighboring(d, clickedOn)){
+                           console.log("addnode!");
+                            console.log(d3.select(d));
+                           d3.select(this)
+                            .classed("activeNode", true)
+                            .style("opacity", 1);
+                        }
+                    });
+
+                    link.each(function(d){
+                       if(clickedOn.index==d.source.index | clickedOn.index==d.target.index){
+                           d3.select(this).style("opacity", 1);
+                       }
+                    });
+                    d3.select(nodeClicked).classed("clickedNode",true);
+
                 }
+//                    if(toggle==0){
+//                        //Reduce the opacity of all but the neighbouring nodes
+//                       // d = d3.select(clickedOn).node().__data__;
+//
+//                        node.classed("activeNode", function(o){
+//                            return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? true : false;
+//                        })
+//                        node.style("opacity", function (o) {
+//                            return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? 1 : 0.1;
+//                        });
+//                        link.style("opacity", function (o) {
+//                            return clickedOn.index==o.source.index | clickedOn.index==o.target.index ? 1 : 0.1;
+//                        });
+//                        toggle = 1;
+//
+//                    }
+//                    else {
+//                        showAllNodes();
+//                    }
+
 
             }
-            function searchNode(searchVal) {
+
+            function searchNode(searchVal, gObject) {
                 var searchNode = d3.selectAll(".node");
-                var selected = searchNode.filter(function (d, i){
+
+                var notSelectedNodes = searchNode.filter(function (d, i){
                     return lookupTable[d.name] != searchVal
                 });
-                selected.style("opacity", "0.1");
+
+                var selectedNodes = searchNode.filter(function (d, i){
+                    return lookupTable[d.name] == searchVal
+                });
                 var link = d3.selectAll(".link");
-                link.style("opacity", "0.1");
-                d3.selectAll(".node, .link").transition()
-                    .duration(5000)
-                    .style("opacity", "1");
-                console.log(selected);
+                if (!d3.select(gObject).classed("active")){
+
+                    selectedNodes.style("opacity", "1");
+                    selectedNodes.classed("activeNode", true);
+                    notSelectedNodes.style("opacity", "0.1");
+                    notSelectedNodes.classed("activeNode", false);
+
+                    link.style("opacity", "0.1");
+                    d3.select(gObject).classed("active", true);
+
+                    allShowing = false;
+                    console.log("Make Invisibile");
+                }
+                else {
+                    d3.select(gObject).classed("active", false);
+                    showAllNodes();
+                    console.log("Make Visible");
+
+                }
+
+//                d3.selectAll(".node, .link").transition()
+//                    .duration(5000)
+//                    .style("opacity", "1");
+            }
+
+            // Show all nodes on click in empty space
+            function showAllNodes(){
+                d3.event.stopPropagation();
+                //Put them back to opacity=1
+                node.style("opacity", 1);
+                node.classed("activeNode", true);
+                link.style("opacity", 1);
+                d3.selectAll("g.cell").classed("active", false);
+                toggle = 0;
+                allShowing = true;
             }
 
             resize();
