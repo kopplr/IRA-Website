@@ -4,7 +4,7 @@
 
     .link {
         stroke: #999;
-        stroke-opacity: .6;
+        stroke-opacity: 0.6;
     }
 
     .node {
@@ -26,8 +26,16 @@
     g {
         font-family: 'Roboto', sans-serif;
     }
-    .cell {
+    g.cell {
         cursor: pointer;
+    }
+    g.cell text {
+        fill: white;
+    }
+    .legendSize circle {
+/*        stroke: white;*/
+        fill: #999;
+        fill-opacity: 0.6;
     }
 
 
@@ -52,7 +60,7 @@
 
             // Initialize Ordinal Colour Scale
             var color = d3.scale.ordinal()
-                .domain(["02", "03", "04", "05", "06", "07", "13", "14", "15", "21", "22", "23", "24"])
+                .domain(["02", "03", "04", "05", "06", "07", "14", "15", "21", "22", "23"])
                 .range([
                     "#009933", // Science
                     "#ff0000", // Engineering
@@ -60,32 +68,12 @@
                     "#ffff00", // Nursing
                     "#996633", // Business
                     "#ff9933", // Arts and Science
-                    "#cc00cc", // Divinity
                     "#ffcccc", // Humanities
                     "#ff66ff", // Social Science
                     "#0000cc", // Medicine
                     "#cc9900", // Midwifery
                     "#00ccff", // Interns and Residents
-                    "#ffff00"  // Collaborative Nursing
             ]);
-        // Faculty Name to Number
-        var lookupTableName = {
-            "Science": "02",
-            "Engineering": "03",
-            "Health Science": "04",
-            "Nursing": "05",
-            "Business": "06",
-            "Arts and Science": "07",
-            "Divinity": "13",
-            "Humanities": "14",
-            "Social Science": "15",
-            "Medicine": "21",
-            "Midwifery": "22",
-            "Interns and Residents": "23",
-            "Collaborative Nursing": "24"
-        };
-        console.log(lookupTableName);
-
 
             // Configure force layout
             var force = d3.layout.force();
@@ -99,7 +87,7 @@
             if (error) throw error;
 
             // The 'lookup' variable refers to data from the Program-Faculty-Lookup.txt file
-            // The 'linnks' variable refers to data from the 3-year-program-transfer.txt file
+            // The 'links' variable refers to data from the 3-year-program-transfer.txt file
 
             // Set up Program/Faculty lookup table
             var lookupTable = {};
@@ -116,7 +104,9 @@
                     //define the event handler function
 
             function zoom() {
-                d3.event.sourceEvent.stopPropagation();
+                if (d3.event.sourceEvent){
+                    d3.event.sourceEvent.stopPropagation();
+                }
                 console.log("zoom", d3.event.translate, d3.event.scale);
                 scaleFactor = d3.event.scale;
                 translation = d3.event.translate;
@@ -173,7 +163,12 @@
                     console.log("clicked on background");
                 });
 
-
+            var polygon = graph.append("polygon");
+            var points = "";
+            var vizTitle = graph.append("text")
+                .attr("x", "0")
+                .attr("y", "0")
+                .style("fill", "#ffffff");
             // Tooptip in top left corner
             var div = d3.select("body").append("div")
                 .attr("class", "tooltip")
@@ -199,30 +194,17 @@
                          "Nursing",
                          "Business",
                          "Arts and Science",
-                         "Divinity",
                          "Humanities",
                          "Social Science",
                          "Medicine",
                          "Midwifery",
-                         "Interns and Residents",
-                         "Collaborative Nursing"
+                         "Interns and Residents"
                         ]);
 
             graph.select(".legendOrdinal")
                 .call(legend);
 
-            d3.selectAll("g.cell")
-                .on("click", function(d){
-                    if (d3.event.defaultPrevented) return;
-                    var self = this;
-                    var activeLegends = d3.selectAll("g.cell");
-                  //  console.log(activeLegends);
-                    activeLegends.filter(function (x) {return self != this;})
-                        .classed("active", false);
-//                    d3.selectAll("g.cell.active").classed("active",false);
-                    searchNode(d, this);
 
-                });
 
 
             graph.append("g")
@@ -239,6 +221,19 @@
 
             graph.select(".legendSize")
                 .call(legendSize);
+
+            d3.selectAll("g.cell")
+                .on("click", function(d){
+                    if (d3.event.defaultPrevented) return;
+                    var self = this;
+                    var activeLegends = d3.selectAll("g.cell");
+                  //  console.log(activeLegends);
+                    activeLegends.filter(function (x) {return self != this;})
+                        .classed("active", false); // Set all other faculty filters to false
+//                    d3.selectAll("g.cell.active").classed("active",false);
+                    searchNode(d, this);
+
+                });
 
             // Create nodes for each unique source and target.
             var nodesByName = {};
@@ -259,6 +254,7 @@
                 .enter().append("line")
                   .attr("class", "link");
             var allShowing = true;
+            var facultySelected = false;
             var timeout;
             // Create the node circles.
             var node = vis.selectAll(".node")
@@ -298,10 +294,10 @@
                   .classed("activeNode", true)
                   .on("click", function(d){
                       if (d3.event.defaultPrevented || !d3.select(this).classed("activeNode")) return; // click suppressed
-                      connectedNodes(d, allShowing, this); // else highlight connected nodes
+                      connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
                   })
                   .on("mouseover", function(d){
-                      if(d3.select(this).style("opacity") == 1){
+                      if(d3.select(this).classed("activeNode")){
                           div.transition()
                         .duration(200)
                         .style("opacity", 0.9);
@@ -314,8 +310,10 @@
                         div.transition()
                             .duration(500)
                             .style("opacity", 0);
-                  })
-                  .call(drag);
+                  });
+            if(node.classed("activeNode")){
+                node.call(drag);
+            }
 
             // Add program name
             node.append("title")
@@ -329,9 +327,6 @@
             //      .linkStrength(0.08)
                   .on("tick", function(){tick();})
                   .start();
-
-            // Configure highlighting of faculty
-            var toggleSearch = 0;
 
             /* Configure highlighting of connected nodes */
             var toggle = 0;
@@ -354,132 +349,161 @@
             // Change opacity to highlight connected nodes
             function connectedNodes(clickedOn, firstClick, nodeClicked) {
                 console.log(clickedOn);
+                d3.selectAll("g.cell").classed("active", false);
                 if (firstClick){
+                    console.log("first click!");
                     d3.select(nodeClicked).classed("baseNode","true");
                     node.classed("activeNode", function(o){
                         return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? true : false;
                     })
-                    node.style("opacity", function (o) {
-                        return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? 1 : 0.1;
+                    node.style("stroke-opacity", function (o) {
+                        return (neighboring(clickedOn, o) | neighboring(o, clickedOn)) ? 1 : 0.1;
                     });
-                    link.style("opacity", function (o) {
-                        return clickedOn.index==o.source.index | clickedOn.index==o.target.index ? 1 : 0.1;
+                    node.style("fill-opacity", function (o) {
+                        return (neighboring(clickedOn, o) | neighboring(o, clickedOn)) ? 1 : 0.1;
+                    });
+                    link.style("stroke-opacity", function (o) {
+                        return clickedOn.index==o.source.index | clickedOn.index==o.target.index ? 0.6 : 0.1;
                     });
                     allShowing = false;
+                    facultySelected = false;
                 }
                 else {
-                    console.log(d3.select(nodeClicked));
                     if (d3.select(nodeClicked).classed("baseNode")){
                         console.log("base clicked!");
                         showAllNodes();
                         return;
                     }
-                    if (d3.select(nodeClicked).classed("clickedNode")){
-                        console.log("clickedNode!");
-                        node.each(function(d){
-                        if( ( neighboring(clickedOn, d) | neighboring(d, clickedOn) ) && !d3.select(this).classed("baseNode") && !d3.select(this).classed("clickedNode")){
-                           d3.select(this)
-                            .classed("activeNode", false)
-                            .style("opacity", 0.1);
-                        }
-                        });
-
-                        link.each(function(d){
-                           if(clickedOn.index==d.source.index | clickedOn.index==d.target.index){
-                               d3.select(this).style("opacity", 0.1);
-                           }
-                        });
-                        d3.select(nodeClicked).classed("clickedNode",false);
-                        return;
-                    }
+//                    if (d3.select(nodeClicked).classed("clickedNode")){ // Clicked on a node that was already clicked
+//                        console.log("clickedNode!");
+//
+//                    }
 
                     node.each(function(d){
                         if(neighboring(clickedOn, d) | neighboring(d, clickedOn)){
-                           console.log("addnode!");
-                            console.log(d3.select(d));
                            d3.select(this)
                             .classed("activeNode", true)
-                            .style("opacity", 1);
+                            .style("stroke-opacity", 1)
+                            .style("fill-opacity", 1);
                         }
                     });
 
                     link.each(function(d){
                        if(clickedOn.index==d.source.index | clickedOn.index==d.target.index){
-                           d3.select(this).style("opacity", 1);
+                           d3.select(this).style("stroke-opacity", 0.6);
+
                        }
                     });
                     d3.select(nodeClicked).classed("clickedNode",true);
 
                 }
-//                    if(toggle==0){
-//                        //Reduce the opacity of all but the neighbouring nodes
-//                       // d = d3.select(clickedOn).node().__data__;
-//
-//                        node.classed("activeNode", function(o){
-//                            return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? true : false;
-//                        })
-//                        node.style("opacity", function (o) {
-//                            return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? 1 : 0.1;
-//                        });
-//                        link.style("opacity", function (o) {
-//                            return clickedOn.index==o.source.index | clickedOn.index==o.target.index ? 1 : 0.1;
-//                        });
-//                        toggle = 1;
-//
-//                    }
-//                    else {
-//                        showAllNodes();
-//                    }
-
-
             }
 
             function searchNode(searchVal, gObject) {
                 var searchNode = d3.selectAll(".node");
-
                 var notSelectedNodes = searchNode.filter(function (d, i){
                     return lookupTable[d.name] != searchVal
                 });
 
+
                 var selectedNodes = searchNode.filter(function (d, i){
                     return lookupTable[d.name] == searchVal
                 });
+                console.log(searchVal);
+                if(searchVal == 1 || searchVal == 0){ // Entry-level program filter
+                    console.log("Entry-level program!");
+                    var entryLevel;
+                    var other;
+                    entryLevel = searchNode.filter(function(d){
+                       return d.name == "NURSING" ||
+                             d.name == "ENGINEERING 1" ||
+                             d.name == "ENGINEERING 1 CO-OP" ||
+                             d.name == "ENVIRONMENTAL & EARTH SCIENCES 1" ||
+                             d.name == "HUMANITIES 1" ||
+                             d.name == "SOCIAL SCIENCES 1" ||
+                             d.name == "INTEGRATED SCIENCE 1" ||
+                             d.name == "ARTS & SCIENCE 1" ||
+                             d.name == "COMPUTER SCIENCE 1" ||
+                             d.name == "COMPUTER SCIENCE 1 CO-OP" ||
+                             d.name == "BUSINESS 1" ||
+                             d.name == "BUSINESS" ||
+                             d.name == "LIFE SCIENCES 1" ||
+                             d.name == "MATHEMATICS & STATISTICS 1" ||
+                             d.name == "MEDICAL RADIATION SCIENCES" ||
+                             d.name == "MUSIC 1" ||
+                             d.name == "PHYSICAL SCIENCES 1" ||
+                             d.name == "STUDIO ART I" ||
+                             d.name == "TECHNOLOGY 1" ||
+                             d.name == "HONOURS BACHELOR OF HEALTH SCIENCES" ||
+                             d.name == "HONOURS KINESIOLOGY 1" ||
+                             d.name == "MIDWIFERY" ||
+                             d.name == "MEDICINE";
+                    });
+                    other = searchNode.filter(function(d){
+                       return d.name != "NURSING" &&
+                             d.name != "ENGINEERING 1" &&
+                             d.name != "ENGINEERING 1 CO-OP" &&
+                             d.name != "ENVIRONMENTAL & EARTH SCIENCES 1" &&
+                             d.name != "HUMANITIES 1" &&
+                             d.name != "SOCIAL SCIENCES 1" &&
+                             d.name != "INTEGRATED SCIENCE 1" &&
+                             d.name != "ARTS & SCIENCE 1" &&
+                             d.name != "COMPUTER SCIENCE 1" &&
+                             d.name != "COMPUTER SCIENCE 1 CO-OP" &&
+                             d.name != "BUSINESS 1" &&
+                             d.name != "BUSINESS" &&
+                             d.name != "LIFE SCIENCES 1" &&
+                             d.name != "MATHEMATICS & STATISTICS 1" &&
+                             d.name != "MEDICAL RADIATION SCIENCES" &&
+                             d.name != "MUSIC 1" &&
+                             d.name != "PHYSICAL SCIENCES 1" &&
+                             d.name != "STUDIO ART I" &&
+                             d.name != "TECHNOLOGY 1" &&
+                             d.name != "HONOURS BACHELOR OF HEALTH SCIENCES" &&
+                             d.name != "HONOURS KINESIOLOGY 1" &&
+                             d.name != "MIDWIFERY" &&
+                             d.name != "MEDICINE";
+                    });
+                    searchVal == 1? (selectedNodes = entryLevel, notSelectedNodes = other) : (selectedNodes = other, notSelectedNodes = entryLevel);
+                }
                 var link = d3.selectAll(".link");
                 if (!d3.select(gObject).classed("active")){
 
-                    selectedNodes.style("opacity", "1");
-                    selectedNodes.classed("activeNode", true);
-                    notSelectedNodes.style("opacity", "0.1");
-                    notSelectedNodes.classed("activeNode", false);
+                    selectedNodes
+                        .style("stroke-opacity", 1)
+                        .style("fill-opacity", 1)
+                        .classed("activeNode", true);
+                    notSelectedNodes
+                        .style("stroke-opacity", 0.1)
+                        .style("fill-opacity", 0.1)
+                        .classed("activeNode", false);
 
-                    link.style("opacity", "0.1");
+                    link.style("stroke-opacity", 0.1);
                     d3.select(gObject).classed("active", true);
-
+                    facultySelected = true;
                     allShowing = false;
-                    console.log("Make Invisibile");
                 }
                 else {
                     d3.select(gObject).classed("active", false);
                     showAllNodes();
-                    console.log("Make Visible");
 
                 }
-
-//                d3.selectAll(".node, .link").transition()
-//                    .duration(5000)
-//                    .style("opacity", "1");
             }
 
             // Show all nodes on click in empty space
             function showAllNodes(){
                 d3.event.stopPropagation();
                 //Put them back to opacity=1
-                node.style("opacity", 1);
-                node.classed("activeNode", true);
-                link.style("opacity", 1);
+                node
+                    .style("stroke-opacity", 1)
+                    .style("fill-opacity", 1)
+                    .classed("activeNode", true)
+                    .classed("clickedNode", false)
+                    .classed("baseNode", false);
+                link.style("stroke-opacity", 0.6);
                 d3.selectAll("g.cell").classed("active", false);
-                toggle = 0;
                 allShowing = true;
+                facultySelected = false;
             }
 
             resize();
@@ -496,13 +520,21 @@
                     .attr("cy", function(d) { return translation[1] + scaleFactor*d.y; });
             }
 
+
             function resize() {
                 console.log("resize");
                 width = window.innerWidth, height = window.innerHeight;
                 d3.select("svg").attr("width", width).attr("height", height);
                 force.size([width, height]).resume();
+                points ="0,0 " + width*0.2 + ",0 " + width*0.3 + "," + height + " " + "0," + height;
+                console.log(points);
+                polygon
+                    .attr("points", points )
+                    .style("opacity", 0.8);
             }
 
+            var strokePoly = "#fff000";
+            polygon.attr("stroke", strokePoly);
 
         }
         </script>
