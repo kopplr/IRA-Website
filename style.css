@@ -138,6 +138,7 @@ article:hover .overlay {
 }
 .site-nav {
     display: inline-block;
+    height: 100%;
 }
 #nav-right {
     float: right;
@@ -176,15 +177,24 @@ article:hover .overlay {
     display: table;
     table-layout: fixed;
     width: 100%;
+
 }
-.site-footer nav ul li{
+.site-footer nav ul li {
     display: table-cell;
     text-align: center;
+
 }
+/* Corner colours */
+.site-footer nav ul li:first-child {
+    background: #8e979d;
+}
+.site-footer nav ul li:last-child {
+    background: #f1f1f1;
+}
+/***********************************/
 .site-footer nav ul li a:link,
 .site-footer nav ul li a:visited {
     display: block;
-/*    margin-right: 0px;*/
     padding: 10px 30px;
     text-decoration: none;
     border-right: 1px solid white;
@@ -202,13 +212,15 @@ article:hover .overlay {
 /* Main Column ***********************************************************************************/
 .main-column {
     width: 70%;
-/*    float: left;*/
     padding: 20px;
     display: table-cell;
     background-color: #f1f1f1;
 }
 .main-column a {
     text-decoration: none;
+}
+.main-column h2 {
+    font-weight: 300;
 }
 
 /* Secondary (widget) column ***********************************************************************************/
@@ -235,6 +247,11 @@ button {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     border: none;
+}
+button.child-category {
+    margin:auto;
+    margin-left: 10%;
+    width: 90%
 }
 button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
@@ -452,8 +469,7 @@ table {
 .tabs {
     margin-top: 20px;
 /*    padding-left: 165px;*/
-    width:80%;
-    margin-left: 165px;
+    width:100%;
     margin-right: auto;
     display:inline-block;
 }
@@ -478,12 +494,14 @@ table {
 /*    display: table-cell;*/
     list-style:none;
 }
+.tab-links h3, .profile-content h3 {
+    font-weight: 300;
+}
 .tab-links a {
     padding:9px 30px;
     display:inline-block;
     background:#fff;
     font-size:16px;
-    font-weight:600;
     color:#4c4c4c;
     transition:all ease-in 0.12s;
 
@@ -532,16 +550,19 @@ li a, li a:hover {
 
 /* Catchphrase and Mandate ********************************************************************************************/
 #catchphrase {
-    text-align: center;
-    width: 50%;
-    margin-left: 165px;
+    text-align: left;
+    width: 75%;
     margin-right: auto;
-    font-weight: bold;
+
+}
+#catchphrase h3 {
+    font-weight: 300;
 }
 #mandate {
-    width: 75%;
-    margin-left: 165px;
+    width: 100%;
     margin-right: auto;
+    padding-bottom: 20px;
+    border-bottom: 2px black solid;
 }
 #mandate ul {
     list-style: disc outside none;

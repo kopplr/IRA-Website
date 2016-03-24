@@ -45,7 +45,10 @@ $curr_cat = get_category($cat_id);
                     <?php
                         $categories = get_categories(array('child_of' => $cat_id));
                         foreach($categories as $category){
-                            echo '<li><button data-filter=".' . $category->slug . '">' . $category->name . ' ' . $category->category_parent . '</button></li>';
+                            echo '<li><button data-filter=".' . $category->slug . '" class="' . ($category->category_parent != $cat_id ? "child-category" : "") . '">' . $category->name . '</button></li>';
+                            if($category->category_parent != $cat_id){
+                               // var_dump($category);
+                            }
                         }
                     ?>
                 </ul>

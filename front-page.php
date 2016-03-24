@@ -9,13 +9,13 @@ get_header(); ?>
 <div style="background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg'); background-repeat:no=repeat;"><!-- background-attachment:fixed;-->
     <table border="1">
         <tr>
-            <td rowspan="2" ><a id="col1" href="http://localhost/wordpress/ira-portals/">IRA Portals<i class="fa fa-external-link"></i></a></td>
+            <td rowspan="2" ><a id="col1" href="http://localhost/wordpress/category/ira-portals/">IRA Portals<i class="fa fa-external-link"></i></a></td>
 
             <td rowspan="2"><a id="col2" href="http://localhost/wordpress/category/data/">Data<i class="fa fa-bar-chart"></i></a></td>
 
             <td rowspan="2"><a id="col3" href="http://localhost/wordpress/category/publications/">Publications<i class="fa fa-newspaper-o"></i></a></td>
 
-            <td rowspan="2"><a id="col4" href="http://localhost/wordpress/ira-portals/">Accountability<i class="fa fa-check-square-o"></i></a></td>
+            <td rowspan="2"><a id="col4" href="http://localhost/wordpress/category/accountability/">Accountability<i class="fa fa-check-square-o"></i></a></td>
 
             <td rowspan="2"><a id="col5" href="http://localhost/wordpress/fact-book/">Fact Book<i class="fa fa-book"></i></a></td>
 

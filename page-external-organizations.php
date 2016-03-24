@@ -69,15 +69,8 @@
 
                     <a href="<?php the_field('external_link_url'); ?>" target="_blank"> <!-- Link to post -->
                         <article class="post">
-
-                            <img src="<?php the_field('logo') ?>">
                             <?php
-                                if($category->slug != 'institutional-research-offices'){
-                                    echo '<h1>' . $post->post_title . '</h1>';
-                                }
-                                if($post->post_content != ""){
-                                    echo '<div class="overlay"><div class="overlay-text">' . $post->post_content . '</div></div>';
-                                }
+                                echo '<h1>' . $post->post_title . '</h1>';
                             ?>
 
                         </article>

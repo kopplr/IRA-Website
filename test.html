@@ -37,6 +37,12 @@
         fill: #999;
         fill-opacity: 0.6;
     }
+    .legendContainer > text {
+        font-size: 30px;
+    }
+    .legendContainer {
+        padding: 0 50%;
+    }
 
 
 </style>
@@ -163,28 +169,47 @@
                     console.log("clicked on background");
                 });
 
-            var polygon = graph.append("polygon");
+            // Funky shape as backgroun for legend
             var points = "";
-            var vizTitle = graph.append("text")
-                .attr("x", "0")
-                .attr("y", "0")
-                .style("fill", "#ffffff");
+            var polygon = graph.append("polygon")
+                            .attr("opacity", 0.8);
+
+            // Container to hold legend elements
+            var legendContainer = graph.append("g")
+                            .attr("class", "legendContainer");
+
+            // Title of visualization
+            var xDistance = 10;
+            var yDistance = 40;
+            var vizTitle = legendContainer.append("text")
+                .attr("x", xDistance)
+                .attr("y", yDistance)
+                .style("fill", "#ffffff")
+                .append("tspan")
+                .attr("x", xDistance)
+                .attr("dy", "30")
+                .text("UNDERGRADUATE")
+                .append("tspan")
+                .attr("x", xDistance)
+                .attr("dy", "30")
+                .text("PLAN MOVEMENT");
+
             // Tooptip in top left corner
             var div = d3.select("body").append("div")
                 .attr("class", "tooltip")
-                .attr("x", "10%")
                 .style("opacity", "0");
 
             // Create a group that will hold all content to be zoomed
             var vis = graph.append("svg:g")
                 .attr("class", "plotting-area");
 
-            // Create a legend
-            graph.append("g")
+            // Create a legend for Faculties
+            var facultyTranslate = 0;
+            legendContainer.append("g")
                 .attr("class", "legendOrdinal")
-                .attr("transform", "translate(20,100)");
+                .attr("transform", "translate(20,120)");
 
-            var legend = d3.legend.color()
+            var legendOrdinal = d3.legend.color()
                 .shape("circle")
                 .shapePadding(10)
                 .scale(color)
@@ -201,13 +226,15 @@
                          "Interns and Residents"
                         ]);
 
-            graph.select(".legendOrdinal")
-                .call(legend);
+            var facultyLegend = legendContainer.select(".legendOrdinal")
+                .call(legendOrdinal);
 
 
 
 
-            graph.append("g")
+            // Create a legend for entry-level programs
+            var entryTranslate = 0;
+            legendContainer.append("g")
                 .attr("class", "legendSize")
                 .attr("transform", "translate(20, 500)");
 
@@ -219,20 +246,19 @@
                 .cells(2) // Number of objects (circles)
                 .ascending(true);
 
-            graph.select(".legendSize")
+            var entryLegend = legendContainer.select(".legendSize")
                 .call(legendSize);
 
+            // Filtering by faculty or entry-level program
             d3.selectAll("g.cell")
                 .on("click", function(d){
                     if (d3.event.defaultPrevented) return;
                     var self = this;
                     var activeLegends = d3.selectAll("g.cell");
-                  //  console.log(activeLegends);
+
                     activeLegends.filter(function (x) {return self != this;})
                         .classed("active", false); // Set all other faculty filters to false
-//                    d3.selectAll("g.cell.active").classed("active",false);
                     searchNode(d, this);
-
                 });
 
             // Create nodes for each unique source and target.
@@ -302,8 +328,8 @@
                         .duration(200)
                         .style("opacity", 0.9);
                       div.html(d.name)
-                        .style("left", "10px")
-                        .style("top", "10px");
+                        .style("right", "20px")
+                        .style("top", "20px");
                       }
                   })
                   .on("mouseout", function(d){
@@ -505,7 +531,8 @@
                 allShowing = true;
                 facultySelected = false;
             }
-
+            var minWidth1 = 0;
+            var minWidth1 = 0;
             resize();
             d3.select(window).on("resize", resize);
 
@@ -526,11 +553,24 @@
                 width = window.innerWidth, height = window.innerHeight;
                 d3.select("svg").attr("width", width).attr("height", height);
                 force.size([width, height]).resume();
-                points ="0,0 " + width*0.2 + ",0 " + width*0.3 + "," + height + " " + "0," + height;
-                console.log(points);
+
+                minWidth1 = (width*0.2 < 240) ? 240 : width*0.2;
+                minWidth2 = (width*0.3 < 356) ? 356 : width*0.3;
+                console.log(minWidth1);
+                console.log(minWidth2);
+                points ="0,0 " + minWidth1 + ",0 " +minWidth2 + "," + height + " " + "0," + height;
                 polygon
-                    .attr("points", points )
-                    .style("opacity", 0.8);
+                    .attr("points", points );
+
+
+                yDistance = (height*0.075 - 32.5);
+                d3.select("tspan").attr("y", yDistance);
+
+                facultyTranslate = "translate(20," + (height*0.5 - 160) + ")";
+                facultyLegend.attr("transform", "translate(20,120)");
+
+                entryTranslate = "translate(20," + (height*0.925 - 25) + ")";
+                entryLegend.attr("transform", "translate(20,460)");
             }
 
             var strokePoly = "#fff000";
