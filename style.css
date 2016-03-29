@@ -25,6 +25,13 @@ div.container {
     padding-left: 20px;
     padding-right: 20px;
 */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+html,body {
+    height: 100%;
 }
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
@@ -146,6 +153,7 @@ article:hover .overlay {
 
 /* Site Header Menu ***********************************************************************************/
 .site-header {
+    flex: 0 1 40px;
     border-bottom: 2px solid #999;
     background: #323e48;
 
@@ -330,8 +338,12 @@ button.is-checked {
 
 
 #clever-vis {
-    width: 100%;
-    height: 535px;
+    flex:0 1 500px;
+    height: 550px;
+/*    background: pink;*/
+    display: flex;
+    align-items: stretch;
+    padding: 10px;
 }
 
 /* Home Page Menu ************************************************************************************/
@@ -358,6 +370,7 @@ button.is-checked {
 }
 
 /* Table Home Page Menu ************************************************************************************/
+/*
 table {
     border: 2px solid black;
     width:100%;
@@ -365,6 +378,7 @@ table {
     border-collapse:collapse;
     text-align:center;
     background-color:rgba(241,241,241,0.8);
+    border: 2px solid black;
 }
 #col1 .fa, #col2 .fa, #col3 .fa, #col4 .fa, #col5 .fa{
     display:block;
@@ -386,12 +400,15 @@ table {
     height:100%;
     width:100%;
 }
+*/
 
 /* Submit a Request ************************************************************************************/
 #submit-request {
     width: 100%;
     height: 200px;
     color: white;
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
+    background-repeat:no=repeat;
 }
 .inner-div {
     margin: auto;
@@ -642,4 +659,63 @@ a.back-to-top {
     border-radius: 2px;
     -webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
+}
+
+
+
+#home-menu {
+    flex:1;
+    background: peachpuff;
+
+    display: flex;
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
+    background-repeat:no=repeat;
+}
+.home-column {
+
+    flex: 1;
+    background-color:rgba(241,241,241,0.8);
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    font-size: 30px;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.home-column > div > i {
+    display:block;
+    font-size: 60px;
+    padding: 10px;
+}
+.home-column > div {
+    text-align: center;
+}
+.home-split-column {
+    flex-direction: column;
+    border-right: 2px solid black;
+}
+.home-split-column i {
+/*    display: inline;*/
+}
+.home-split-column > a {
+    width:100%;
+    flex: 1;
+    font-size: 25px;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.home-split-column > a:first-child {
+    border-bottom: 2px solid black;
+}
+
+#mcmaster-header {
+    flex: 0 1 100px;
+}
+
+#the-content {
+    flex: 1 1 auto;
 }

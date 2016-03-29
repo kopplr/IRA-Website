@@ -20,24 +20,24 @@ $curr_cat = get_category($cat_id);
         </div>
 -->
 
-        <nav>
+<!--        <nav>-->
             <?php
 
-            $walker = new my_nav_walker;
+//            $walker = new my_nav_walker;
+//
+//            $args = array(
+//                'theme_location' => 'sidebar',
+//                'container_class' => 'button-group filter-button-group',
+//                'walker' => $walker
+//            );
+//
+//            ?>
 
-            $args = array(
-                'theme_location' => 'sidebar',
-                'container_class' => 'button-group filter-button-group',
-                'walker' => $walker
-            );
+              <?php
+//            wp_nav_menu($args)
 
             ?>
-
-            <?php
-            wp_nav_menu($args)
-
-            ?>
-        </nav>
+<!--        </nav>-->
         <nav>
             <div class="button-group filter-button-group">
                 <ul>

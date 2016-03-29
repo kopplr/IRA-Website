@@ -38,12 +38,15 @@ maroon
       -moz-box-sizing: border-box;
     }
     #mcmaster-header {
+
       overflow: hidden;
-      background: #fff;
+      background: #fff;/*
       height: 100px;
       width: 100%;
-      font-family: 'Roboto Condensed', Arial, sans-serif;
       position: relative;
+*/
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+
     }
     #mcmaster-header #mcmaster-brand {
 /*      display: table-cell;*/

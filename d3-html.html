@@ -28,8 +28,17 @@
     g.cell {
         cursor: pointer;
     }
+    g.cell:hover {
+        fill-opacity: 0.4;
+    }
+    g.cell.active:hover {
+        fill-opacity: 1;
+    }
     g.cell text {
         fill: white;
+    }
+    g.cell.active text{
+        fill: #e8941a;
     }
     .legendSize circle {
 /*        stroke: white;*/
@@ -43,6 +52,10 @@
         padding: 0 50%;
     }
 
+    .activeNode {
+        cursor: pointer;
+    }
+
 
 </style>
 <body>
@@ -51,8 +64,22 @@
     <script src="/js/d3-legend.min.js"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script>
-//            var width = 2000,
-//                height = 535;
+            // Function for moving nodes to front
+            d3.selection.prototype.moveToFront = function() {
+              return this.each(function(){
+                this.parentNode.appendChild(this);
+              });
+            };
+
+            // Function for moving to back
+            d3.selection.prototype.moveToBack = function() {
+                return this.each(function() {
+                    var firstChild = this.parentNode.firstChild;
+                    if (firstChild) {
+                        this.parentNode.insertBefore(this, firstChild);
+                    }
+                });
+            };
 
             var scaleFactor = 1;
             var translation = [0,0];
@@ -101,11 +128,14 @@
             });
             console.log(lookupTable);
 
+            var mousePos = [0,0];
+            var newMousePos = [0,0];
+
             /*** Configure zoom behaviour ***/
             var zoomer = d3.behavior.zoom()
                             .scaleExtent([0.1,10])
                     //allow 10 times zoom in or out
-                            .on("zoom", zoom);
+                            .on("zoom",zoom);
                     //define the event handler function
 
             function zoom() {
@@ -126,24 +156,29 @@
                 .on("dragend", dragended);
 
             function dragstarted(d){
-                d3.event.sourceEvent.stopPropagation();
-                d3.select(this).classed("dragging", true);
-              //  force.stop(); //stop ticks while dragging
-                force.stop(); //stop ticks while dragging
+                if(d3.select(this).classed("activeNode")){
+                    d3.event.sourceEvent.stopPropagation();
+                    d3.select(this).classed("dragging", true);
+                    force.stop(); //stop ticks while dragging
+                }
             }
             function dragged(d){
-                if (d.fixed) return; //root is fixed
+                if(d3.select(this).classed("activeNode")){
+                    if (d.fixed) return; //root is fixed
 
-                //get mouse coordinates relative to the visualization
-                //coordinate system:
-                var mouse = d3.mouse(vis.node());
-                d.x = (mouse[0] - translation[0])/scaleFactor;
-                d.y = (mouse[1] - translation[1])/scaleFactor;
-                tick();//re-position this node and any links
+                    //get mouse coordinates relative to the visualization
+                    //coordinate system:
+                    var mouse = d3.mouse(vis.node());
+                    d.x = (mouse[0] - translation[0])/scaleFactor;
+                    d.y = (mouse[1] - translation[1])/scaleFactor;
+                    tick();//re-position this node and any links
+                }
             }
             function dragended(d){
-                d3.select(this).classed("dragging", false);
-                force.resume();
+                if(d3.select(this).classed("activeNode")){
+                    d3.select(this).classed("dragging", false);
+                    force.resume();
+                }
             }
 
 
@@ -151,22 +186,21 @@
             //Initialize SVG
             var graph = d3.select("body").append("svg")
               .append("g")
-                .attr("class", "graph")
-                .call(zoomer);
+                .attr("class", "graph");
 
             // Rectangle to catch mouse events for zoom
             var rect = graph.append("rect")
                 .attr("width", "80%")
                 .attr("height", "100%")
                 .attr("x", "10%")
-         //       .style("margin", "0 auto")
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .on("click", function(){
                     if (d3.event.defaultPrevented) return;
                     showAllNodes();
                     console.log("clicked on background");
-                });
+                })
+                .call(zoomer);
 
             // Funky shape as background for legend
             var points = "";
@@ -193,8 +227,12 @@
                 .attr("dy", "30")
                 .text("PLAN MOVEMENT");
 
+            // Pinned tooltip
+            var pinnedTooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
             // Tooptip in top left corner
-            var div = d3.select("body").append("div")
+            var tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("opacity", "0");
 
@@ -280,6 +318,7 @@
                   .attr("class", "link");
             var allShowing = true;
             var facultySelected = false;
+            var nodeHighlighted = false;
             var timeout;
             // Create the node circles.
             var node = vis.selectAll(".node")
@@ -322,27 +361,32 @@
                       connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
                   })
                   .on("mouseover", function(d){
-                      if(d3.select(this).classed("activeNode")){
-                          div.transition()
+                      if(d3.select(this).classed("activeNode") && !d3.select(this).classed("baseNode")){
+                          tooltip.transition()
                         .duration(200)
                         .style("opacity", 0.9);
-                      div.html(d.name)
+                          tooltip.html(d.name)
                         .style("right", "20px")
-                        .style("top", "20px");
+                        .style("top", (nodeHighlighted?"60px":"20px"));
                       }
                   })
                   .on("mouseout", function(d){
-                        div.transition()
+                        tooltip.transition()
                             .duration(500)
                             .style("opacity", 0);
-                  });
-            if(node.classed("activeNode")){
-                node.call(drag);
-            }
+                  })
+                  .call(drag);
+
+//            node.each(function(d){
+//                if(!d3.select(this).classed("activeNode")){
+//                d3.select(this).call(drag);
+//                }
+//            });
+
 
             // Add program name
-            node.append("title")
-                .text(function(d) {return d.name;})
+//            node.append("title")
+//                .text(function(d) {return d.name;})
 
             // Start the force layout.
             force
@@ -374,10 +418,27 @@
             // Change opacity to highlight connected nodes
             function connectedNodes(clickedOn, firstClick, nodeClicked) {
                 console.log(clickedOn);
-                d3.selectAll("g.cell").classed("active", false);
-                if (firstClick){
+                nodeHighlighted = true;
+                d3.selectAll("g.cell").classed("active", false); // Clear faculty/entry filters
+                if (d3.select(nodeClicked).classed("baseNode")){ // Base node was clicked, show all
+                    console.log("base clicked!");
+                    showAllNodes();
+                    return;
+                }
+//                if (firstClick){
                     console.log("first click!");
-                    d3.select(nodeClicked).classed("baseNode","true");
+                    force.stop(); // Stop moving
+                    tooltip.style("opacity", 0); // Clear unpinned tooltip (because it is the same as the pinned)
+                    pinnedTooltip.transition()
+                        .duration(200)
+                        .style("opacity", 0.9);
+                    pinnedTooltip.html(clickedOn.name) // Pin tooltip with name of clicked on node
+                        .style("right", "20px")
+                        .style("top", "20px");
+                    node.each(function(d){ // Allow for clicking back on previous baseNodes
+                        d3.select(this).classed("baseNode", false);
+                    });
+                    d3.select(nodeClicked).classed("baseNode", true);
                     node.classed("activeNode", function(o){
                         return neighboring(clickedOn, o) | neighboring(o, clickedOn) ? true : false;
                     })
@@ -390,38 +451,41 @@
                     link.style("stroke-opacity", function (o) {
                         return clickedOn.index==o.source.index | clickedOn.index==o.target.index ? 0.6 : 0.1;
                     });
+             //       rect.moveToFront();
+              //      node.moveToBack();
+                    d3.select(".activeNode").moveToFront(); // Brings activeNode nodes to front
                     allShowing = false;
                     facultySelected = false;
-                }
-                else {
-                    if (d3.select(nodeClicked).classed("baseNode")){
-                        console.log("base clicked!");
-                        showAllNodes();
-                        return;
-                    }
-//                    if (d3.select(nodeClicked).classed("clickedNode")){ // Clicked on a node that was already clicked
-//                        console.log("clickedNode!");
-//
+//                }
+//                else {
+//                    if (d3.select(nodeClicked).classed("baseNode")){
+//                        console.log("base clicked!");
+//                        showAllNodes();
+//                        return;
 //                    }
-
-                    node.each(function(d){
-                        if(neighboring(clickedOn, d) | neighboring(d, clickedOn)){
-                           d3.select(this)
-                            .classed("activeNode", true)
-                            .style("stroke-opacity", 1)
-                            .style("fill-opacity", 1);
-                        }
-                    });
-
-                    link.each(function(d){
-                       if(clickedOn.index==d.source.index | clickedOn.index==d.target.index){
-                           d3.select(this).style("stroke-opacity", 0.6);
-
-                       }
-                    });
-                    d3.select(nodeClicked).classed("clickedNode",true);
-
-                }
+////                    if (d3.select(nodeClicked).classed("clickedNode")){ // Clicked on a node that was already clicked
+////                        console.log("clickedNode!");
+////
+////                    }
+//                    force.stop();
+//                    node.each(function(d){
+//                        if(neighboring(clickedOn, d) | neighboring(d, clickedOn)){
+//                           d3.select(this)
+//                            .classed("activeNode", true)
+//                            .style("stroke-opacity", 1)
+//                            .style("fill-opacity", 1);
+//                        }
+//                    });
+//
+//                    link.each(function(d){
+//                       if(clickedOn.index==d.source.index | clickedOn.index==d.target.index){
+//                           d3.select(this).style("stroke-opacity", 0.6);
+//
+//                       }
+//                    });
+//                    d3.select(nodeClicked).classed("clickedNode",true);
+//
+//                }
             }
 
             function searchNode(searchVal, gObject) {
@@ -518,6 +582,7 @@
             // Show all nodes on click in empty space
             function showAllNodes(){
                 d3.event.stopPropagation();
+                force.resume();
                 //Put them back to opacity=1
                 node
                     .style("stroke-opacity", 1)
@@ -526,9 +591,12 @@
                     .classed("clickedNode", false)
                     .classed("baseNode", false);
                 link.style("stroke-opacity", 0.6);
-                d3.selectAll("g.cell").classed("active", false);
+                d3.selectAll("g.cell").classed("active", false); // Clear faculty/entry filters
+                rect.moveToBack();
                 allShowing = true;
                 facultySelected = false;
+                nodeHighlighted = false;
+                pinnedTooltip.style("opacity", 0);
             }
             var minWidth1 = 0;
             var minWidth1 = 0;
@@ -544,6 +612,7 @@
 
                 node.attr("cx", function(d) { return translation[0] + scaleFactor*d.x; })
                     .attr("cy", function(d) { return translation[1] + scaleFactor*d.y; });
+
             }
 
 
@@ -573,10 +642,6 @@
                 entryTranslate = "translate(20," + (height*0.925 - 25) + ")";
                 entryLegend.attr("transform", "translate(20,460)");
             }
-
-            var strokePoly = "#fff000";
-            polygon.attr("stroke", strokePoly);
-
         }
         </script>
 </body>

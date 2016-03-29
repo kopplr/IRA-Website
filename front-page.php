@@ -2,30 +2,27 @@
 
 get_header(); ?>
 
-
 <div id="clever-vis">
-    <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; margin: 0 auto; display: block" scrolling="no" width="100%" height="100%"></iframe>
+    <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; align-self: stretch; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
 </div>
-<div style="background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg'); background-repeat:no=repeat;"><!-- background-attachment:fixed;-->
-    <table border="1">
-        <tr>
-            <td rowspan="2" ><a id="col1" href="http://localhost/wordpress/category/ira-portals/">IRA Portals<i class="fa fa-external-link"></i></a></td>
 
-            <td rowspan="2"><a id="col2" href="http://localhost/wordpress/category/data/">Data<i class="fa fa-bar-chart"></i></a></td>
+<div id="home-menu" style="">
+    <a  class="home-column" href="http://localhost/wordpress/category/ira-portals/"><div  >IRA Portals<i class="fa fa-external-link"></i></div></a>
 
-            <td rowspan="2"><a id="col3" href="http://localhost/wordpress/category/publications/">Publications<i class="fa fa-newspaper-o"></i></a></td>
+    <a  class="home-column" href="http://localhost/wordpress/category/data/"><div >Data<i class="fa fa-bar-chart"></i></div></a>
 
-            <td rowspan="2"><a id="col4" href="http://localhost/wordpress/category/accountability/">Accountability<i class="fa fa-check-square-o"></i></a></td>
+    <a class="home-column" href="http://localhost/wordpress/category/publications/"><div >Publications<i class="fa fa-newspaper-o"></i></div></a>
 
-            <td rowspan="2"><a id="col5" href="http://localhost/wordpress/fact-book/">Fact Book<i class="fa fa-book"></i></a></td>
+    <a  class="home-column" href="http://localhost/wordpress/category/accountability/"><div >Accountability<i class="fa fa-check-square-o"></i></div></a>
 
-            <td><a id="col6_1" href="http://localhost/wordpress/about-us/"><i class="fa fa-info-circle fa-fw"></i>About Us</a></td>
-        </tr>
-        <tr>
-            <td><a id="col6_2" href="http://localhost/wordpress/glossary/"><i class="fa fa-question-circle fa-fw"></i>Glossary</a></td>
-        </tr>
-    </table>
+    <a  class="home-column" href="http://localhost/wordpress/fact-book/"><div >Fact Book<i class="fa fa-book"></i></div></a>
+    <div class="home-column home-split-column">
+        <a  href="http://localhost/wordpress/about-us/"><div><i class="fa fa-info-circle fa-fw"></i>About Us</div></a>
+        <a  href="http://localhost/wordpress/glossary/"><div><i class="fa fa-question-circle fa-fw"></i>Glossary</div></a>
+    </div>
 
+</div>
+</div>
     <nav class="home-nav" style="display:none">
         <?php
 

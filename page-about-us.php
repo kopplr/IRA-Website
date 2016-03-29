@@ -26,7 +26,7 @@ The Office of Institutional Research and Analysis at McMaster supports academic 
 <div class="site-content clearfix" style="display:table;">
     <div class="sidebar-column">
     </div>
-    <div class="main-column">
+    <div class="main-column" style="background-color:white">
         <?php
         the_post();
         the_content();

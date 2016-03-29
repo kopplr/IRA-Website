@@ -373,7 +373,7 @@
             </script>
             </header>
             <!-- site-header -->
-            <header class="site-header">
+            <?php if (!is_front_page()){ echo '<header class="site-header">';} ?>
                 <?php if (!is_front_page()){
                     echo '<nav class="site-nav">';
                 }?>
@@ -408,6 +408,6 @@
                     echo '</nav>';
                 }?>
 
-            </header><!-- /site-header -->
+            <?php if (!is_front_page()){ echo '</header><!-- /site-header -->';} ?>
 
 
