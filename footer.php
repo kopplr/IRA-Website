@@ -1,3 +1,4 @@
+
             <div class="site-footer"><!-- site-footer -->
                 <nav class="site-footer">
                         <?php
@@ -90,8 +91,9 @@
                   </svg>
                 </a>
             </footer>
+
             <a href="#" class="back-to-top"><i class="fa fa-angle-up fa-fw"></i></a>
-        </div><!-- /container -->
+<!--        </div> /container -->
 
         <?php wp_footer(); ?>
     </body>

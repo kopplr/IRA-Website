@@ -5,7 +5,7 @@ $curr_cat = get_category($cat_id);
 ?>
 
 
-<div class="site-content clearfix" style="display:table;">
+<div class="site-content">
     <div class="sidebar-column">
 <!--
         <div class="button-group filter-button-group">
@@ -106,6 +106,7 @@ $curr_cat = get_category($cat_id);
 </div>
 
 
+</div>
 
 <?php
 get_footer();

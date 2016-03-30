@@ -2,27 +2,37 @@
 
 get_header(); ?>
 
-<div id="clever-vis">
-    <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; align-self: stretch; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
+<div id="vis-group">
+    <div id="clever-vis">
+        <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
+
+
+    </div>
+    <div class="carousel-home" style="flex: 0 1 165px; order: -1;">
+        <i class="fa fa-angle-left"></i>
+    </div>
+    <div class="carousel-home" style="flex: 0 1 165px;">
+        <i class="fa fa-angle-right"></i>
+    </div>
 </div>
 
 <div id="home-menu" style="">
-    <a  class="home-column" href="http://localhost/wordpress/category/ira-portals/"><div  >IRA Portals<i class="fa fa-external-link"></i></div></a>
+    <a  class="home-column" href="http://localhost/wordpress/category/ira-portals/"><div  >IRA PORTALS<i class="fa fa-external-link"></i></div></a>
 
-    <a  class="home-column" href="http://localhost/wordpress/category/data/"><div >Data<i class="fa fa-bar-chart"></i></div></a>
+    <a  class="home-column" href="http://localhost/wordpress/category/data/"><div >DATA<i class="fa fa-bar-chart"></i></div></a>
 
-    <a class="home-column" href="http://localhost/wordpress/category/publications/"><div >Publications<i class="fa fa-newspaper-o"></i></div></a>
+    <a class="home-column" href="http://localhost/wordpress/category/publications/"><div >PUBLICATIONS<i class="fa fa-newspaper-o"></i></div></a>
 
-    <a  class="home-column" href="http://localhost/wordpress/category/accountability/"><div >Accountability<i class="fa fa-check-square-o"></i></div></a>
+    <a  class="home-column" href="http://localhost/wordpress/category/accountability/"><div >ACCOUNTABILITY<i class="fa fa-check-square-o"></i></div></a>
 
-    <a  class="home-column" href="http://localhost/wordpress/fact-book/"><div >Fact Book<i class="fa fa-book"></i></div></a>
+    <a  class="home-column" href="http://localhost/wordpress/fact-book/"><div >FACT BOOK<i class="fa fa-book"></i></div></a>
     <div class="home-column home-split-column">
-        <a  href="http://localhost/wordpress/about-us/"><div><i class="fa fa-info-circle fa-fw"></i>About Us</div></a>
-        <a  href="http://localhost/wordpress/glossary/"><div><i class="fa fa-question-circle fa-fw"></i>Glossary</div></a>
+        <a  href="http://localhost/wordpress/about-us/"><div><i class="fa fa-info-circle fa-fw"></i>ABOUT US</div></a>
+        <a  href="http://localhost/wordpress/glossary/"><div><i class="fa fa-question-circle fa-fw"></i>GLOSSARY</div></a>
     </div>
 
 </div>
-</div>
+</div> <!-- container --!>
     <nav class="home-nav" style="display:none">
         <?php
 
@@ -39,12 +49,9 @@ get_header(); ?>
         ?>
     </nav>
     <div id="submit-request">
-        <div class="inner-div">
-            <div style="display:table-cell;vertical-align:middle;text-align:center;"><h2>Can't find what you're looking for?</h2></div>
-            <div style="display:table-cell;vertical-align:middle;text-align:center;"><a href="http://localhost/wordpress/submit-request"><h3>Submit a Request</h3></a></div>
+            <h2>Can't find what you're looking for?</h2>
+            <a href="http://localhost/wordpress/submit-request"><h3>SUBMIT A REQUEST</h3></a>
         </div>
-
-    </div>
 
 <?php
 if (have_posts()) :
