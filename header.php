@@ -153,7 +153,7 @@
                       </g>
                       </svg>
                         </a></li>
-                    <li><h1><a id="mcmaster-title" href="<?php echo home_url(); ?>"> <?php bloginfo('name') ?></a></h1></li>
+                    <li style><h1><a id="mcmaster-title" href="<?php echo home_url(); ?>"> <?php bloginfo('name') ?></a></h1></li>
                     <li><a id="mcmaster-menu" class="nav-item" onClick="macMenuToggle()"><span></span>Menu</a></li>
                     <li><a id="mcmaster-search" class="nav-item" onClick="macSearchToggle()"><span></span>Search</a></li>
                 </ul>

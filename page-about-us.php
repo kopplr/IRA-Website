@@ -23,7 +23,22 @@ The Office of Institutional Research and Analysis at McMaster supports academic 
 </ul>
 </div>
 -->
-<div class="site-content clearfix" style="display:table;">
+<div class="site-title">
+    <?php while ( have_posts() ) : the_post(); ?>
+
+
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+        <header class="entry-header">
+                <h1 class="entry-title"><?php the_title(); ?></h1>
+        </header>
+        </article>
+
+
+
+        <?php endwhile; ?>
+</div>
+<div class="site-content">
     <div class="sidebar-column">
     </div>
     <div class="main-column" style="background-color:white">
@@ -240,7 +255,7 @@ The Office of Institutional Research and Analysis at McMaster supports academic 
             </div>
 
             <div id="tab3" class="tab">
-                <img src="http://localhost/wordpress/wp-content/uploads/2016/03/Our-Community-e1457451367803.png">
+                <img src="http://localhost/wordpress/wp-content/uploads/2016/03/OUAC-our-community-e1459431507321.png">
             </div>
 
         </div>
@@ -255,3 +270,4 @@ The Office of Institutional Research and Analysis at McMaster supports academic 
 get_footer();
 
 ?>
+</div>

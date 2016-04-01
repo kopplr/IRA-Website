@@ -1,5 +1,5 @@
 
-            <div class="site-footer"><!-- site-footer -->
+            <div class="site-footer <?php if(is_front_page()){ echo 'home-page-footer';} ?>"><!-- site-footer -->
                 <nav class="site-footer">
                         <?php
 

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    @font-face {
+    font-family: 'Roboto';
+    src: url('RobotoCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        line-height: 1;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+        pointer-events: none;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+
+
+</style>
+<body>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+<!--    <script src="d3-legend.min.js"></script>-->
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script>
+
+
+
+        var width = 960,
+            height = 500,
+            radius = Math.min(width, height) / 2.
+            cwidth = 50;
+
+        var color = d3.scale.ordinal()
+           .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+        var color2 = d3.scale.ordinal()
+            .range(["#98abc5", "#fff", "#8a89a6", "#fff", "#7b6888", "#fff", "#6b486b", "#fff", "#a05d56", "#fff", "#d0743c", "#fff", "#ff8c00", "#fff"]);
+        var arc = d3.svg.arc()
+            .outerRadius(radius - 10)
+            .innerRadius(radius - 70);
+
+        var pie = d3.layout.pie()
+            .sort(null);
+   //         .value(function(d) { return d.Applicants; });
+
+        var pie2 = d3.layout.pie()
+            .sort(null)
+            .value(function(d) { return d.Registrants; });
+        var arc2 = d3.svg.arc()
+            .outerRadius(radius - 70)
+            .innerRadius(radius - 130);
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        queue()
+            .defer(d3.csv, "Admissions-2014.csv")
+            .defer(d3.csv, "Admmissionts-2014-Registrants.csv")
+            .await(ready);
+
+        function ready(error, data, regis){
+            if (error) throw error;
+
+
+            var dataset = {
+            registrants: [1535, 7428, 1657, 10906, 689, 6509, 1202, 8394, 28, 103, 147, 1633, 290, 3885],
+                //applicants: [1322, 1963, 806, 1174, 15, 438, 1785],
+              applicants: [8963, 12563, 7198, 9596, 131, 1780, 4175],
+
+            };
+//            console.log(data);
+//            console.log(d3.values(dataset));
+
+            var gs = svg.selectAll("g").data(d3.values(dataset)).enter().append("g");
+//            console.log(gs);
+
+            var path = gs.selectAll("path")
+                .data(function(d){return pie(d)})
+            .enter().append("path")
+                .attr("d", function(d, i, j){return (j == 0 ? arc.innerRadius(0 ).outerRadius(125)(d):
+                                                              arc.innerRadius(130).outerRadius(155)(d));})
+                .style("fill", function(d, i, j) { return (j != 0 ? color(i): color2(i)); });
+
+
+
+
+
+            var tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+            gs.on("mouseover", function(d) {
+                console.log(d);
+                 tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(d.data.Program + " " + d.value)
+                    .style("right", "20px")
+                    .style("top", "20px");
+            });
+
+            gs.on("mouseout", function(){
+                 tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+
+        }
+
+        </script>
+</body>

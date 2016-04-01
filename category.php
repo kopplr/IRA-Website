@@ -4,7 +4,17 @@ $cat_id = get_cat_ID(single_cat_title("", false)); // Get the current category i
 $curr_cat = get_category($cat_id);
 ?>
 
+<div class="site-title">
 
+
+        <article>
+
+        <header class="entry-header">
+            <h1 class="entry-title"><?php echo $curr_cat->name; ?></h1>
+        </header>
+        </article>
+
+</div>
 <div class="site-content">
     <div class="sidebar-column">
 <!--
@@ -81,7 +91,11 @@ $curr_cat = get_category($cat_id);
 
                 <div class="element-item <?php $cats = get_the_category(); foreach ($cats as $cat){ echo $cat->slug . ' ';} ?>"> <!-- Add in categories as classes to be able to filter in Isotope -->
 
-                    <a href="<?php echo get_permalink(); ?>"> <!-- Link to post -->
+                    <a href="<?php
+                             $externalLink = get_post_meta($post->ID, 'external_link_url', true);
+                             echo ($externalLink == '' ? get_permalink() : $externalLink);
+
+                             ?>"> <!-- Link to post -->
                         <article class="post">
                             <h1><?php the_title() ?></h1>
                             <?php the_content()?>

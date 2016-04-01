@@ -1,7 +1,21 @@
 <?php get_header(); ?>
 
+<div class="site-title">
+    <?php while ( have_posts() ) : the_post(); ?>
 
-<div class="site-content clearfix" style="display:table;">
+
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+        <header class="entry-header">
+            <h1 class="entry-title"><?php the_title(); ?></h1>
+        </header>
+        </article>
+
+
+
+        <?php endwhile; ?>
+</div>
+<div class="site-content">
     <div class="sidebar-column">
         <nav>
             <div class="button-group filter-button-group">
@@ -21,22 +35,6 @@
         </nav>
     </div>
     <div class="main-column">
-
-        <?php while ( have_posts() ) : the_post(); ?>
-
-
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-        <header class="entry-header">
-            <h1 class="entry-title"><?php the_title(); ?></h1>
-        </header>
-        </article>
-
-        <?php
-        endwhile;
-
-         ?>
-
         <div class="grid">
         <?php
         foreach ($categories as $category) {
@@ -53,8 +51,10 @@
                 'order' => 'ASC'
             ); ?>
 
-            <div class="element-item <?php echo $category->slug ?> <?php echo ($category->slug == 'institutional-research-offices')
-                        ?'inline-layout':''?>"> <!-- Add in categories as classes to be able to filter in Isotope -->
+            <div class="element-item
+                        <?php echo $category->slug ?>
+                        <?php //echo ($category->slug == 'institutional-research-offices')?'inline-layout':''?>
+                        "> <!-- Add in categories as classes to be able to filter in Isotope -->
 
             <?php
             $posts = get_posts($args);

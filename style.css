@@ -53,16 +53,25 @@ ul {
     padding: 0;
     list-style: none;
 }
+h1 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
 .site-content {
 /*    display: table;*/
     width: 100%;
-    height: 100%;
+    min-height: 50vh;
     background: #8e979d;
 /*    min-height: 100vh;*/
     flex: 1;
     display:flex;
 }
 /* Title of each page *************************************************************************************/
+.site-title {
+    display:flex;
+    align-items: center;
+/*    justify-content: flex-start;*/
+}
 .main-column > article:first-child {
     text-align: left;
 }
@@ -71,7 +80,24 @@ ul {
     font-family: 'League Gothic', sans-serif;
     font-size: 250%;
 }
+.site-title > article h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 200%;
+    color: white;
+    margin: 0px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.45);
 
+}
+.site-title {
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
+/*    background-color: background-color: rgba(0,0,0,0.9);*/
+}
+.site-title article {
+    width: 100%;
+    height: 100%;
+}
 /* Isotope filtering ***********************************************************************************/
 article.post {
     margin: 5px;
@@ -84,6 +110,9 @@ article.post:hover {
 article.post h1, article.post p {
     padding: 5px;
     margin: 0;
+}
+article.post h1  {
+    font-weight: 300;
 }
 .inline-layout article{
     display: inline-block;
@@ -120,6 +149,9 @@ article:hover .overlay {
 }
 
 /* Header ***********************************************************************************/
+#mcmaster-header {
+    flex: 0 1 100px;
+}
 #mcmaster-header h1 {
     margin-left: 0.5em;
     font-size: 250%;
@@ -131,6 +163,9 @@ article:hover .overlay {
 }
 .main-column h1 {
     color: #ac1455;
+}
+#mcmaster-title {
+/*    letter-spacing: 1px;*/
 }
 
 /* Footer ***********************************************************************************/
@@ -150,6 +185,7 @@ article:hover .overlay {
 .site-nav {
     display: inline-block;
     height: 100%;
+/*    text-transform: uppercase;*/
 }
 #nav-right {
     float: right;
@@ -175,9 +211,12 @@ article:hover .overlay {
 .site-header nav ul li a:hover {
     background-color: #6a7882;
 }
+.site-header nav ul li a {
+    transition: all 0.3s ease-out;
+}
 .site-header nav ul li.current-menu-item a:link,
 .site-header nav ul li.current-menu-item a:visited {
-    background-color: #ac1455;
+    background-color: #6a7882;
     color: #f1f1f1;
 }
 
@@ -197,12 +236,16 @@ article:hover .overlay {
 
 }
 /* Corner colours */
+.home-page-footer nav ul li {
+    background: #323e48 !important;
+}
 .site-footer nav ul li:first-child {
     background: #8e979d;
 }
 .site-footer nav ul li:last-child {
     background: #f1f1f1;
 }
+
 /***********************************/
 .site-footer nav ul li a:link,
 .site-footer nav ul li a:visited {
@@ -223,10 +266,11 @@ article:hover .overlay {
 
 /* Main Column ***********************************************************************************/
 .main-column {
-    flex: 3 0 0;
+    flex: 4 0 0;
     padding: 20px;
 /*    display: table-cell;*/
     background-color: #f1f1f1;
+    min-height: 50vh;
 }
 .main-column a {
     text-decoration: none;
@@ -342,13 +386,36 @@ button.is-checked {
     display: inline-block;
 }
 
-
+/* Home Page **************/
 #clever-vis {
     flex:1;
     height: 510px;
 /*    background: pink;*/
     display: flex;
     padding: 10px 0px 0px 0px;
+}
+#vis-group {
+    flex:0 1 520px;
+    height: 510px;
+    display: flex;
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
+    background-repeat:no=repeat;
+}
+
+.carousel-home {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 100px;
+    background-color: #323e48;
+    opacity: 0.8;
+    margin: 10px 0px;
+
+}
+.carousel-home i {
+    color: white;
+    cursor: pointer;
 }
 
 /* Home Page Menu ************************************************************************************/
@@ -372,6 +439,100 @@ button.is-checked {
     width: 100%;
     height: 100%;
     padding-top 20px;
+}
+
+
+#home-menu {
+    flex:1;
+    background: white;
+    display: flex;
+/*
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
+    background-repeat:no=repeat;
+*/
+}
+.home-column {
+
+    flex: 1;
+/*    background-color: #8e979d;*/
+    border-top: 2px solid rgba(0, 0, 0, 0);
+/*
+    border-left: 1px solid #323e48;
+    border-bottom: 1px solid #323e48;
+*/
+    transition: all 0.3s ease-out;
+
+    font-size: 20px;
+    font-weight: 300;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.home-column div {
+    padding: 10px;
+}
+.home-column:last-child {
+    border-top: none;
+}
+.home-column:first-child:hover, .home-column:nth-child(2):hover, .home-column:nth-child(3):hover, .home-column:nth-child(4):hover, .home-column:nth-child(5):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    border-top-color: #ac1455;
+}
+/*
+.home-column:first-child {
+    background-color: #f1f1f1;
+}
+.home-column:nth-child(2) {
+    background-color: #6a7882;
+}
+.home-column:nth-child(3) {
+    background-color: #c6cbce;
+}
+.home-column:nth-child(4) {
+    background-color: #8e979d;
+}
+*/
+.home-column a, .home-column div {
+    color: black;
+}
+.home-column > div > i {
+    display:block;
+    font-size: 65px;
+    padding: 10px;
+}
+.home-column > div {
+    text-align: center;
+}
+.home-split-column {
+    flex-direction: column;
+/*    border-right: 1px solid #323e48;*/
+}
+.home-split-column a {
+    border-top: 2px solid rgba(0,0,0,0);
+    transition: all 0.3s ease-out;
+}
+.home-split-column a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    border-top-color: #ac1455;
+}
+.home-split-column i {
+/*    display: inline;*/
+    font-size: 30px;
+}
+.home-split-column > a, .home-split-column div {
+    width:100%;
+    flex: 1;
+    font-size: 20px;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.home-split-column > a:first-child {
+/*    border-bottom: 1px solid #323e48;*/
 }
 
 /* Table Home Page Menu ************************************************************************************/
@@ -448,7 +609,6 @@ table {
     color: #323e48;
 }
 
-
 /* Header Formatting *************************************************************************************/
 #mcmaster-nav-items {
     display: table;
@@ -511,6 +671,10 @@ table {
     margin-right: auto;
     display:inline-block;
 }
+.tab-content article {
+    width: 300px;
+    margin: 5px 0px;
+}
 
 /*----- Tab Links -----*/
 /* Clearfix */
@@ -541,7 +705,7 @@ table {
     background:#fff;
     font-size:16px;
     color:#4c4c4c;
-    transition:all ease-in 0.12s;
+    transition:all ease-out 0.12s;
 
     border-bottom: 0.5em solid #c6cbce;
 }
@@ -607,7 +771,7 @@ li a, li a:hover {
     margin-left: 20px;
 }
 
-/* Submit Request *******************************************************************************************************/
+/* Submit Request Page *******************************************************************************************************/
 .error {
     padding: 5px 9px;
     border: 1px solid red;
@@ -620,12 +784,60 @@ li a, li a:hover {
     color: green;
     border-radius: 3px;
 }
+.entry-content p {
+    line-height: initial;
+}
 form span {
     color: red;
 }
 form h3 {
     display: inline-block;
+    margin: 20px 0 5px 0;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+input[type="text"], textarea {
+    margin: 0;
+    width: 50%;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1em;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    cursor: pointer;
+    background: #f1f1f1;
+    border: 2px solid #323e48;
+    padding: 10px;
+}
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+/*
+textarea {
+    width: 50%;
+    cursor: pointer;
+    background: #f1f1f1;
+    border: 1px solid #323e48;
+    padding: 10px;
+
+}*/
+input[type="submit"] {
+    display: inline-block;
+    background: #f1f1f1;
+    border: 2px solid black;
+    cursor: pointer;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.17em;
+    text-transform: uppercase;
+    padding: 0px 40px;
     margin: 20px 0 0 0;
+    transition: all 0.3s ease-out;
+}
+input[type="submit"]:hover {
+    color: #f1f1f1;
+    background: #323e48;
+
 }
 
 /* Glossary *******************************************************************************************************/
@@ -645,7 +857,8 @@ form h3 {
     text-align: center;
 /*    margin: 0 15px 0 0;*/
     color: #8e979d;
-    font-size: 200%;
+    font-size: 2.5em;
+    font-family: "League Gothic", sans-serif;
 }
 #alphabet-menu li:first-child {
     width: 50px;
@@ -681,127 +894,36 @@ a.back-to-top {
     -webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 }
-
-
-
-#home-menu {
-    flex:1;
-    background: white;
-    display: flex;
-/*
-    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
-    background-repeat:no=repeat;
-*/
-}
-.home-column {
-
-    flex: 1;
-/*    background-color: #8e979d;*/
-    border-top: 2px solid rgba(0, 0, 0, 0);
-/*
-    border-left: 1px solid #323e48;
-    border-bottom: 1px solid #323e48;
-*/
-    transition: all 0.3s ease-out;
-
-    font-size: 20px;
-    font-weight: 300;
-
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-.home-column:last-child {
-    border-top: none;
-}
-.home-column:first-child:hover, .home-column:nth-child(2):hover, .home-column:nth-child(3):hover, .home-column:nth-child(4):hover, .home-column:nth-child(5):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    text-decoration: none;
-    border-top-color: #ac1455;
-}
-/*
-.home-column:first-child {
-    background-color: #f1f1f1;
-}
-.home-column:nth-child(2) {
-    background-color: #6a7882;
-}
-.home-column:nth-child(3) {
-    background-color: #c6cbce;
-}
-.home-column:nth-child(4) {
-    background-color: #8e979d;
-}
-*/
-.home-column a, .home-column div {
-    color: black;
-}
-.home-column > div > i {
-    display:block;
-    font-size: 65px;
+dl {
     padding: 10px;
+    background: white;
 }
-.home-column > div {
-    text-align: center;
-}
-.home-split-column {
-    flex-direction: column;
-/*    border-right: 1px solid #323e48;*/
-}
-.home-split-column a {
-    border-top: 2px solid rgba(0,0,0,0);
-    transition: all 0.3s ease-out;
-}
-.home-split-column a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    text-decoration: none;
-    border-top-color: #ac1455;
-}
-.home-split-column i {
-/*    display: inline;*/
-    font-size: 30px;
-}
-.home-split-column > a, .home-split-column div {
-    width:100%;
-    flex: 1;
-    font-size: 20px;
+dt {
+    font-weight: 300;
+    font-size: 1.5em;
+    color: #ac1455;
+    padding-bottom: 10px;
 
-    display:flex;
-    align-items: center;
-    justify-content: center;
 }
-.home-split-column > a:first-child {
-/*    border-bottom: 1px solid #323e48;*/
+dd {
+    margin:0;
 }
 
-#mcmaster-header {
-    flex: 0 1 100px;
-}
+
+/* Unknown? */
 
 #the-content {
     flex: 1 1 auto;
 }
 
-#vis-group {
-    flex:0 1 520px;
-    height: 510px;
-    display: flex;
-    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
-    background-repeat:no=repeat;
+
+/* Fees Committee Page *************************************************************/
+#fees-committee-content ul {
+    list-style-type: circle;
+    list-style-position: outside;
+    margin: initial;
+    padding-left: 20px;
 }
-
-.carousel-home {
-
-
-    display:flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 100px;
-    background-color: #323e48;
-    opacity: 0.8;
-    margin: 10px 0px;
-}
-.carousel-home i {
-    color: white;
+#fees-committee-content ul li {
+    padding-bottom: 10px;
 }

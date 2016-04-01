@@ -68,15 +68,8 @@ else if ($_POST['submitted']) my_contact_form_generate_response("error", $missin
 ?>
 <?php get_header(); ?>
 
-<div id="primary" class="site-content">
-    <div id="content" role="main">
-
-<div class="site-content clearfix" style="display:table;">
-    <div class="sidebar-column">
-
-    </div>
-    <div class="main-column">
-        <?php while ( have_posts() ) : the_post(); ?>
+<div class="site-title">
+    <?php while ( have_posts() ) : the_post(); ?>
 
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -84,6 +77,19 @@ else if ($_POST['submitted']) my_contact_form_generate_response("error", $missin
         <header class="entry-header">
             <h1 class="entry-title"><?php the_title(); ?></h1>
         </header>
+        </article>
+
+
+
+        <?php endwhile; ?>
+</div>
+
+<div class="site-content">
+    <div class="sidebar-column">
+
+    </div>
+    <div class="main-column" style="">
+        <?php while ( have_posts() ) : the_post(); ?>
 
         <div class="entry-content">
             <?php the_content(); ?>
@@ -93,17 +99,22 @@ else if ($_POST['submitted']) my_contact_form_generate_response("error", $missin
                 <?php echo $response;  ?>
                 <form action="<?php the_permalink(); ?>" method="post">
 
-                    <p><label for="name"><h3>Name: <span>*</span></h3> <br><input type="text" name="message_name" value="<?php echo ( isset( $_POST['message_name'] )) ? esc_attr($_POST['message_name']) : ''; ?>"></label></p>
+                    <p><label for="name"><h3>Name <span>*</span></h3> <br><input type="text" name="message_name" value="<?php echo ( isset( $_POST['message_name'] )) ? esc_attr($_POST['message_name']) : ''; ?>"></label></p>
 
-                    <p><label for="message_email"><h3>Email: <span>*</span></h3><br><input type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>"></label></p>
+                    <p><label for="message_email"><h3>Email <span>*</span></h3><br><input type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>"></label></p>
 
-                    <p><label for="message_text"><h3>Message: <span>*</span></h3><br><textarea type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea></label></p>
+                    <p><label for="message_text"><h3>Message <span>*</span></h3><br><textarea rows="10" type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea></label></p>
 
-                    <p><label for="message_human"><h3>Human Verification: <span>*</span></h3><br><input type="text" style="width: 60px;" name="message_human"> + 3 = 11</label></p>
+                    <div style="display:flex;">
+                        <div style="">
+                            <p><label for="message_human"><h3>Human Verification <span>*</span></h3><br><input type="text" style="width: 60px;" name="message_human"> + 3 = 11</label></p>
+                        </div>
+
 
                     <input type="hidden" name="submitted" value="1">
 
-                    <p style="margin-top:20px"><input type="submit"></p>
+                    <p style="display:flex; flex:1; justify-content: flex-end; align-content: center;"><input type="submit"></p>
+                    </div>
                 </form>
             </div>
 
@@ -118,3 +129,4 @@ else if ($_POST['submitted']) my_contact_form_generate_response("error", $missin
 </div>
 
 <?php get_footer(); ?>
+    </div>

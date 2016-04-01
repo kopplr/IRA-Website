@@ -13,7 +13,7 @@ if (have_posts()) :
     <?php endwhile;
 
     else :
-        echo '<p>NO content found</p>';
+        echo '<div style="height:500px; display:flex; align-items:center; justify-content:center;"><h1>OOPS! Sorry. This page does not exist.</h1></div>';
 endif;
 
 get_footer();

@@ -17,9 +17,7 @@ global $wpdb
 
 <div class="site-content">
     <div class="sidebar-column">
-        <ul>
-            <?php wp_list_categories('orderby=name&title_li=&child_of=2'); ?> <!-- Get all child categories of Publications and sort alphabetically-->
-        </ul>
+
     </div>
     <div class="main-column">
             <?php
