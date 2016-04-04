@@ -72,9 +72,17 @@
 
 
             var dataset = {
-            registrants: [1535, 7428, 1657, 10906, 689, 6509, 1202, 8394, 28, 103, 147, 1633, 290, 3885],
-                //applicants: [1322, 1963, 806, 1174, 15, 438, 1785],
-              applicants: [8963, 12563, 7198, 9596, 131, 1780, 4175],
+                //registrants: [1535, 7428, 1657, 10906, 689, 6509, 1202, 8394, 28, 103, 147, 1633, 290, 3885],
+                registrants: [835, 1015,
+                              726, 1799,
+                              300, 777,
+                              474, 1342,
+                              17, 18,
+                              86, 463,
+                              222, 1924
+                             ],
+                applicants: [1850, 2525, 1077, 1816, 35, 549, 2146],
+                //applicants: [8963, 12563, 7198, 9596, 131, 1780, 4175],
 
             };
 //            console.log(data);
@@ -86,7 +94,7 @@
             var path = gs.selectAll("path")
                 .data(function(d){return pie(d)})
             .enter().append("path")
-                .attr("d", function(d, i, j){return (j == 0 ? arc.innerRadius(0 ).outerRadius(125)(d):
+                .attr("d", function(d, i, j){return (j == 0 ? arc.innerRadius(100).outerRadius(125)(d):
                                                               arc.innerRadius(130).outerRadius(155)(d));})
                 .style("fill", function(d, i, j) { return (j != 0 ? color(i): color2(i)); });
 

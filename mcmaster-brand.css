@@ -82,7 +82,7 @@ maroon
     }
     /* ===MAC SEARCH ICON=== */
     #mcmaster-search {
-      padding-top: 65px;
+      padding-top: 60px;
     }
     #mcmaster-search span,
     #mcmaster-search span::after,
@@ -160,7 +160,7 @@ maroon
       -webkit-transition: .5s ease-in-out;
       transition: .5s ease-in-out;
       cursor: pointer;
-      padding-top: 65px;
+      padding-top: 60px;
     }
     #mcmaster-menu span {
       display: block;
@@ -170,8 +170,8 @@ maroon
       background: #5b6770;
       border-radius: 2px;
       opacity: 1;
-      top: 36px;
-      left: 28%;
+      top: 38px;
+      left: 30.5%;
     }
     #mcmaster-menu span,
     #mcmaster-menu span::before,

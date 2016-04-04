@@ -9,13 +9,14 @@ jQuery(document).ready(function($) {
                 data: {action: 'filter_year_post', nonce: yearpost_vars.nonce, postid: selectedpost}
             }).done(function(data) {
                 console.log(data);
-                // Update iframe to show new PDF file
-                $('iframe').attr('src', data.url);
 
                 // Update item-selected to the one clicked on
-                $('#year-selection p').contents().filter(function(){
+                $('#current-year').contents().filter(function(){
                     return this.nodeType == 3;
                 })[0].nodeValue = data.post_title;
+
+                // Update iframe to show new PDF file
+                $('iframe').attr('src', data.url);
 
                 // Update the pdf link
                 $('#download-pdf a').attr('href', data.url);

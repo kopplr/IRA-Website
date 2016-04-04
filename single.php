@@ -37,7 +37,10 @@ global $wpdb
                     <ul class="dropdown-list">
 
                         <li id="category-selection">
-                            <p class="item-selected"><?php the_title(); ?><span class="fa fa-caret-down fa-fw"></span></p>
+                            <div class="item-selected">
+                                <div><?php the_title(); ?></div>
+                                <div><span class="fa fa-caret-down fa-fw"></span></div>
+                            </div>
                             <ul class="dropdown-options">
                                 <?php
                                     $categories = get_the_category();
@@ -64,7 +67,10 @@ global $wpdb
                         </li>
 
                         <li id="year-selection">
-                            <p class="item-selected"><?php echo $myCurrentYear; ?><span class="fa fa-caret-down fa-fw"></span></p>
+                            <div class="item-selected">
+                                <div id="current-year"><?php echo $myCurrentYear; ?></div>
+                                <div><span class="fa fa-caret-down fa-fw"></span></div>
+                            </div>
                             <ul class="dropdown-options">
                             <?php
                                 $myYearsSelected = array();

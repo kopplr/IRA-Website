@@ -167,6 +167,15 @@ jQuery(document).ready(function($) {
                 downtownInfowindow.open(map, downtownMarker);
             });
 
+            campusMarker.addListener('click', function(){
+                campusInfowindow.open(map, campusMarker);
+            });
+
+            downtownMarker.addListener('click', function(){
+                downtownInfowindow.open(map, downtownMarker);
+            });
+
+
 
         }
 
