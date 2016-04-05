@@ -10,7 +10,6 @@
 
     <body <?php body_class(); ?>>
 
-        <div class="container">
 
 
 
@@ -18,7 +17,7 @@
             <!--   Search Overlay  -->
             <div id="mcmaster-search-overlay" aria-label="Site Search and Quick Links">
               <div id="mcmaster-search-form">
-                <form id="searchbox_017110053273856412988:akq6v26t6nm" name="search_form" action="search-results.html">
+                <form id="searchbox_017110053273856412988:akq6v26t6nm" name="search_form" action="http://localhost/wordpress/wp-content/uploads/2016/03/search-results.html">
                   <div id="search-input">
                     <div class="input-group">
                       <input type="hidden" name="cx" value="017110053273856412988:akq6v26t6nm">
@@ -372,10 +371,19 @@
               }
             </script>
             </header>
+            <?php
+                if(is_front_page()){
+                    echo '<div style="width:100%; height: 10px; background-color: #7a003c; flex: 0 1 10px;"></div>';
+                }
+            ?>
+
             <!-- site-header -->
-            <?php if (!is_front_page()){ echo '<header class="site-header">';} ?>
-                <?php if (!is_front_page()){
-                    echo '<nav class="site-nav">';
+            <?php if (!is_front_page()){
+                    echo '<header class="site-header">
+                            <div style="flex: 1;" ></div>
+                            <div style="flex: 1; order: 99;"></div>
+                            <div style="flex: 1 1 1000px">
+                                <nav class="site-nav">';
                 }?>
 
                     <?php
@@ -403,11 +411,10 @@
                     ?>
 
 
-                <?php if (!is_front_page()) {wp_nav_menu( $args2 );} ?>
+                <?php //if (!is_front_page()) {wp_nav_menu( $args2 );} ?>
                 <?php if (!is_front_page()){
-                    echo '</nav>';
-                }?>
-
-            <?php if (!is_front_page()){ echo '</header><!-- /site-header -->';} ?>
+                    echo '</nav><!-- /site-nav -->
+                            </div>
+                            </header><!-- /site-header -->';} ?>
 
 
