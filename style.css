@@ -187,6 +187,7 @@ article:hover .overlay {
 }*/
 .site-nav ul {
     display: flex;
+    flex-wrap: wrap;
 }
 
 /* Site Header Menu ***********************************************************************************/
@@ -227,20 +228,33 @@ article:hover .overlay {
     width: 100%;
 }
 .site-footer nav ul{ /* Center the footer menu */
+/*
     display: table;
     table-layout: fixed;
+*/
+    display:flex;
+    flex-wrap: wrap;
     width: 100%;
 
 }
 .site-footer nav ul li {
+/*
     display: table-cell;
     text-align: center;
+*/
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 
 }
 /* Corner colours */
+/*
 .home-page-footer nav ul li {
     background: #323e48 !important;
 }
+*/
 
 .site-footer nav ul li:first-child, .site-footer nav ul li:last-child {
     background: #f1f1f1;
@@ -248,13 +262,19 @@ article:hover .overlay {
 
 /***********************************/
 .site-footer nav ul li a:link,
-.site-footer nav ul li a:visited {
-    display: block;
+.site-footer nav ul li a:visited, .site-footer nav ul li a {
+    width: 100%;
+    height: 100%;
     padding: 10px 30px;
     text-decoration: none;
     border-right: 1px solid white;
     background-color: #ac1455;
     color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
 }
 .site-footer nav ul li:last-child a:link, .site-footer nav ul li:last-child a:visited {
     border-right: 0;
@@ -316,6 +336,7 @@ button.child-category {
     margin-left: 10%;
     width: 90%;
     padding: 0.52em;
+    text-transform: capitalize;
 }
 button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
@@ -687,7 +708,7 @@ table {
     flex: 0 1 82.5px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: top;
     justify-content: center;
 }
 #mcmaster-nav-items li:nth-child(3) a, #mcmaster-nav-items li:last-child a {
@@ -737,6 +758,7 @@ table {
     width:100%;
     margin-right: auto;
     display:inline-block;
+    background-color: #f1f1f1;
 }
 .tab-content article {
     width: 300px;
@@ -750,12 +772,9 @@ table {
     clear:both;
     content:'';
 }
-/*
 .tab-links {
-    display:table;
-    border-collapse: collapse;
+
 }
-*/
 
 .tab-links li {
     margin:0px 0px;
@@ -769,7 +788,7 @@ table {
 .tab-links a {
     padding:9px 30px;
     display:inline-block;
-    background:#fff;
+    background:#f1f1f1;
     font-size:16px;
     color:#4c4c4c;
     transition:all ease-out 0.12s;
@@ -783,7 +802,7 @@ table {
     text-decoration:none;
 }
 li.active a, li.active a:hover {
-    background:#fff;
+    background:#f1f1f1;
     color:#4c4c4c;
 /*    border: 2px solid black;*/
     border-color: #7a003c;
@@ -805,7 +824,7 @@ li a, li a:hover {
     border-radius:3px;
     box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
 */
-    background:#fff;
+    background:#f1f1f1;
 }
 .tab {
     display:none;
@@ -817,25 +836,29 @@ li a, li a:hover {
     color: #ac1455;
 }
 
-/* Catchphrase and Mandate ********************************************************************************************/
+/* Description, Catchphrase and Mandate ********************************************************************************************/
+#description {
+    display:flex;
+    padding-bottom: 20px;
+    border-bottom: 2px black solid;
+}
 #catchphrase {
-    text-align: left;
-    width: 75%;
-    margin-right: auto;
+    flex: 5 1;
 
 }
 #catchphrase h3 {
     font-weight: 300;
 }
 #mandate {
-    width: 100%;
-    margin-right: auto;
-    padding-bottom: 20px;
-    border-bottom: 2px black solid;
+    flex: 6 1;
 }
 #mandate ul {
     list-style: disc outside none;
     margin-left: 20px;
+    font-size: 17px;
+}
+#mandate ul li{
+    padding-top: 5px;
 }
 
 /* Submit Request Page *******************************************************************************************************/
@@ -924,7 +947,7 @@ input[type="submit"]:hover {
     text-align: center;
 /*    margin: 0 15px 0 0;*/
     color: #8e979d;
-    font-size: 2.5em;
+    font-size: 2.3em;
     font-family: "League Gothic", sans-serif;
 }
 #alphabet-menu li:first-child {
@@ -936,12 +959,10 @@ input[type="submit"]:hover {
 }
 section h2 {
     font-family: 'League Gothic', sans-serif;
-    font-size: 250%;
+    font-size: 270%;
     color: #7a003c;
-
-
 }
-section {
+section:not(:last-child) {
     padding-bottom: 16px;
     border-bottom: 2px solid #6a7882;
 }

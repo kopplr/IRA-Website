@@ -12,7 +12,6 @@
                         <?php wp_nav_menu( $args ); ?>
                 </nav>
             </div><!-- /site-footer -->
-            <?php //if(is_front_page()){echo '</div>';} // Makes the background image extend until the mcmaster-footer?>
 
 <!--            light-slate     slate   dark-slate      black       maroon-->
             <footer id="mcmaster-footer" class="maroon">
