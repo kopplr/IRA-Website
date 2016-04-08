@@ -199,6 +199,10 @@ jQuery(document).ready(function($) {
         return false;
     });
 
+    $('#carousel-vis-group').slick({
+        arrows:true
+    });
+
     // Extra jQuery functions
     $.fn.exists = function () {
         return this.length !== 0;

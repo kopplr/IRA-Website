@@ -35,9 +35,11 @@ div.container {
 html,body {
     height: 100%;
 }
+/*
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
+*/
 body {
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -148,7 +150,7 @@ article:hover .overlay {
     flex: 0 1 100px;
 }
 #mcmaster-header h1 {
-    margin: 0.25em 0.25em 0.25em 0.5em;
+    margin: 0.25em 0.25em 0.25em 0.2em;
     font-size: 300%;
     font-family: 'League Gothic', sans-serif;
     font-weight: normal;
@@ -158,6 +160,12 @@ article:hover .overlay {
 }
 .main-column h1 {
     color: #ac1455;
+}
+.element-item h2 {
+    margin: 20px 0px 20px 5px;
+}
+.element-item:first-child h2 {
+    margin: 0px 0px 20px 5px;
 }
 #mcmaster-title {
 /*    letter-spacing: 1px;*/
@@ -224,7 +232,13 @@ article:hover .overlay {
 }
 
 /* Footer Menu **********************************************************************************/
+.site-footer nav {
+
+}
 .site-footer nav div{
+    display: flex;
+    background: #f1f1f1;
+    justify-content: center;
     width: 100%;
 }
 .site-footer nav ul{ /* Center the footer menu */
@@ -232,9 +246,11 @@ article:hover .overlay {
     display: table;
     table-layout: fixed;
 */
+    flex: 1;
     display:flex;
     flex-wrap: wrap;
     width: 100%;
+
 
 }
 .site-footer nav ul li {
@@ -242,22 +258,21 @@ article:hover .overlay {
     display: table-cell;
     text-align: center;
 */
-    flex: 1;
+    flex: 1 1 350px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    background: #f1f1f1;
 
 }
 /* Corner colours */
-/*
-.home-page-footer nav ul li {
+.home-page-footer div{
     background: #323e48 !important;
 }
-*/
 
 .site-footer nav ul li:first-child, .site-footer nav ul li:last-child {
-    background: #f1f1f1;
+/*    background: #f1f1f1;*/
 }
 
 /***********************************/
@@ -267,21 +282,31 @@ article:hover .overlay {
     height: 100%;
     padding: 10px 30px;
     text-decoration: none;
-    border-right: 1px solid white;
     background-color: #ac1455;
+/*
+    border-bottom: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+*/
     color: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
     text-align: center;
+    transition: all 0.3s ease-out;
+/*    margin: 1px;*/
+}
+.site-footer nav ul li a:hover {
+    background: #56002a;
 }
 .site-footer nav ul li:last-child a:link, .site-footer nav ul li:last-child a:visited {
+/*
     border-right: 0;
     border-radius: 0 80px 0 0;
+*/
 }
 .site-footer nav ul li:first-child a:link, .site-footer nav ul li:first-child a:visited {
-    border-radius: 80px 0 0 0;
+/*    border-radius: 80px 0 0 0;*/
 }
 
 /* Main Column ***********************************************************************************/
@@ -317,7 +342,7 @@ article:hover .overlay {
 /*    display: table-cell;*/
 /*    vertical-align: top;*/
 }
-button {
+.sidebar-column button {
     width: 100%;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 14px;
@@ -330,6 +355,9 @@ button {
     background-color: #6a7882;
     text-transform: uppercase;
     color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 button.child-category {
     margin:auto;
@@ -342,7 +370,7 @@ button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .button-group {
-    padding: 25px 0px 0px 20px;
+    padding: 25px 0px 25px 20px;
     text-align: center;
 }
 .button-group li:not(:first-of-type) {
@@ -455,7 +483,11 @@ button.is-checked {
     height: 510px;
     display: flex;
     background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
-    background-repeat:no=repeat;
+    background-repeat: no-repeat;
+}
+
+.slick-arrow {
+    background: black;
 }
 
 .carousel-home {
@@ -494,7 +526,7 @@ button.is-checked {
     text-align: center;
     width: 100%;
     height: 100%;
-    padding-top 20px;
+    padding-top: 20px;
 }
 
 
@@ -678,6 +710,7 @@ table {
 }
 #mcmaster-nav-items ul {
     display: flex;
+    align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -699,7 +732,7 @@ table {
     */
     background: #f1f1f1;
 
-    flex: 1 0 500px;
+    flex: 1;
     display: flex;
     align-items: center;
 
@@ -708,7 +741,7 @@ table {
     flex: 0 1 82.5px;
     display: flex;
     flex-direction: column;
-    align-items: top;
+    align-items: flex-start;
     justify-content: center;
 }
 #mcmaster-nav-items li:nth-child(3) a, #mcmaster-nav-items li:last-child a {
@@ -862,11 +895,55 @@ li a, li a:hover {
 }
 
 /* Submit Request Page *******************************************************************************************************/
+/* Ordered list*/
+ol {
+	counter-reset:li; /* Initiate a counter */
+	margin-left:0; /* Remove the default left margin */
+	padding-left:0; /* Remove the default left padding */
+/*    width: 300px;*/
+    display: flex;
+    flex-wrap: wrap;
+}
+ol > li {
+    flex: 0 1 250px;
+	position:relative; /* Create a positioning context */
+	margin:0 0 15px 2em; /* Give each list item a left margin to make room for the numbers */
+	padding:4px 8px; /* Add some spacing around the content */
+	list-style:none; /* Disable the normal item numbering */
+/*	border-top:2px solid #666;*/
+	background:#f6f6f6;
+}
+ol > li:before {
+	content:counter(li); /* Use the counter as content */
+	counter-increment:li; /* Increment the counter by 1 */
+	/* Position and style the number */
+	position:absolute;
+	top:-2px;
+	left:-2em;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	width:2em;
+	/* Some space between the number and the content in browsers that support
+	   generated content but not positioning it (Camino 2 is one example) */
+	margin-right:8px;
+	padding:4px;
+	border-top:2px solid #666;
+	color:#fff;
+	background:#666;
+	font-weight:bold;
+	font-family:"Roboto Condensed", sans-serif;
+	text-align:center;
+}
+li ol,
+li ul {margin-top:6px;}
+ol ol li:last-child {margin-bottom:0;}
 .error {
     padding: 5px 9px;
     border: 1px solid red;
     color: red;
     border-radius: 3px;
+    margin-top: 20px;
 }
 .success {
     padding: 5px 9px;
@@ -891,9 +968,6 @@ input[type="text"], textarea {
     width: 50%;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1em;
-    appearance: none;
-    box-shadow: none;
-    border-radius: none;
     cursor: pointer;
     background: #f1f1f1;
     border: 2px solid #323e48;
@@ -931,6 +1005,9 @@ input[type="submit"]:hover {
 }
 
 /* Glossary *******************************************************************************************************/
+#archive-menu {
+    margin-bottom: 20px;
+}
 #alphabet-menu {
     border-bottom: 4px solid #c6cbce;
     border-top: 4px solid #c6cbce;
@@ -959,12 +1036,18 @@ input[type="submit"]:hover {
 }
 section h2 {
     font-family: 'League Gothic', sans-serif;
-    font-size: 270%;
+    font-size: 400%;
     color: #7a003c;
+    display: block;
+    margin: 16px 30px;
+    flex: 2;
 }
 section:not(:last-child) {
     padding-bottom: 16px;
     border-bottom: 2px solid #6a7882;
+}
+section {
+    display: flex;
 }
 a.back-to-top {
     display: none;
@@ -982,9 +1065,21 @@ a.back-to-top {
     -webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 }
+section > div {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+
+}
 dl {
+    margin: 1em 2em;
     padding: 10px;
     background: white;
+    flex: 1 1 100%;
+/*
+    display: inline-block;
+    width: 45%;
+*/
 }
 dt {
     font-weight: 300;
@@ -995,13 +1090,6 @@ dt {
 }
 dd {
     margin:0;
-}
-
-
-/* Unknown? */
-
-#the-content {
-    flex: 1 1 auto;
 }
 
 
@@ -1027,4 +1115,11 @@ dd {
     background-color: #f1f1f1;
 }
 
+#carousel-vis-group {
+    width: 90%;
+    margin: auto;
+    height: 520px;
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
+    background-repeat: no-repeat;
 
+}

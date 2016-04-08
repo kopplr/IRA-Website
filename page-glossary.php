@@ -19,7 +19,6 @@
             <?php while ( have_posts() ) : the_post(); ?>
 
 
-            </article>
             <?php
 
             $taxonomy = 'alpha';
@@ -109,8 +108,8 @@
                 if ( is_numeric( $letter ) ) {
                     $letter = '0-9';
                 }
-                echo (($letter != $previousletter && $counter != 0)?'</section>':'') .
-                    (($letter != $previousletter)?'<section><h2 id="' . $letter . '">' . strtoupper($letter) . '</h2>':'') .
+                echo (($letter != $previousletter && $counter != 0)?'</div></section>':'') .
+                    (($letter != $previousletter)?'<section><h2 id="' . $letter . '">' . strtoupper($letter) . '</h2><div>':'') .
                     '<dl>' .
                     '<dt>' . $post->post_title . '</dt>' .
                     '<dd>' . $post->post_content . '</dd>' .
@@ -130,6 +129,7 @@
         </div>
 
     </div>
+</div>
 </div>
 <?php get_footer(); ?>
 
