@@ -4,7 +4,7 @@ get_header(); ?>
 
 <div id="vis-group">
     <div id="clever-vis">
-        <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
+<!--        <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>-->
 
 
     </div>
@@ -42,38 +42,22 @@ get_header(); ?>
     </div>
 
 </div>
-</div> <!-- container --!>
-    <nav class="home-nav" style="display:none">
-        <?php
+<nav class="home-nav" style="display:none;">
+    <?php
 
-        $args = array(
-            'theme_location' => 'home-page',
-            'container' => 'false',
-            'items_wrap' => '<div id="%1$s" class="%2$s">%3$s</div>',
-            'walker' => new my_nav_walker_2,
+    $args = array(
+        'theme_location' => 'home-page',
+        'container' => 'false',
+        'items_wrap' => '<div id="%1$s" class="%2$s">%3$s</div>',
+        //'walker' => new my_nav_walker_2,
 
-        );
+    );
 
-        wp_nav_menu($args);
+    wp_nav_menu($args);
 
-        ?>
-    </nav>
-    <div id="submit-request">
-            <h2>Can't find what you're looking for?</h2>
-            <a href="http://localhost/wordpress/submit-request"><h3>SUBMIT A REQUEST</h3></a>
-        </div>
+    ?>
+</nav>
 
 <?php
-if (have_posts()) :
-    while (have_posts()) : the_post(); ?>
-
-
-    <?php endwhile;
-
-    else :
-        echo '<p>NO content found</p>';
-endif;
-
 get_footer();
-
 ?>

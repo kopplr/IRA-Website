@@ -5,6 +5,13 @@ Version: 1.0
 
 
 jQuery(document).ready(function($) {
+    // outdated browser
+    outdatedBrowser({
+        bgColor: '#f25648',
+        color: '#ffffff',
+        lowerThan: 'transform',
+        languagePath: 'your_path/outdatedbrowser/lang/en.html'
+    })
 
     // add is-checked to the "Show All" button
     $('#menu-sidebar-menu-links li').first().children().addClass('is-checked');

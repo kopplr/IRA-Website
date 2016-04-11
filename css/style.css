@@ -8,11 +8,11 @@ Version: 1.0
 /* Fonts ***********************************************************************************/
 @font-face {
     font-family: 'League Gothic';
-    src: url('fonts/leaguegothic-regular-webfont.eot');
-    src: url('fonts/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/leaguegothic-regular-webfont.woff') format('woff'),
-         url('fonts/leaguegothic-regular-webfont.ttf') format('truetype'),
-         url('fonts/leaguegothic-regular-webfont.svg#league_gothic_italicregular') format('svg');
+    src: url('../fonts/leaguegothic-regular-webfont.eot');
+    src: url('../fonts/leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/leaguegothic-regular-webfont.woff') format('woff'),
+         url('../fonts/leaguegothic-regular-webfont.ttf') format('truetype'),
+         url('../fonts/leaguegothic-regular-webfont.svg#league_gothic_italicregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -212,16 +212,18 @@ article:hover .overlay {
 .site-header nav ul li a:link,
 .site-header nav ul li a:visited {
     display: block;
-    padding: 10px 18px;
+    padding: 10px 0px 10px 50px;
     border: none;
     text-decoration: none;
 }
-.site-header nav ul li a:hover {
-    background-color: #ac1455;
+.site-header nav ul li:hover {
+/*    background-color: #ac1455;*/
+    color: #e8941a;
 }
 .site-header nav ul li a {
     height: 100%;
-    transition: all 0.3s ease-out;
+    width: 100%;
+
 }
 .site-header nav ul li.current-menu-item a:link,
 .site-header nav ul li.current-menu-item a:visited {
@@ -229,6 +231,30 @@ article:hover .overlay {
     background-color: #6a7882;
     color: #f1f1f1;
 */
+}
+.site-header nav ul li {
+    transition: all 0.3s ease-out;
+    margin-right: 10px;
+}
+#menu-primary-menu-links .fa::before {
+    float: left;
+    margin-top: 11px;
+    width: 20px;
+    color: #f1f1f1;
+    padding: 0px 5px 0px 20px;
+}
+#menu-primary-menu-links .fa::before:hover {
+/*    background-color: #ac1455;*/
+    color: #e8941a;
+}
+#menu-primary-menu-links .fa.fa-lg a {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 0.8em;
+    color: #f1f1f1;
+    transition: all 0.3s ease-out;
+}
+#menu-primary-menu-links .fa.fa-lg a:hover {
+    color: #e8941a;
 }
 
 /* Footer Menu **********************************************************************************/
@@ -534,6 +560,7 @@ button.is-checked {
     flex:1;
     background: white;
     display: flex;
+    flex-wrap: wrap;
 /*
     background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
     background-repeat:no=repeat;
