@@ -248,6 +248,8 @@ function IRAWebsite_resources() {
 
     wp_enqueue_script('outdatedbrowser-js', get_template_directory_uri() . '/js/outdatedbrowser.min.js', array(), '1.1.3');
 
+    wp_enqueue_script('pdfobject', get_template_directory_uri() . '/js/pdfobject.min.js', array(), '2.0');
+
 
     if(!is_home()){
 //        wp_enqueue_script('bootstrap-js', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array('jquery'), '3.3.6', true);
@@ -267,6 +269,21 @@ register_nav_menus(array(
     'home-page' => __( 'Home Page Menu'),
 
 ));
+
+//Find top level category
+function pa_category_top_parent_id ($catid) {
+    while ($catid) {
+        $cat = get_category($catid);
+        $catid = $cat->category_parent;
+        // get the object for the catid $catid = $cat->category_parent;
+        // assign parent ID (if exists) to $catid
+        // the while loop will continue whilst there is a $catid
+        // when there is no longer a parent $catid will be NULL so we can assign our $catParent
+        $catParent = $cat->cat_ID;
+        $catParentName = get_cat_name($catParent);
+    }
+    return $catParentName;
+}
 
 //// Change email address
 //add_filter('wp_mail_from', 'my_mail_from');

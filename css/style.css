@@ -352,7 +352,7 @@ article:hover .overlay {
 
 /* Secondary (widget) column ***********************************************************************************/
 .secondary-column {
-    flex: 1 0 0;
+    flex: 1 1 0;
 /*    width: auto;*/
 /*    display: table-cell;*/
     vertical-align: top;
@@ -426,10 +426,16 @@ button.is-checked {
 /* Dropdown List ***********************************************************************************/
 #category-selection, #year-selection, #downloads {
 }
+.dropdown-list {
+    display: flex;
+}
 .dropdown-list > li {
-    float: left;
-    width: auto;
-    position: relative;
+/*    float: left;*/
+/*    width: auto;*/
+/*    position: relative;*/
+    flex: 0 1 240px;
+    display: flex;
+    flex-direction: column;
     margin-right: 20px;
 }
 #category-selection, #year-selection {
@@ -440,7 +446,7 @@ button.is-checked {
     background-color: white;
 }
 #category-selection {
-    width: 240px;
+/*    width: 240px;*/
 /*    display: flex;*/
 }
 #download-options {
@@ -450,7 +456,7 @@ button.is-checked {
     display: none;
     position: absolute;
     background-color: white;
-    width: 100%;
+    width: 240px;
     border-top: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
@@ -494,6 +500,14 @@ button.is-checked {
 }
 #download-options li {
     display: inline-block;
+}
+.secondary-column > div {
+    margin-top: 70px;
+}
+.secondary-column > div ul li{
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
 }
 
 /* Home Page ************************************************************************************************************************/
@@ -962,8 +976,7 @@ ol > li:before {
 	font-family:"Roboto Condensed", sans-serif;
 	text-align:center;
 }
-li ol,
-li ul {margin-top:6px;}
+li ol {margin-top:6px;}
 ol ol li:last-child {margin-bottom:0;}
 .error {
     padding: 5px 9px;
