@@ -44,7 +44,8 @@ global $wpdb
                         $post_attachments = get_posts( array (
                             'post_type' => 'attachment',
                             'orderby' => 'title',
-                            'post_parent' => $post->ID
+                            'post_parent' => $post->ID,
+                            'numberposts' => -1
                         ));
                         ?>
                         <ul class="dropdown-list">

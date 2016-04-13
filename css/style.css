@@ -449,9 +449,12 @@ button.is-checked {
 /*    width: 240px;*/
 /*    display: flex;*/
 }
-#download-options {
-    font-size: 150%;
+#category-selection > div {
+    height: 100%;
+    width: 100%;
+
 }
+
 .dropdown-options {
     display: none;
     position: absolute;
@@ -477,6 +480,7 @@ button.is-checked {
     cursor: default;
     color: black;
     display: flex;
+    flex: 1;
     height: 100%;
     font-size: 1.2em;
 }
@@ -497,6 +501,12 @@ button.is-checked {
 .selected {
     background-color: #c6cbce;
 
+}
+#download-options {
+    font-size: 150%;
+    display: flex;
+    align-items: center;
+    flex: 1;
 }
 #download-options li {
     display: inline-block;
