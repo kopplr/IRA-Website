@@ -247,7 +247,7 @@ The Office of Institutional Research and Analysis at McMaster supports academic 
                 </div>
 
                 <div id="tab2" class="tab">
-                    <div id="map" style="width:1000px; height: 500px"></div>
+                    <div id="map" style="width:100%; height: 500px"></div>
 
                 </div>
 

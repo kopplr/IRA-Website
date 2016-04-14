@@ -210,6 +210,17 @@ jQuery(document).ready(function($) {
         arrows:true
     });
 
+    // Tab allows focus outline, but button click does not
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 9) {
+            $('body').addClass('show-focus-outlines');
+        }
+    });
+    document.addEventListener('click', function(e) {
+        $('body').removeClass('show-focus-outlines');
+    });
+
+
     // Extra jQuery functions
     $.fn.exists = function () {
         return this.length !== 0;

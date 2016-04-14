@@ -48,10 +48,6 @@ if(!$human == 0){
             }
             else //ready to go!
             {
-                var_dump($to);
-                var_dump($subject);
-                var_dump(strip_tags($message));
-                var_dump($headers);
                 //send email
                 $sent = wp_mail($to, $subject, strip_tags($message), $headers);
 
@@ -87,7 +83,7 @@ else if ($_POST['submitted']) my_contact_form_generate_response("error", $missin
             <?php while ( have_posts() ) : the_post(); ?>
 
             <div class="entry-content">
-                <div style=""><?php the_content(); ?></div>
+                <div id="instructions"><?php the_content(); ?></div>
 
 
 

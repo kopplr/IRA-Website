@@ -108,7 +108,7 @@
                 if ( is_numeric( $letter ) ) {
                     $letter = '0-9';
                 }
-                echo (($letter != $previousletter && $counter != 0)?'</div></section>':'') .
+                echo (($letter != $previousletter && $counter != 0)?'</div><div class="right-thing"></div></section>':'') .
                     (($letter != $previousletter)?'<section><h2 id="' . $letter . '">' . strtoupper($letter) . '</h2><div>':'') .
                     '<dl>' .
                     '<dt>' . $post->post_title . '</dt>' .
