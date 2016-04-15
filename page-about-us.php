@@ -252,7 +252,19 @@ The Office of Institutional Research and Analysis at McMaster supports academic 
                 </div>
 
                 <div id="tab3" class="tab">
-                    <img src="http://localhost/wordpress/wp-content/uploads/2016/03/OUAC-our-community-e1459431507321.png">
+                    <div id="tab3-content">
+                        <img src="http://localhost/wordpress/wp-content/uploads/2016/03/OUAC-our-community-e1459431507321.png">
+                        <div id="community-text">
+                            <div style="display:flex;">
+                                <i class="fa fa-quote-left fa-3x fa-pull-left" aria-hidden="true"></i>
+                                <h3><?php
+                                    $page = get_page_by_title('About Us');
+                                    echo get_post_meta($page->ID, 'quotation', true); ?> <br>
+                                    <span>- <?php echo get_post_meta($page->ID, 'quotation-person', true); ?></span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

@@ -122,6 +122,7 @@
                 $previousletter = $letter;
                 $counter++;
                 endforeach;
+                echo '</div><div class="right-thing"></div></section>';
                 endif;
                 endwhile;
             ?>

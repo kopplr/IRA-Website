@@ -80,7 +80,7 @@ global $wpdb
                                 </ul>
                             </li>
 
-                            <li id="year-selection">
+                            <li id="year-selection" <?php if (count($post_attachments) <= 1){echo 'style="display:none;"';} ?>>
                                 <div class="item-selected">
                                     <div id="current-year"><?php echo $myCurrentYear; ?></div>
                                     <div><span class="fa fa-caret-down fa-fw"></span></div>
