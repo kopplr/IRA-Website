@@ -25,7 +25,7 @@ global $wpdb
             $isFactBook = ($post->post_name == 'fact-book');
             $categories = get_the_category();
         ?>
-        <h1><?php echo ($isFactBook ? the_title() : pa_category_top_parent_id($categories[0]->cat_ID)); //pa_category_top_parent_id($categories[0]->cat_ID) ?></h1>
+        <h2><?php echo ($isFactBook ? the_title() : pa_category_top_parent_id($categories[0]->cat_ID)); //pa_category_top_parent_id($categories[0]->cat_ID) ?></h2>
 
     </div>
 
@@ -38,7 +38,9 @@ global $wpdb
 
 
                       <?php
-                        $attachment_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_parent = '$post->ID' AND post_status = 'inherit' AND post_type='attachment' ORDER BY post_title DESC LIMIT 1"); // Get the most recent attachment
+                        $attachment_id = $wpdb->get_var($wpdb->prepare(
+                            "SELECT ID FROM $wpdb->posts WHERE post_parent = %s AND post_status = 'inherit' AND post_type='attachment' ORDER BY post_title DESC LIMIT 1", $post->ID
+                        )); // Get the most recent attachment
                         $myCurrentYear = get_post($attachment_id)->post_title;
                         // get post attachments (Different years)
                         $post_attachments = get_posts( array (

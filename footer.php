@@ -96,7 +96,7 @@
     </a>
 </footer>
 
-<a href="#" class="back-to-top"><i class="fa fa-angle-up fa-fw"></i></a>
+<a href="#mcmaster-header" class="back-to-top"><i class="fa fa-angle-up fa-fw"></i></a>
 
 <?php wp_footer(); ?>
 

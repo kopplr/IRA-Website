@@ -78,9 +78,10 @@ h1 {
 /* Title of each page *************************************************************************************/
 .site-title {
     display:flex;
+    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
 }
 
-.site-title  h1 {
+.site-title  h2 {
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 300;
     font-size: 200%;
@@ -94,10 +95,6 @@ h1 {
     display: flex;
     align-items: center;
     background-color: rgba(0,0,0,0.45);
-}
-.site-title {
-    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/arch_skinny.jpeg');
-/*    background-color: background-color: rgba(0,0,0,0.9);*/
 }
 
 /* Isotope filtering ***********************************************************************************/
@@ -1028,7 +1025,7 @@ ol ol li:last-child {margin-bottom:0;}
     border: 1px solid red;
     color: red;
     border-radius: 3px;
-    margin-top: 20px;
+    margin: 20px 0px;
 }
 .success {
     padding: 5px 9px;
@@ -1040,10 +1037,13 @@ ol ol li:last-child {margin-bottom:0;}
     line-height: initial;
 }
 form span {
+/*
+    font-size: 150%;
     color: red;
+*/
 }
 form h3 {
-    display: inline-block;
+    display: block;
     margin: 20px 0 5px 0;
     text-transform: uppercase;
     font-weight: 300;
@@ -1198,8 +1198,19 @@ dd {
     padding-left: 20px;
 }
 #fees-committee-content ul li {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
+#fees-committee-content a {
+    color: #ac1455;
+    transition: all 0.2s ease-out;
+}
+#fees-committee-content a:hover {
+    text-decoration: underline;
+}
+#fees-committee-content i {
+    margin-left: 5px;
+}
+
 
 /* Misc ****/
 #___gcse_0 {

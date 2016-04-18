@@ -1,35 +1,14 @@
 <?php
-
 get_header();
-
-/**
- * Template Name: Team
- */
-
-
 ?>
-<!--
-<div id="catchphrase">
 
-The Office of Institutional Research and Analysis at McMaster supports academic activities and decision-making processes through collection, dissemination, and interpretation of data.
-
-</div>
-<div id="mandate">
-<ul>
-	<li>Provides accurate, timely, and high quality data to various academic and administrative offices at McMaster and to external agencies</li>
-	<li>Liaisons with government and external agencies</li>
-	<li>Supports and advises senior administration through the provision of effective analyses and insights based on a thorough understanding of McMaster and its external environment</li>
-	<li>Leads and supports key planning activities of McMaster</li>
-</ul>
-</div>
--->
 <div class="site-title">
 
     <div style="flex: 1;" ></div>
     <div style="flex: 1; order: 99;"></div>
     <div style="flex: 1 1 1000px">
         <?php while ( have_posts() ) : the_post(); ?>
-        <h1><?php the_title(); ?></h1>
+        <h2><?php the_title(); ?></h2>
         <?php endwhile; ?>
     </div>
 
