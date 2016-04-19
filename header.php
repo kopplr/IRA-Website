@@ -112,7 +112,7 @@
         <!--   Nav Items  -->
         <div id="mcmaster-nav-items">
             <ul>
-                <li><a id="mcmaster-brand" href="http://www.mcmaster.ca" class="nav-item"><span class="sr-only">McMaster University</span>
+                <li><a id="mcmaster-brand" href="http://www.mcmaster.ca" class="nav-item" tabindex=""><span class="sr-only">McMaster University</span>
                   <svg id="mcmaster-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236.2 131">
                   <g id="letters">
                     <path class="logoletters" d="M45.2 40.9H45c-.8 0-1.4-.1-1.9-.7-.6-.8-.6-3.3-.5-4.3v-28V7c0-1.1-.1-3.1.4-3.8.2-.2 1-.1 1.7-.1h.4c1.9 0 2-1.3 2-1.7 0-.5-.1-.8-.4-1.1-.4-.4-1-.3-1.5-.3h-7c-.7 0-1.7 0-2.2 1.3L24.2 31.7 14.5 4.4c-.4-1.2-.6-1.7-.7-1.9 0-.1-.1-.3-.1-.4V2c-.3-.9-.6-2-2-2h-7-.3C4 0 3.3-.1 2.9.3c-.3.3-.4.6-.4 1.1 0 .4.1 1.7 2 1.7 1.3 0 2.1.1 2.4.4.3.4.3 1.3.2 2.9 0 .3-1.9 29.7-1.9 29.8-.2 3.5-.4 4.7-3.1 4.7-1.9 0-2.1 1-2.1 1.5s.2 1.4 1.5 1.4c.9 0 1.8-.1 2.7-.1.9-.1 1.8-.1 2.7-.1.9 0 1.8.1 2.7.1.9.1 1.8.1 2.7.1.5 0 1.9 0 1.9-1.4 0-.4-.1-.7-.4-.9-.5-.5-1.4-.5-1.9-.5h-.1c-1.2 0-2-.3-2.5-.8-1.1-1.1-1-3.4-.9-6.3l1.6-26 10.9 31.6c.2.6.3.8.4 1v.1c.1.5.4 1.7 1.4 1.7.9 0 1.2-.9 1.4-1.4 0-.1 0-.1.1-.2L36.7 7.2v28.9c0 1.2 0 3.3-.7 4-.5.5-1.7.8-2.4.8h-.2c-.5 0-1.3 0-1.9.5-.3.3-.4.6-.4 1 0 .5.2 1.4 1.7 1.4 1.2 0 2.4-.1 3.5-.1 1.2-.1 2.4-.1 3.6-.1 1 0 1.9.1 2.9.1.9.1 1.9.1 2.9.1 1.5 0 1.7-.9 1.7-1.4 0-.4-.1-.7-.4-1-.4-.5-1.3-.5-1.8-.5z" />
@@ -151,202 +151,185 @@
                   </g>
                   </svg>
                     </a></li>
-                <li style><h1><a id="mcmaster-title" href="<?php echo home_url(); ?>"> <?php bloginfo('name') ?></a></h1></li>
-                <li><a id="mcmaster-menu" class="nav-item" onClick="macMenuToggle()"><span></span>Menu</a></li>
-                <li><a id="mcmaster-search" class="nav-item" onClick="macSearchToggle()"><span></span>Search</a></li>
+                <li style><h1><a id="mcmaster-title" href="<?php echo home_url(); ?>" tabindex=""> <?php bloginfo('name') ?></a></h1></li>
+                <li><a id="mcmaster-menu" class="nav-item" onClick="macMenuToggle()" tabindex="0"><span></span>Menu</a></li>
+                <li><a id="mcmaster-search" class="nav-item" onClick="macSearchToggle()" tabindex="0"><span></span>Search</a></li>
             </ul>
         </div>
         <!--    McMaster Menu -->
-        <ul id="mcmaster-nav" class="open" role="navigation">
-          <li>
-            <input type="checkbox" id="navitem-mcmaster" />
-            <label for="navitem-mcmaster">McMaster</label>
-            <ul>
-              <li><a href="http://www.mcmaster.ca/opr/html/a_z/main/a_z_index.html">McMaster A-Z Index</a>
-              </li>
+            <ul id="mcmaster-nav" class="open" role="navigation">
+                <li><label tabindex="0">McMaster</label>
+                    <ul>
+                        <li><a href="http://www.mcmaster.ca/opr/html/a_z/main/a_z_index.html">McMaster A-Z Index</a></li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Academics</label>
+                    <ul>
+                        <li><a href="http://www.mcmaster.ca/opr/html/academics/main/academics.html">Overview</a></li>
+                        <li><a href="http://www.mcmaster.ca/student/undergrd.cfm">Undergraduate Studies/Programs</a>
+                        </li>
+                        <li><a href="http://www.mcmaster.ca/graduate/">Graduate Studies/Programs</a>
+                        </li>
+                        <li><a href="http://www.mcmaster.ca/student/ptconed.cfm">Part-Time Studies &amp; Continuing Education</a>
+                        </li>
+                        <li><a href="http://www.mcmaster.ca/academic/faculties.cfm">Departments &amp; Faculties</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Alumni</label>
+                    <ul>
+                        <li><a href="http://www.mcmaster.ca/ua/alumni/index.html">Overview</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/about.html">About the Alumni Association</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/programs_events.html">Alumni Events</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/services.html">Services &amp; Benefits</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/programs.html">Programs for Alumni</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/networking.html">Alumni Networking</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/keepintouch.html">Keep in Touch</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/homecoming.html">Homecoming</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/weekend.html">Alumni Weekend</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/students.html">Students &amp; Young Alumni</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ua/alumni/giving.html">Giving to McMaster</a>
+                      </li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Discover McMaster</label>
+                    <ul>
+                        <li><a href="http://www.mcmaster.ca/opr/html/opr/our_campus/main/our_campus.html">Overview</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/opr/html/opr/our_campus/main/our_campus.html ">About the Campus</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/opr/html/opr/fast_facts/main/fast_facts.html">Fast Facts</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/welcome/govern.cfm">Governance</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/welcome/history.cfm">History of McMaster</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/welcome/findus.cfm">How to Get to McMaster</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/policy/">Policies, Procedures &amp; Guidelines</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/opr/html/discover_mcmaster/presidents_message/discover_mcmaster_presidentsmessage.html">President's Message</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/vpacademic/">Provost &amp; Vice-President (Academic)</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/opr/html/discover_mcmaster/presidents_message/directions.html">Strategic Plan</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/cll/inquiry/index.htm">Teaching and Learning at McMaster</a>
+                      </li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Future Students</label>
+                    <ul>
+                        <li><a href="http://registrar.mcmaster.ca/external/index.htm">Overview</a>
+                      </li>
+                      <li><a href="http://registrar.mcmaster.ca/external/index.htm">Undergraduate</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/graduate/">Graduate Studies</a>
+                      </li>
+                      <li><a href="http://www.degroote.mcmaster.ca/">MBA Program</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/conted/">Continuing Education</a>
+                      </li>
+                      <li><a href="http://studentaffairs.mcmaster.ca/parents/">Parents</a>
+                      </li>
+                      <li><a href="http://studentaffairs.mcmaster.ca/">Student Services</a>
+                      </li>
+                      <li><a href="http://registrar.mcmaster.ca/virtual/">Virtual Tour</a>
+                      </li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Library</label>
+                    <ul>
+                        <li><a href="http://library.mcmaster.ca/">Overview</a>
+                      </li>
+                      <li><a href="http://library.mcmaster.ca/about/">About the Libraries</a>
+                      </li>
+                      <li><a href="http://library.mcmaster.ca/justask/">Contact Us</a>
+                      </li>
+                      <li><a href="http://morris.mcmaster.ca/ipac20/ipac.jsp?profile=libr&amp;menu=search&amp;submenu=reserves">Course Reserves</a>
+                      </li>
+                      <li><a href="http://morris.mcmaster.ca">Library Catalogue</a>
+                      </li>
+                      <li><a href="http://library.mcmaster.ca/moreservices.htm">Library Services</a>
+                      </li>
+                      <li><a href="http://morris.mcmaster.ca/ipac20/ipac.jsp?profile=lib&amp;menu=account">My Account / Book Renewal</a>
+                      </li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Research</label>
+                    <ul>
+                        <li><a href="http://www.mcmaster.ca/research/">Overview</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/research/chairs1.htm">Canada Research Chairs</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/research/chairs_end&amp;ind.htm">Endowed &amp; Industrial Chairs</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ors/ethics/rebs.htm">Ethics in Human Research</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/research/mip.htm">McMaster Innovation Park</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/oia/">Office of International Affairs</a>
+                      </li>
+                      <li><a href="http://ip.mcmaster.ca/">Partnership Opportunities</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/research/centres/centres-ac.htm">Research Centres &amp; Institutes</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/policy/research.htm">Research Policies &amp; Procedures</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/research/ScienceintheCity.htm">Science in the City</a>
+                      </li>
+                    </ul>
+                </li>
+                <li><label tabindex="0">Current Students</label>
+                    <ul>
+                        <li><a href="http://registrar.mcmaster.ca/students/">Overview</a>
+                      </li>
+                      <li><a href="http://studentaffairs.mcmaster.ca">Student Affairs</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/chaplain/">Chaplaincy</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/hres/homepage.html">Human Rights &amp; Equity</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/uts/">Information Technology</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/academicintegrity/">Office of Academic Integrity</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/ombuds/">Ombuds</a>
+                      </li>
+                      <li><a href="http://parking.mcmaster.ca/">Parking &amp; Transit</a>
+                      </li>
+                      <li><a href="http://registrar.mcmaster.ca/INTERNAL/index.htm">Registrar</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/security/about.htm">Safety &amp; Security</a>
+                      </li>
+                      <li><a href="http://sfas.mcmaster.ca">Student Financial Aid &amp; Scholarships</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/bms/finance/student/studentfinancial.htm">Student Accounts</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/gsa/">Graduate Students</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/maps/index.html">Part-time Students</a>
+                      </li>
+                      <li><a href="http://www.msu.mcmaster.ca/">McMaster Students Union</a>
+                      </li>
+                      <li><a href="http://www.mcmaster.ca/services/clubs.cfm">Clubs</a>
+                      </li>
+                      <li><a href="http://dailynews.mcmaster.ca/Event_Calendar/Events/">Events</a>
+                      </li>
+                    </ul>
+                </li>
+
             </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-academics" />
-            <label for="navitem-academics">Academics</label>
-            <ul>
-              <li><a href="http://www.mcmaster.ca/opr/html/academics/main/academics.html">Overview</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/student/undergrd.cfm">Undergraduate Studies/Programs</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/graduate/">Graduate Studies/Programs</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/student/ptconed.cfm">Part-Time Studies &amp; Continuing Education</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/academic/faculties.cfm">Departments &amp; Faculties</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-alumni" />
-            <label for="navitem-alumni">Alumni</label>
-            <ul>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/index.html">Overview</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/about.html">About the Alumni Association</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/programs_events.html">Alumni Events</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/services.html">Services &amp; Benefits</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/programs.html">Programs for Alumni</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/networking.html">Alumni Networking</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/keepintouch.html">Keep in Touch</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/homecoming.html">Homecoming</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/weekend.html">Alumni Weekend</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/students.html">Students &amp; Young Alumni</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ua/alumni/giving.html">Giving to McMaster</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-discover-mcmaster" />
-            <label for="navitem-discover-mcmaster">Discover McMaster</label>
-            <ul>
-              <li><a href="http://www.mcmaster.ca/opr/html/opr/our_campus/main/our_campus.html">Overview</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/opr/html/opr/our_campus/main/our_campus.html ">About the Campus</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/opr/html/opr/fast_facts/main/fast_facts.html">Fast Facts</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/welcome/govern.cfm">Governance</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/welcome/history.cfm">History of McMaster</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/welcome/findus.cfm">How to Get to McMaster</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/policy/">Policies, Procedures &amp; Guidelines</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/opr/html/discover_mcmaster/presidents_message/discover_mcmaster_presidentsmessage.html">President's Message</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/vpacademic/">Provost &amp; Vice-President (Academic)</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/opr/html/discover_mcmaster/presidents_message/directions.html">Strategic Plan</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/cll/inquiry/index.htm">Teaching and Learning at McMaster</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-future-students" />
-            <label for="navitem-future-students">Future Students</label>
-            <ul>
-              <li><a href="http://registrar.mcmaster.ca/external/index.htm">Overview</a>
-              </li>
-              <li><a href="http://registrar.mcmaster.ca/external/index.htm">Undergraduate</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/graduate/">Graduate Studies</a>
-              </li>
-              <li><a href="http://www.degroote.mcmaster.ca/">MBA Program</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/conted/">Continuing Education</a>
-              </li>
-              <li><a href="http://studentaffairs.mcmaster.ca/parents/">Parents</a>
-              </li>
-              <li><a href="http://studentaffairs.mcmaster.ca/">Student Services</a>
-              </li>
-              <li><a href="http://registrar.mcmaster.ca/virtual/">Virtual Tour</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-library" />
-            <label for="navitem-library">Library</label>
-            <ul>
-              <li><a href="http://library.mcmaster.ca/">Overview</a>
-              </li>
-              <li><a href="http://library.mcmaster.ca/about/">About the Libraries</a>
-              </li>
-              <li><a href="http://library.mcmaster.ca/justask/">Contact Us</a>
-              </li>
-              <li><a href="http://morris.mcmaster.ca/ipac20/ipac.jsp?profile=libr&amp;menu=search&amp;submenu=reserves">Course Reserves</a>
-              </li>
-              <li><a href="http://morris.mcmaster.ca">Library Catalogue</a>
-              </li>
-              <li><a href="http://library.mcmaster.ca/moreservices.htm">Library Services</a>
-              </li>
-              <li><a href="http://morris.mcmaster.ca/ipac20/ipac.jsp?profile=lib&amp;menu=account">My Account / Book Renewal</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-research" />
-            <label for="navitem-research">Research</label>
-            <ul>
-              <li><a href="http://www.mcmaster.ca/research/">Overview</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/research/chairs1.htm">Canada Research Chairs</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/research/chairs_end&amp;ind.htm">Endowed &amp; Industrial Chairs</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ors/ethics/rebs.htm">Ethics in Human Research</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/research/mip.htm">McMaster Innovation Park</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/oia/">Office of International Affairs</a>
-              </li>
-              <li><a href="http://ip.mcmaster.ca/">Partnership Opportunities</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/research/centres/centres-ac.htm">Research Centres &amp; Institutes</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/policy/research.htm">Research Policies &amp; Procedures</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/research/ScienceintheCity.htm">Science in the City</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <input type="checkbox" id="navitem-current-students" />
-            <label for="navitem-current-students">Current Students</label>
-            <ul>
-              <li><a href="http://registrar.mcmaster.ca/students/">Overview</a>
-              </li>
-              <li><a href="http://studentaffairs.mcmaster.ca">Student Affairs</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/chaplain/">Chaplaincy</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/hres/homepage.html">Human Rights &amp; Equity</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/uts/">Information Technology</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/academicintegrity/">Office of Academic Integrity</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/ombuds/">Ombuds</a>
-              </li>
-              <li><a href="http://parking.mcmaster.ca/">Parking &amp; Transit</a>
-              </li>
-              <li><a href="http://registrar.mcmaster.ca/INTERNAL/index.htm">Registrar</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/security/about.htm">Safety &amp; Security</a>
-              </li>
-              <li><a href="http://sfas.mcmaster.ca">Student Financial Aid &amp; Scholarships</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/bms/finance/student/studentfinancial.htm">Student Accounts</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/gsa/">Graduate Students</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/maps/index.html">Part-time Students</a>
-              </li>
-              <li><a href="http://www.msu.mcmaster.ca/">McMaster Students Union</a>
-              </li>
-              <li><a href="http://www.mcmaster.ca/services/clubs.cfm">Clubs</a>
-              </li>
-              <li><a href="http://dailynews.mcmaster.ca/Event_Calendar/Events/">Events</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
 <!--            </nav>-->
         <script>
           (function() {
