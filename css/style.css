@@ -34,6 +34,7 @@ div.container {
 }
 html,body {
     height: 100%;
+    width: 100%;
 }
 /*
 .clearfix:before, .clearfix:after { content: ""; display: table; }
@@ -54,12 +55,14 @@ a:visited {
     text-decoration: none;
 }
 p {
-    line-height: 1.65em;
+    line-height: 22px;
+    font-size: 16px;
     margin: 0;
 }
 ul {
     margin: 0;
     padding: 0;
+    font-size: 16px;
     list-style: none;
 }
 h1 {
@@ -67,6 +70,15 @@ h1 {
     margin-top: 0px;
     margin-bottom: 20px;
 */
+}
+h2 {
+    font-size: 32px;
+}
+h3 {
+    font-size: 24px;
+}
+h4 {
+    font-size: 20px;
 }
 .site-content {
     width: 100%;
@@ -84,7 +96,6 @@ h1 {
 .site-title  h2 {
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 300;
-    font-size: 200%;
     color: white;
     margin: 0px;
     padding: 20px;
@@ -109,12 +120,13 @@ article.post:hover {
     transition: all 0.2s ease-out;
 
 }
-article.post h1, article.post p {
+article.post h3, article.post p {
     padding: 5px;
     margin: 0;
 }
-article.post h1  {
+article.post h3  {
     font-weight: 300;
+    color: #ac1455;
 }
 .inline-layout article{
     display: inline-block;
@@ -163,9 +175,7 @@ article:hover .overlay {
 #mcmaster-header h1 a:link, #mcmaster-header h1 a:visited {
     color: rgba(91, 103, 112, 1);
 }
-.main-column h1 {
-    color: #ac1455;
-}
+
 .element-item h2 {
     margin: 20px 0px 20px 5px;
 }
@@ -201,6 +211,7 @@ article:hover .overlay {
 .site-nav ul {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 /* Site Header Menu ***********************************************************************************/
@@ -814,6 +825,18 @@ table {
     align-items: center;
     justify-content: center;
 }
+@media (max-width: 650px) {
+    #mcmaster-nav-items li:nth-child(2) {
+        flex: 1 1 100%;
+        order: -1;
+    }
+    #menu-primary-menu-links li{
+        width: 100%;
+    }
+    #mcmaster-nav-items ul {
+        justify-content: center;
+    }
+}
 /*
 #mcmaster-nav-items-list {
     display: table-row;
@@ -831,7 +854,7 @@ table {
 .profile-picture {
     float: left;
 }
-.profile-content h3 {
+.profile-content h4 {
     padding: 0;
     margin: 5px 5px 10px 5px;
     border-bottom: 2px solid black;
@@ -840,6 +863,15 @@ table {
     padding: 0;
     margin:0 0 0 5px;
     line-height: 1em;
+}
+.profile-content i {
+    margin-right: 3px;
+}
+.profile-content a {
+    transition: all 0.2s ease-out;
+}
+.profile-content a:hover {
+    color: #ac1455;
 }
 #executive-assistant {
     display: inline-block;
@@ -880,7 +912,7 @@ table {
 /*    display: table-cell;*/
     list-style:none;
 }
-.tab-links h3, .profile-content h3 {
+.tab-links h3, .profile-content h4 {
     font-weight: 300;
 }
 .tab-links a {
@@ -930,13 +962,31 @@ li a, li a:hover {
 .tab.active {
     display:block;
 }
-#tab1 > h3, .position > h3 {
+#tab1 > h4, .position > h4 {
     color: #ac1455;
 }
 #tab2 h1 {
     margin: 0.5em 0;
 }
-
+#community-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+    color: #1e252b;
+}
+#community-text h4 {
+    margin-top: 0;
+}
+#community-text span {
+    font-size: 80%;
+    font-weight: 400;
+}
+#tab3-content {
+    display: flex;
+    flex-wrap: wrap;
+}
 /* Description, Catchphrase and Mandate ********************************************************************************************/
 #description {
     display:flex;
@@ -947,11 +997,13 @@ li a, li a:hover {
     flex: 5 1;
 
 }
-#catchphrase h3 {
+#catchphrase h4 {
     font-weight: 300;
 }
 #mandate {
     flex: 6 1;
+    display: flex;
+    align-items: center;
 }
 #mandate ul {
     list-style: disc outside none;
@@ -1244,27 +1296,4 @@ dd {
 
 
 
-#community-text {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 50px;
-    color: #1e252b;
-}
-#community-text h3 {
-    margin-top: 0;
-}
-#community-text span {
-    font-size: 80%;
-    font-weight: 400;
-}
 
-#community-image {
-
-}
-
-#tab3-content {
-    display: flex;
-    flex-wrap: wrap;
-}

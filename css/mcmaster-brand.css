@@ -17,916 +17,930 @@ maroon
 */
 
 /* ===GLOBAL=== */
-    body {
-      margin: 0;
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0
-    }
+body {
+  margin: 0;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0
+}
 
 /* ===HEADER=== */
-    #mcmaster-header,
-    #mcmaster-header * {
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
-    }
-    #mcmaster-header {
+#mcmaster-header,
+#mcmaster-header * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+#mcmaster-header {
 
-      overflow: hidden;
-      background: #fff;/*
-      height: 100px;
-      width: 100%;
-      position: relative;
+  overflow: hidden;
+  background: #fff;/*
+  height: 100px;
+  width: 100%;
+  position: relative;
 */
-      font-family: 'Roboto Condensed', Arial, sans-serif;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
 
-    }
-    #mcmaster-header #mcmaster-brand {
-/*      display: table-cell;*/
-    }
-    #mcmaster-header #mcmaster-logo {
-      width: 145px;
-      height: 80px;
-      margin: 10px;
-    }
-    #mcmaster-header .nav-item {
-      margin: 0;
-      float: right;
-      display: block;
-      position: relative;
-      min-width: 82.5px;
-      text-align: center;
-      height: 100px;
-      -webkit-transition: all 0.3s ease-out;
-      transition: all 0.3s ease-out;
-      text-transform: uppercase;
-      color: #5b6770;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      z-index: 999999;
-      border-bottom: 3px solid transparent;
-    }
-    #mcmaster-header .nav-item:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-      text-decoration: none;
-      border-bottom-color: #ac1455;
-    }
-    /* ===MAC SEARCH ICON=== */
-    #mcmaster-search {
-      padding-top: 60px;
-    }
-    #mcmaster-search span,
-    #mcmaster-search span::after,
-    #mcmaster-search span::before {
-      -webkit-transition: .25s ease-in-out;
-      transition: .25s ease-in-out;
-    }
-    #mcmaster-search span {
-      display: block;
-      position: absolute;
-      height: 24px;
-      width: 24px;
-      border: 3px solid #5b6770;
-      border-radius: 50%;
-      top: 25px;
-      left: 30%;
-    }
-    #mcmaster-search span:before {
-      position: absolute;
-      display: block;
-      left: 20px;
-      bottom: -7px;
-      border-radius: 2px;
-      width: 12px;
-      height: 3px;
-      background: #5b6770;
-      content: '';
-      -webkit-transform: translateX(-6px) translateY(-3px) rotate(45deg);
-      -ms-transform: translateX(-6px) translateY(-3px) rotate(45deg);
-      transform: translateX(-6px) translateY(-3px) rotate(45deg);
-    }
-    #mcmaster-search span:after {
-      position: absolute;
-      display: block;
-      left: 20px;
-      bottom: -7px;
-      border-radius: 2px;
-      width: 12px;
-      height: 3px;
-      background: #5b6770;
-      content: '';
-      -webkit-transform: translateX(-6px) translateY(-3px) rotate(45deg);
-      -ms-transform: translateX(-6px) translateY(-3px) rotate(45deg);
-      transform: translateX(-6px) translateY(-3px) rotate(45deg);
-    }
-    /*    Mac Search Icon Active */
-    #mcmaster-header.search-active #mcmaster-search span {
-      height: 0%;
-      width: 0%;
-      top: 36px;
-      left: 35px;
-      border: 2px solid #5b6770;
-    }
-    #mcmaster-header.search-active #mcmaster-search span:before {
-      left: -15px;
-      bottom: -2px;
-      width: 32px;
-      -webkit-transform: rotate(-135deg);
-      -ms-transform: rotate(-135deg);
-      transform: rotate(-135deg);
-    }
-    #mcmaster-header.search-active #mcmaster-search span:after {
-      left: -16px;
-      bottom: -2px;
-      width: 32px;
-      -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-      transform: rotate(135deg);
-    }
-    /* ===MAC MENU ICON=== */
-    #mcmaster-menu {
-      -webkit-transform: rotate(0deg);
-      -ms-transform: rotate(0deg);
-      transform: rotate(0deg);
-      -webkit-transition: .5s ease-in-out;
-      transition: .5s ease-in-out;
-      cursor: pointer;
-      padding-top: 60px;
-    }
-    #mcmaster-menu span {
-      display: block;
-      position: absolute;
-      height: 3px;
-      width: 32px;
-      background: #5b6770;
-      border-radius: 2px;
-      opacity: 1;
-      top: 38px;
-      left: 30.5%;
-    }
-    #mcmaster-menu span,
-    #mcmaster-menu span::before,
-    #mcmaster-menu span::after {
-      -webkit-transition: .25s ease-in-out;
-      transition: .25s ease-in-out;
-      border-radius: 2px;
-    }
-    #mcmaster-menu span::before,
-    #mcmaster-menu span::after {
-      position: absolute;
-      display: block;
-      left: 0;
-      width: 32px;
-      height: 3px;
-      background: #5b6770;
-      content: '';
-    }
-    #mcmaster-menu span:before {
-      top: -10px;
-    }
-    #mcmaster-menu span:after {
-      top: 10px;
-    }
-    /* Mac Menu Icon Active */
-    #mcmaster-header.menu-active #mcmaster-menu span {
-      -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-      transform: rotate(180deg);
-    }
-    #mcmaster-header.menu-active #mcmaster-menu span:before {
-      top: -8px;
-      width: 16px;
-      left: 4px;
-      -webkit-transform: translateX(-6px) translateY(3px) rotate(-45deg);
-      -ms-transform: translateX(-6px) translateY(3px) rotate(-45deg);
-      transform: translateX(-6px) translateY(3px) rotate(-45deg);
-    }
-    #mcmaster-header.menu-active #mcmaster-menu span:after {
-      top: 8px;
-      width: 16px;
-      left: 4px;
-      -webkit-transform: translateX(-6px) translateY(-3px) rotate(45deg);
-      -ms-transform: translateX(-6px) translateY(-3px) rotate(45deg);
-      transform: translateX(-6px) translateY(-3px) rotate(45deg);
-    }
-    #mcmaster-header.menu-active #mcmaster-menu span,
-    #mcmaster-header.menu-active #mcmaster-menu span:before,
-    #mcmaster-header.menu-active #mcmaster-menu span:after {
-      background: #ffffff !important;
-    }
-    #mcmaster-header.menu-active #mcmaster-menu {
-      color: white;
-      background: #7a003c;
-    }
-    /* Mac Menu Icon Active (search icon) */
-    #mcmaster-header.menu-active #mcmaster-search {
-      color: white !important;
-      background: #7a003c;
-    }
-    #mcmaster-header.menu-active #mcmaster-search span {
-      border-color: #ffffff !important;
-    }
-    #mcmaster-header.menu-active #mcmaster-search span:before,
-    #mcmaster-header.menu-active #mcmaster-search span:after {
-      background: #ffffff !important;
-    }
-    /* ===CONDENSED HEADER=== */
-    #mcmaster-header.condensed {
-      overflow: visible;
-      height: 60px;
-    }
-    #mcmaster-header.condensed #mcmaster-menu,
-    #mcmaster-header.condensed #mcmaster-search {
-      text-indent: -9999px;
-      height: 60px;
-    }
-    #mcmaster-header.condensed #mcmaster-brand {
-      height: 60px;
-    }
-    #mcmaster-header.condensed #mcmaster-search {
-      padding-top: 0;
-    }
-    #mcmaster-header.condensed #mcmaster-menu {
-      padding-top: 0;
-    }
-    #mcmaster-header.condensed #mcmaster-logo {
-      width: 109px;
-      height: 60px;
-    }
-    #mcmaster-header.condensed #mcmaster-logo:hover {
-      border-bottom-color: transparent !important;
-      background-color: transparent !important;
-    }
-    #mcmaster-header.condensed #mcmaster-menu span {
-      top: 28px;
-    }
-    #mcmaster-header.condensed #mcmaster-search span {
-      top: 14px;
-    }
-    #mcmaster-header.condensed.search-active #mcmaster-search span {
-      top: 27px;
-    }
-    /* ===SEARCH OVERLAY=== */
-    #mcmaster-search-overlay {
-      position: fixed;
-      display: block;
-      width: 100%;
-      height: 100%;
-      height: calc(100% - 100px);
-      top: 100px;
-      left: 0;
-      z-index: 999997;
-      overflow-y: scroll !important;
-      background-color: #c6cbce;
-    }
-    #mcmaster-search-form {
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    #mcmaster-header.condensed #mcmaster-search-overlay {
-      top: 60px !important;
-      height: calc(100% - 60px) !important;
-    }
-    .list-unstyled {
-        list-style: none;
-        padding-left: 20px;
-    }
-    /* Transition Effects */
-    #mcmaster-search-overlay {
+}
+#mcmaster-header #mcmaster-brand {
+
+}
+#mcmaster-header #mcmaster-logo {
+  width: 145px;
+  height: 80px;
+  margin: 10px;
+}
+#mcmaster-header .nav-item {
+  margin: 0;
+  float: right;
+  display: block;
+  position: relative;
+  min-width: 82.5px;
+  text-align: center;
+  height: 100px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  text-transform: uppercase;
+  color: #5b6770;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  z-index: 999999;
+  border-bottom: 3px solid transparent;
+}
+#mcmaster-header .nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  border-bottom-color: #ac1455;
+}
+/* ===MAC SEARCH ICON=== */
+#mcmaster-search {
+  padding-top: 60px;
+}
+#mcmaster-search span,
+#mcmaster-search span::after,
+#mcmaster-search span::before {
+  -webkit-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+#mcmaster-search span {
+  display: block;
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  border: 3px solid #5b6770;
+  border-radius: 50%;
+  top: 25px;
+  left: 30%;
+}
+#mcmaster-search span:before {
+  position: absolute;
+  display: block;
+  left: 20px;
+  bottom: -7px;
+  border-radius: 2px;
+  width: 12px;
+  height: 3px;
+  background: #5b6770;
+  content: '';
+  -webkit-transform: translateX(-6px) translateY(-3px) rotate(45deg);
+  -ms-transform: translateX(-6px) translateY(-3px) rotate(45deg);
+  transform: translateX(-6px) translateY(-3px) rotate(45deg);
+}
+#mcmaster-search span:after {
+  position: absolute;
+  display: block;
+  left: 20px;
+  bottom: -7px;
+  border-radius: 2px;
+  width: 12px;
+  height: 3px;
+  background: #5b6770;
+  content: '';
+  -webkit-transform: translateX(-6px) translateY(-3px) rotate(45deg);
+  -ms-transform: translateX(-6px) translateY(-3px) rotate(45deg);
+  transform: translateX(-6px) translateY(-3px) rotate(45deg);
+}
+/*    Mac Search Icon Active */
+#mcmaster-header.search-active #mcmaster-search span {
+  height: 0%;
+  width: 0%;
+  top: 36px;
+  left: 35px;
+  border: 2px solid #5b6770;
+}
+#mcmaster-header.search-active #mcmaster-search span:before {
+  left: -15px;
+  bottom: -2px;
+  width: 32px;
+  -webkit-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+#mcmaster-header.search-active #mcmaster-search span:after {
+  left: -16px;
+  bottom: -2px;
+  width: 32px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(135deg);
+}
+/* ===MAC MENU ICON=== */
+#mcmaster-menu {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  padding-top: 60px;
+}
+#mcmaster-menu span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 32px;
+  background: #5b6770;
+  border-radius: 2px;
+  opacity: 1;
+  top: 38px;
+  left: 30.5%;
+}
+#mcmaster-menu span,
+#mcmaster-menu span::before,
+#mcmaster-menu span::after {
+  -webkit-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+  border-radius: 2px;
+}
+#mcmaster-menu span::before,
+#mcmaster-menu span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 32px;
+  height: 3px;
+  background: #5b6770;
+  content: '';
+}
+#mcmaster-menu span:before {
+  top: -10px;
+}
+#mcmaster-menu span:after {
+  top: 10px;
+}
+/* Mac Menu Icon Active */
+#mcmaster-header.menu-active #mcmaster-menu span {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+#mcmaster-header.menu-active #mcmaster-menu span:before {
+  top: -8px;
+  width: 16px;
+  left: 4px;
+  -webkit-transform: translateX(-6px) translateY(3px) rotate(-45deg);
+  -ms-transform: translateX(-6px) translateY(3px) rotate(-45deg);
+  transform: translateX(-6px) translateY(3px) rotate(-45deg);
+}
+#mcmaster-header.menu-active #mcmaster-menu span:after {
+  top: 8px;
+  width: 16px;
+  left: 4px;
+  -webkit-transform: translateX(-6px) translateY(-3px) rotate(45deg);
+  -ms-transform: translateX(-6px) translateY(-3px) rotate(45deg);
+  transform: translateX(-6px) translateY(-3px) rotate(45deg);
+}
+#mcmaster-header.menu-active #mcmaster-menu span,
+#mcmaster-header.menu-active #mcmaster-menu span:before,
+#mcmaster-header.menu-active #mcmaster-menu span:after {
+  background: #ffffff !important;
+}
+#mcmaster-header.menu-active #mcmaster-menu {
+  color: white;
+  background: #7a003c;
+}
+/* Mac Menu Icon Active (search icon) */
+#mcmaster-header.menu-active #mcmaster-search {
+  color: white !important;
+  background: #7a003c;
+}
+#mcmaster-header.menu-active #mcmaster-search span {
+  border-color: #ffffff !important;
+}
+#mcmaster-header.menu-active #mcmaster-search span:before,
+#mcmaster-header.menu-active #mcmaster-search span:after {
+  background: #ffffff !important;
+}
+/* ===CONDENSED HEADER=== */
+#mcmaster-header.condensed {
+  overflow: visible;
+  height: 60px;
+}
+#mcmaster-header.condensed #mcmaster-menu,
+#mcmaster-header.condensed #mcmaster-search {
+  text-indent: -9999px;
+  height: 60px;
+}
+#mcmaster-header.condensed #mcmaster-brand {
+  height: 60px;
+}
+#mcmaster-header.condensed #mcmaster-search {
+  padding-top: 0;
+}
+#mcmaster-header.condensed #mcmaster-menu {
+  padding-top: 0;
+}
+#mcmaster-header.condensed #mcmaster-logo {
+  width: 109px;
+  height: 60px;
+}
+#mcmaster-header.condensed #mcmaster-logo:hover {
+  border-bottom-color: transparent !important;
+  background-color: transparent !important;
+}
+#mcmaster-header.condensed #mcmaster-menu span {
+  top: 28px;
+}
+#mcmaster-header.condensed #mcmaster-search span {
+  top: 14px;
+}
+#mcmaster-header.condensed.search-active #mcmaster-search span {
+  top: 27px;
+}
+/* ===SEARCH OVERLAY=== */
+#mcmaster-search-overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  height: calc(100% - 100px);
+  top: 100px;
+  left: 0;
+  z-index: 999997;
+  overflow-y: scroll !important;
+  background-color: #c6cbce;
+}
+#mcmaster-search-form {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+#mcmaster-header.condensed #mcmaster-search-overlay {
+  top: 60px !important;
+  height: calc(100% - 60px) !important;
+}
+.list-unstyled {
+    list-style: none;
+    padding-left: 20px;
+}
+/* Transition Effects */
+#mcmaster-search-overlay {
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  font-weight: 300;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
+  transition: opacity 0.5s, visibility 0s 0.5s;
+}
+#mcmaster-header.search-active #mcmaster-search-overlay {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+#mcmaster-search-overlay #mcmaster-quick-links {
+  opacity: 0.4;
+  -webkit-transform: translateY(-25%) rotateX(35deg);
+  transform: translateY(-25%) rotateX(35deg);
+  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+  transition: transform 0.5s, opacity 0.5s;
+}
+#mcmaster-header.search-active #mcmaster-search-overlay #mcmaster-quick-links {
+  opacity: 1;
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+#mcmaster-search-overlay #mcmaster-quick-links {
+  -webkit-transform: translateY(25%) rotateX(-35deg);
+  transform: translateY(25%) rotateX(-35deg);
+}
+  #mcmaster-search-field {
       font-family: 'Roboto Condensed', Arial, sans-serif;
       font-weight: 300;
-      opacity: 0;
-      visibility: hidden;
-      -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
-      transition: opacity 0.5s, visibility 0s 0.5s;
-    }
-    #mcmaster-header.search-active #mcmaster-search-overlay {
-      opacity: 1;
-      visibility: visible;
-      -webkit-transition: opacity 0.5s;
-      transition: opacity 0.5s;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links {
-      opacity: 0.4;
-      -webkit-transform: translateY(-25%) rotateX(35deg);
-      transform: translateY(-25%) rotateX(35deg);
-      -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-      transition: transform 0.5s, opacity 0.5s;
-    }
-    #mcmaster-header.search-active #mcmaster-search-overlay #mcmaster-quick-links {
-      opacity: 1;
-      -webkit-transform: rotateX(0deg);
-      transform: rotateX(0deg);
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links {
-      -webkit-transform: translateY(25%) rotateX(-35deg);
-      transform: translateY(25%) rotateX(-35deg);
-    }
-      #mcmaster-search-field {
-          font-family: 'Roboto Condensed', Arial, sans-serif;
-          font-weight: 300;
-      }
-      #mcmaster-search-field:focus {
-          outline: none;
-      }
-    /* Search Field */
-    #mcmaster-search-overlay #search-input {
-      padding: 3px;
-      border: solid 1px #E4E4E4;
-      border-radius: 6px;
-      background-color: #fff;
-      margin: 0 auto;
-      margin-top: 80px;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      -webkit-perspective: 1200px;
-      perspective: 1200px;
-      height: 50px;
-    }
-    #mcmaster-search-overlay #search-input {
-      opacity: 0.4;
-      -webkit-transform: translateY(-25%) rotateX(35deg);
-      transform: translateY(-25%) rotateX(35deg);
-      -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-      transition: transform 0.5s, opacity 0.5s;
-    }
-    #mcmaster-header.search-active #mcmaster-search-overlay #search-input {
-      opacity: 1;
-      -webkit-transform: rotateX(0deg);
-      transform: rotateX(0deg);
-    }
-    #mcmaster-search-overlay #search-input {
-      -webkit-transform: translateY(25%) rotateX(-35deg);
-      transform: translateY(25%) rotateX(-35deg);
-    }
-    #mcmaster-search-overlay #search-input input {
-      border: 0;
-      box-shadow: none;
-      font-size: 18px;
-      padding: 10px 45px 10px 10px;
-      color: #1e252b;
-      width: 100%;
-    }
-    #mcmaster-search-overlay #search-input button {
-      display: block;
-      width: 60px;
-      height: 48px;
-      margin: 0;
-      background: none;
-      box-shadow: none;
-      border: 0;
-      padding: 9px;
-      border-left: none !important;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    #mcmaster-search-overlay #search-input button svg {
-      width: 30px;
-      height: 30px;
-    }
-    #mcmaster-search-overlay #search-input button .search-icon {
-      fill: #6a7882;
-    }
-    #mcmaster-search-overlay #search-input button:hover .search-icon {
-      fill: #7a003c;
-    }
-    /* Quick Links */
-    #mcmaster-search-overlay #mcmaster-quick-links {
-      display: block;
-      background: #fff;
-      padding: 15px 15px;
-      border-top: 5px solid #7a003c;
-      box-shadow: 0 2px 10px #8e979d;
-      overflow-y: scroll;
-      margin-bottom: 50px;
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-      margin-top: 50px;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links .link-row {
-      margin: 0;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links .link-row .column {
-      width: 50%;
-      float: left;
-      min-width: 255px;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links .links-title {
-      font-size: 18px;
-      line-height: 20px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      padding-left: 20px;
-      font-family: 'Roboto Condensed', Arial, sans-serif;
-      font-weight: 800;
-      color: #323e48;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links ul li a {
-      display: inline;
-      color: #ac1455;
-      font-size: 16px;
-      line-height: 20px;
-      text-transform: none;
-      letter-spacing: 0;
-      text-decoration: none;
-      border-bottom: none;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links ul li a:hover {
-      color: #147cac;
-      background: none;
-      text-decoration: none;
-    }
-    #mcmaster-search-overlay #mcmaster-quick-links li {
-      margin-bottom: 5px;
-      padding-right: 10px;
-    }
-    /* ===OFF CANVAS MENU=== */
+  }
+  #mcmaster-search-field:focus {
+      outline: none;
+  }
+/* Search Field */
+#mcmaster-search-overlay #search-input {
+  padding: 3px;
+  border: solid 1px #E4E4E4;
+  border-radius: 6px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 80px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-perspective: 1200px;
+  perspective: 1200px;
+  height: 50px;
+}
+#mcmaster-search-overlay #search-input {
+  opacity: 0.4;
+  -webkit-transform: translateY(-25%) rotateX(35deg);
+  transform: translateY(-25%) rotateX(35deg);
+  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+  transition: transform 0.5s, opacity 0.5s;
+}
+#mcmaster-header.search-active #mcmaster-search-overlay #search-input {
+  opacity: 1;
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+#mcmaster-search-overlay #search-input {
+  -webkit-transform: translateY(25%) rotateX(-35deg);
+  transform: translateY(25%) rotateX(-35deg);
+}
+#mcmaster-search-overlay #search-input input {
+  border: 0;
+  box-shadow: none;
+  font-size: 18px;
+  padding: 10px 45px 10px 10px;
+  color: #1e252b;
+  width: 100%;
+}
+#mcmaster-search-overlay #search-input button {
+  display: block;
+  width: 60px;
+  height: 48px;
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  border: 0;
+  padding: 9px;
+  border-left: none !important;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+#mcmaster-search-overlay #search-input button svg {
+  width: 30px;
+  height: 30px;
+}
+#mcmaster-search-overlay #search-input button .search-icon {
+  fill: #6a7882;
+}
+#mcmaster-search-overlay #search-input button:hover .search-icon {
+  fill: #7a003c;
+}
+/* Quick Links */
+#mcmaster-search-overlay #mcmaster-quick-links {
+  display: block;
+  background: #fff;
+  padding: 15px 15px;
+  border-top: 5px solid #7a003c;
+  box-shadow: 0 2px 10px #8e979d;
+  overflow-y: scroll;
+  margin-bottom: 50px;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+#mcmaster-search-overlay #mcmaster-quick-links .link-row {
+  margin: 0;
+}
+#mcmaster-search-overlay #mcmaster-quick-links .link-row .column {
+  width: 50%;
+  float: left;
+  min-width: 255px;
+}
+#mcmaster-search-overlay #mcmaster-quick-links .links-title {
+  font-size: 18px;
+  line-height: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  padding-left: 20px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  font-weight: 800;
+  color: #323e48;
+}
+#mcmaster-search-overlay #mcmaster-quick-links ul li a {
+  display: inline;
+  color: #ac1455;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: none;
+  letter-spacing: 0;
+  text-decoration: none;
+  border-bottom: none;
+}
+#mcmaster-search-overlay #mcmaster-quick-links ul li a:hover {
+  color: #147cac;
+  background: none;
+  text-decoration: none;
+}
+#mcmaster-search-overlay #mcmaster-quick-links li {
+  margin-bottom: 5px;
+  padding-right: 10px;
+}
+/* ===OFF CANVAS MENU=== */
+
+#mcmaster-nav {
+  background: #7a003c;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  padding-top: 100px;
+  width: 240px;
+  height: 100%;
+  top: 0;
+  right: -240px;
+  z-index: 999998;
+  margin-top: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+    visibility: hidden;
+}
+@media (max-width: 650px) {
     #mcmaster-nav {
-      background: #7a003c;
-      position: fixed;
-      padding: 0;
-      margin: 0;
-      padding-top: 100px;
-      width: 240px;
-      height: 100%;
-      top: 0;
-      right: -240px;
-      z-index: 999998;
-      margin-top: 0;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      -webkit-transition: all 0.3s ease-out;
-      transition: all 0.3s ease-out;
-    }
-    #mcmaster-nav a {
-      display: inline-block;
-      width: 100%;
-      color: #fff;
-      padding: 10px 20px 10px 20px;
-      border-top: 1px solid #37001a;
-      font-weight: 300;
-      font-size: 15px;
-      background: #56002a;
-    }
-    #mcmaster-nav>li>a {
-      font-size: 20px;
-      padding: 15px 20px 15px 20px;
-      background: #7a003c;
-      border-top-color: #37001a;
-    }
-    #mcmaster-nav a:hover {
-      background: #7a003c;
-    }
-    #mcmaster-nav>li>a:hover {
-      background: #ac1455;
-    }
-    #mcmaster-nav li,
-    #mcmaster-nav ul {
-      list-style-image: none;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-    #mcmaster-header.menu-active #mcmaster-nav {
-      -webkit-transform: translate(-240px, 0);
-      -ms-transform: translate(-240px, 0);
-      transform: translate(-240px, 0);
-    }
-    #mcmaster-nav input {
-      display: none;
-    }
-    #mcmaster-nav label {
-      cursor: pointer;
-      display: block;
-      font-size: 20px;
-      padding: 15px 20px 15px 20px;
-      background: #7a003c;
-      border-top: 1px solid #37001a;
-      z-index: 20;
-      color: #fff;
-      font-weight: 300;
-    }
-    #mcmaster-nav label:hover {
-      background: #ac1455;
-    }
-    #mcmaster-nav input:checked + label {
-      background: #ac1455;
-    }
-    #mcmaster-nav ul {
-      background: #f7f7f7;
-      overflow: hidden;
-      z-index: 10;
-      max-height: 0;
-      overflow: hidden;
-      -webkit-transition: max-height 0.8s;
-      -moz-transition: max-height 0.8s;
-      transition: max-height 0.8s;
-    }
-    #mcmaster-nav input:checked ~ ul {
-      max-height: 720px;
-    }
-    /* ===HEADER COLOURS=== */
-    #mcmaster-header.light-grey {
-      background: #f1f1f1;
-    }
-    #mcmaster-header.grey {
-      background: #c6cbce;
-    }
-    #mcmaster-header.dark-grey {
-      background: #8e979d;
-    }
-    #mcmaster-header.light-slate {
-      background: #6a7882;
-    }
-    #mcmaster-header.slate {
-      background: #323e48;
-    }
-    #mcmaster-header.dark-slate {
-      background: #1e252b;
-    }
-    #mcmaster-header.black {
-      background: #000000;
-    }
-    #mcmaster-header.maroon {
-      background: #7a003c;
-    }
-    #mcmaster-header.light-grey .nav-item {
-      color: #323e48;
-    }
-    /*    Grey and Dark Grey */
-    #mcmaster-header.grey .nav-item,
-    #mcmaster-header.dark-grey .nav-item {
-      color: #000;
-    }
-    #mcmaster-header.grey #mcmaster-search span,
-    #mcmaster-header.dark-grey #mcmaster-search span {
-      border-color: #000;
-    }
-    #mcmaster-header.grey #mcmaster-search span:before,
-    #mcmaster-header.grey #mcmaster-search span:after,
-    #mcmaster-header.grey #mcmaster-menu span,
-    #mcmaster-header.grey #mcmaster-menu span:before,
-    #mcmaster-header.grey #mcmaster-menu span:after,
-    #mcmaster-header.dark-grey #mcmaster-search span:before,
-    #mcmaster-header.dark-grey #mcmaster-search span:after,
-    #mcmaster-header.dark-grey #mcmaster-menu span,
-    #mcmaster-header.dark-grey #mcmaster-menu span:before,
-    #mcmaster-header.dark-grey #mcmaster-menu span:after {
-      background-color: #000;
-    }
-    /*    Reversed */
-    #mcmaster-header.light-slate .nav-item,
-    #mcmaster-header.slate .nav-item,
-    #mcmaster-header.dark-slate .nav-item,
-    #mcmaster-header.maroon .nav-item,
-    #mcmaster-header.black .nav-item {
-      color: #fff;
-    }
-    #mcmaster-header.light-slate #mcmaster-search span,
-    #mcmaster-header.slate #mcmaster-search span,
-    #mcmaster-header.dark-slate #mcmaster-search span,
-    #mcmaster-header.maroon #mcmaster-search span,
-    #mcmaster-header.black #mcmaster-search span {
-      border-color: #fff;
-    }
-    #mcmaster-header.light-slate #mcmaster-search span:before,
-    #mcmaster-header.light-slate #mcmaster-search span:after,
-    #mcmaster-header.light-slate #mcmaster-menu span,
-    #mcmaster-header.light-slate #mcmaster-menu span:before,
-    #mcmaster-header.light-slate #mcmaster-menu span:after,
-    #mcmaster-header.slate #mcmaster-search span:before,
-    #mcmaster-header.slate #mcmaster-search span:after,
-    #mcmaster-header.slate #mcmaster-menu span,
-    #mcmaster-header.slate #mcmaster-menu span:before,
-    #mcmaster-header.slate #mcmaster-menu span:after,
-    #mcmaster-header.dark-slate #mcmaster-search span:before,
-    #mcmaster-header.dark-slate #mcmaster-search span:after,
-    #mcmaster-header.dark-slate #mcmaster-menu span,
-    #mcmaster-header.dark-slate #mcmaster-menu span:before,
-    #mcmaster-header.dark-slate #mcmaster-menu span:after,
-    #mcmaster-header.maroon #mcmaster-search span:before,
-    #mcmaster-header.maroon #mcmaster-search span:after,
-    #mcmaster-header.maroon #mcmaster-menu span,
-    #mcmaster-header.maroon #mcmaster-menu span:before,
-    #mcmaster-header.maroon #mcmaster-menu span:after,
-    #mcmaster-header.black #mcmaster-search span:before,
-    #mcmaster-header.black #mcmaster-search span:after,
-    #mcmaster-header.black #mcmaster-menu span,
-    #mcmaster-header.black #mcmaster-menu span:before,
-    #mcmaster-header.black #mcmaster-menu span:after {
-      background-color: #fff;
-    }
-    #mcmaster-header.maroon .nav-item:hover,
-    #mcmaster-header.black .nav-item:hover,
-    #mcmaster-header.dark-slate .nav-item:hover,
-    #mcmaster-header.slate .nav-item:hover {
-      border-bottom-color: #fdbf57;
-    }
-    /* McMaster Logo */
-    .shieldoutline {
-      fill: #ffffff;
-    }
-    .logoletters,
-    .shield,
-    .shieldheader {
-      fill: #626f78;
-    }
-    .bookoutline,
-    .shieldbg,
-    .books,
-    .leaves {
-      fill: #fdbf57;
-    }
-    .bookspine,
-    .bookbg,
-    .eagle {
-      fill: #7a003c;
-    }
-    .social {
-      fill: #6a7882;
-      width: 21px;
-      height: 21px;
-    }
-    /*    Contact List Hover */
-    #social-links a:hover {
-      text-decoration: none;
-    }
-    .maroon #contact-links a:hover,
-    .black #contact-links a:hover,
-    .dark-slate #contact-links a:hover,
-    .slate #contact-links a:hover {
-      color: #fdbf57;
-    }
-    .light-slate #contact-links a:hover {
-      color: #000;
-    }
-    .dark-grey #contact-links a:hover {
-      color: #56002a;
-    }
-    .grey #contact-links a:hover {
-      color: #7a003c;
-    }
-    .light-grey #contact-links a:hover,
-    #contact-links a:hover {
-      color: #ac1455;
-    }
-    /* Soical Links Hovers */
-    .maroon #social-links a:hover .social,
-    .black #social-links a:hover .social,
-    .dark-slate #social-links a:hover .social,
-    .slate #social-links a:hover .social {
-      fill: #fdbf57;
-    }
-    .light-slate #social-links a:hover .social {
-      fill: #000;
-    }
-    .dark-grey #social-links a:hover .social {
-      fill: #56002a;
-    }
-    .grey #social-links a:hover .social {
-      fill: #7a003c;
-    }
-    .light-grey #social-links a:hover .social,
-    #social-links a:hover .social {
-      fill: #ac1455;
-    }
-    /* ===LOGO COLOUR ADJUSTMENTS=== */
-    .grey .logoletters,
-    .dark-grey .logoletters,
-    .grey .shield,
-    .dark-grey .shield,
-    .grey .shieldbg,
-    .dark-grey .shieldbg,
-    .grey .leaves,
-    .dark-grey .leaves,
-    .grey .bookbg,
-    .dark-grey .bookbg,
-    .grey .bookoutline,
-    .dark-grey .bookoutline,
-    .grey .bookspine,
-    .dark-grey .bookspine,
-    .grey .social,
-    .dark-grey .social,
-    .grey .social,
-    .dark-grey .social {
-      fill: #000000;
-    }
-    .light-slate .logoletters,
-    .slate .logoletters,
-    .dark-slate .logoletters,
-    .light-maroon .logoletters,
-    .maroon .logoletters,
-    .black .logoletters,
-    .grey .shieldheader,
-    .dark-grey .shieldheader,
-    .grey .eagle,
-    .dark-grey .eagle,
-    .grey .books,
-    .dark-grey .books,
-    .light-slate .social,
-    .slate .social,
-    .dark-slate .social,
-    .light-maroon .social,
-    .maroon .social,
-    .black .social {
-      fill: #ffffff;
-    }
-/* ===FOOTER=== */
-    footer {
-      background: #ffffff;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 20px;
-      text-align: center;
-      font-family: Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      line-height: 15px;
-    }
-    footer a, footer a .social  {
-      -webkit-transition: all 0.3s ease-out;  transition: all 0.3s ease-out;
-    }
-    footer ul {
-      margin: 20px 0;
-      padding: 0;
-      list-style-type: none;
-      text-align: center;
-    }
-    footer ul li {
-      display: inline;
-      padding: 5px;
-      white-space: nowrap;
-    }
-    footer ul li a {
-      text-decoration: none;
-      color: #6a7882;
-    }
-
-    footer #mcmaster-logo {
-      width: 145px;
-         height: 80px;
-      margin-top: 5px;
-    }
-/* ===FOOTER COLOURS=== */
-    footer.light-grey {
-      background: #f1f1f1;
-    }
-    footer.grey {
-      background: #c6cbce;
-    }
-    footer.dark-grey {
-      background: #8e979d;
-    }
-    footer.light-slate {
-      background: #6a7882;
-    }
-    footer.slate {
-      background: #323e48;
-    }
-    footer.dark-slate {
-      background: #1e252b;
-    }
-    footer.black {
-      background: #000000;
-    }
-    footer.maroon {
-      background: #7a003c;
-    }
-    footer.light-grey a {
-      color: #323e48;
-    }
-    footer.grey a {
-      color: #1e252b;
-    }
-    footer.dark-grey a {
-      color: #000000;
-    }
-    footer.light-slate a,
-    footer.slate a,
-    footer.dark-slate a,
-    footer.light-maroon a,
-    footer.maroon a,
-    footer.black a {
-      color: #ffffff;
-    }
-  /* McMaster Logo */
-    .shieldoutline {
-      fill: #ffffff;
-    }
-    .logoletters,
-    .shield,
-    .shieldheader {
-      fill: #6a7882;
-    }
-    .bookoutline,
-    .shieldbg,
-    .books,
-    .leaves {
-      fill: #fdbf57;
-    }
-    .bookspine,
-    .bookbg,
-    .eagle {
-      fill: #7a003c;
-    }
-    .social{
-      fill:#6a7882;
-      width:21px; height:21px;
-    }
+        padding-top: 200px;
+    }
+}
+#mcmaster-nav a {
+  display: inline-block;
+  width: 100%;
+  color: #fff;
+  padding: 10px 20px 10px 20px;
+  border-top: 1px solid #37001a;
+  font-weight: 300;
+  font-size: 15px;
+  background: #56002a;
+}
+#mcmaster-nav>li>a {
+  font-size: 20px;
+  padding: 15px 20px 15px 20px;
+  background: #7a003c;
+  border-top-color: #37001a;
+}
+#mcmaster-nav a:hover {
+  background: #7a003c;
+}
+#mcmaster-nav>li>a:hover {
+  background: #ac1455;
+}
+#mcmaster-nav li,
+#mcmaster-nav ul {
+  list-style-image: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#mcmaster-header.menu-active #mcmaster-nav {
+  -webkit-transform: translate(-240px, 0);
+  -ms-transform: translate(-240px, 0);
+  transform: translate(-240px, 0);
+    visibility: visible;
+}
+#mcmaster-nav input {
+  display: none;
+}
+#mcmaster-nav h3 {
+  cursor: pointer;
+  display: block;
+  font-size: 20px;
+  padding: 15px 20px 15px 20px;
+  background: #7a003c;
+  border-top: 1px solid #37001a;
+  z-index: 20;
+  color: #fff;
+  font-weight: 300;
+    margin: 0;
+}
+#mcmaster-nav h3:hover {
+  background: #ac1455;
+}
+#mcmaster-nav h3:focus {
+  background: #ac1455;
+}
+#mcmaster-nav ul {
+  background: #f7f7f7;
+  overflow: hidden;
+  z-index: 10;
+/*  max-height: 0;*/
+  overflow: hidden;
+  -webkit-transition: max-height 0.8s;
+  -moz-transition: max-height 0.8s;
+  transition: max-height 0.8s;
+/*    visibility: hidden;*/
+    display: none;
+}
+/*
+#mcmaster-nav input:checked ~ ul {
+  max-height: 720px;
+    visibility: visible;
+}
+*/
+/* ===HEADER COLOURS=== */
+#mcmaster-header.light-grey {
+  background: #f1f1f1;
+}
+#mcmaster-header.grey {
+  background: #c6cbce;
+}
+#mcmaster-header.dark-grey {
+  background: #8e979d;
+}
+#mcmaster-header.light-slate {
+  background: #6a7882;
+}
+#mcmaster-header.slate {
+  background: #323e48;
+}
+#mcmaster-header.dark-slate {
+  background: #1e252b;
+}
+#mcmaster-header.black {
+  background: #000000;
+}
+#mcmaster-header.maroon {
+  background: #7a003c;
+}
+#mcmaster-header.light-grey .nav-item {
+  color: #323e48;
+}
+/*    Grey and Dark Grey */
+#mcmaster-header.grey .nav-item,
+#mcmaster-header.dark-grey .nav-item {
+  color: #000;
+}
+#mcmaster-header.grey #mcmaster-search span,
+#mcmaster-header.dark-grey #mcmaster-search span {
+  border-color: #000;
+}
+#mcmaster-header.grey #mcmaster-search span:before,
+#mcmaster-header.grey #mcmaster-search span:after,
+#mcmaster-header.grey #mcmaster-menu span,
+#mcmaster-header.grey #mcmaster-menu span:before,
+#mcmaster-header.grey #mcmaster-menu span:after,
+#mcmaster-header.dark-grey #mcmaster-search span:before,
+#mcmaster-header.dark-grey #mcmaster-search span:after,
+#mcmaster-header.dark-grey #mcmaster-menu span,
+#mcmaster-header.dark-grey #mcmaster-menu span:before,
+#mcmaster-header.dark-grey #mcmaster-menu span:after {
+  background-color: #000;
+}
+/*    Reversed */
+#mcmaster-header.light-slate .nav-item,
+#mcmaster-header.slate .nav-item,
+#mcmaster-header.dark-slate .nav-item,
+#mcmaster-header.maroon .nav-item,
+#mcmaster-header.black .nav-item {
+  color: #fff;
+}
+#mcmaster-header.light-slate #mcmaster-search span,
+#mcmaster-header.slate #mcmaster-search span,
+#mcmaster-header.dark-slate #mcmaster-search span,
+#mcmaster-header.maroon #mcmaster-search span,
+#mcmaster-header.black #mcmaster-search span {
+  border-color: #fff;
+}
+#mcmaster-header.light-slate #mcmaster-search span:before,
+#mcmaster-header.light-slate #mcmaster-search span:after,
+#mcmaster-header.light-slate #mcmaster-menu span,
+#mcmaster-header.light-slate #mcmaster-menu span:before,
+#mcmaster-header.light-slate #mcmaster-menu span:after,
+#mcmaster-header.slate #mcmaster-search span:before,
+#mcmaster-header.slate #mcmaster-search span:after,
+#mcmaster-header.slate #mcmaster-menu span,
+#mcmaster-header.slate #mcmaster-menu span:before,
+#mcmaster-header.slate #mcmaster-menu span:after,
+#mcmaster-header.dark-slate #mcmaster-search span:before,
+#mcmaster-header.dark-slate #mcmaster-search span:after,
+#mcmaster-header.dark-slate #mcmaster-menu span,
+#mcmaster-header.dark-slate #mcmaster-menu span:before,
+#mcmaster-header.dark-slate #mcmaster-menu span:after,
+#mcmaster-header.maroon #mcmaster-search span:before,
+#mcmaster-header.maroon #mcmaster-search span:after,
+#mcmaster-header.maroon #mcmaster-menu span,
+#mcmaster-header.maroon #mcmaster-menu span:before,
+#mcmaster-header.maroon #mcmaster-menu span:after,
+#mcmaster-header.black #mcmaster-search span:before,
+#mcmaster-header.black #mcmaster-search span:after,
+#mcmaster-header.black #mcmaster-menu span,
+#mcmaster-header.black #mcmaster-menu span:before,
+#mcmaster-header.black #mcmaster-menu span:after {
+  background-color: #fff;
+}
+#mcmaster-header.maroon .nav-item:hover,
+#mcmaster-header.black .nav-item:hover,
+#mcmaster-header.dark-slate .nav-item:hover,
+#mcmaster-header.slate .nav-item:hover {
+  border-bottom-color: #fdbf57;
+}
+/* McMaster Logo */
+.shieldoutline {
+  fill: #ffffff;
+}
+.logoletters,
+.shield,
+.shieldheader {
+  fill: #626f78;
+}
+.bookoutline,
+.shieldbg,
+.books,
+.leaves {
+  fill: #fdbf57;
+}
+.bookspine,
+.bookbg,
+.eagle {
+  fill: #7a003c;
+}
+.social {
+  fill: #6a7882;
+  width: 21px;
+  height: 21px;
+}
 /*    Contact List Hover */
-    #social-links a:hover {
-      text-decoration:none;
-    }
-    .maroon #contact-links a:hover,
-    .black #contact-links a:hover,
-    .dark-slate #contact-links a:hover,
-    .slate #contact-links a:hover{
-      color:#fdbf57;
-    }
-    .light-slate #contact-links a:hover{
-      color:#000;
-    }
-    .dark-grey #contact-links a:hover {
-      color:#56002a;
-    }
-    .grey #contact-links a:hover {
-      color:#7a003c;
-    }
-    .light-grey #contact-links a:hover,
-    #contact-links a:hover {
-      color:#ac1455;
-    }
+#social-links a:hover {
+  text-decoration: none;
+}
+.maroon #contact-links a:hover,
+.black #contact-links a:hover,
+.dark-slate #contact-links a:hover,
+.slate #contact-links a:hover {
+  color: #fdbf57;
+}
+.light-slate #contact-links a:hover {
+  color: #000;
+}
+.dark-grey #contact-links a:hover {
+  color: #56002a;
+}
+.grey #contact-links a:hover {
+  color: #7a003c;
+}
+.light-grey #contact-links a:hover,
+#contact-links a:hover {
+  color: #ac1455;
+}
 /* Soical Links Hovers */
-    .maroon #social-links a:hover .social,
-    .black #social-links a:hover .social,
-    .dark-slate #social-links a:hover .social,
-    .slate #social-links a:hover .social{
-      fill:#fdbf57;
-    }
-    .light-slate #social-links a:hover .social{
-      fill:#000;
-    }
-    .dark-grey #social-links a:hover .social {
-      fill:#56002a;
-    }
-    .grey #social-links a:hover .social {
-      fill:#7a003c;
-    }
-    .light-grey #social-links a:hover .social,
-    #social-links a:hover .social {
-      fill:#ac1455;
-    }
-  /* ===LOGO COLOUR ADJUSTMENTS=== */
-    .grey .logoletters,
-    .dark-grey .logoletters,
-    .grey .shield,
-    .dark-grey .shield,
-    .grey .shieldbg,
-    .dark-grey .shieldbg,
-    .grey .leaves,
-    .dark-grey .leaves,
-    .grey .bookbg,
-    .dark-grey .bookbg,
-    .grey .bookoutline,
-    .dark-grey .bookoutline,
-    .grey .bookspine,
-    .dark-grey .bookspine,
-    .grey .social,
-    .dark-grey .social,
-    .grey .social,
-    .dark-grey .social {
-      fill: #000000;
-    }
-    .light-slate .logoletters,
-    .slate .logoletters,
-    .dark-slate .logoletters,
-    .light-maroon .logoletters,
-    .maroon .logoletters,
-    .black .logoletters,
-    .grey .shieldheader,
-    .dark-grey .shieldheader,
-    .grey .eagle,
-    .dark-grey .eagle,
-    .grey .books,
-    .dark-grey .books,
-    .light-slate .social,
-    .slate .social,
-    .dark-slate .social,
-    .light-maroon .social,
-    .maroon .social,
-    .black .social {
-      fill: #ffffff;
-    }
+.maroon #social-links a:hover .social,
+.black #social-links a:hover .social,
+.dark-slate #social-links a:hover .social,
+.slate #social-links a:hover .social {
+  fill: #fdbf57;
+}
+.light-slate #social-links a:hover .social {
+  fill: #000;
+}
+.dark-grey #social-links a:hover .social {
+  fill: #56002a;
+}
+.grey #social-links a:hover .social {
+  fill: #7a003c;
+}
+.light-grey #social-links a:hover .social,
+#social-links a:hover .social {
+  fill: #ac1455;
+}
+/* ===LOGO COLOUR ADJUSTMENTS=== */
+.grey .logoletters,
+.dark-grey .logoletters,
+.grey .shield,
+.dark-grey .shield,
+.grey .shieldbg,
+.dark-grey .shieldbg,
+.grey .leaves,
+.dark-grey .leaves,
+.grey .bookbg,
+.dark-grey .bookbg,
+.grey .bookoutline,
+.dark-grey .bookoutline,
+.grey .bookspine,
+.dark-grey .bookspine,
+.grey .social,
+.dark-grey .social,
+.grey .social,
+.dark-grey .social {
+  fill: #000000;
+}
+.light-slate .logoletters,
+.slate .logoletters,
+.dark-slate .logoletters,
+.light-maroon .logoletters,
+.maroon .logoletters,
+.black .logoletters,
+.grey .shieldheader,
+.dark-grey .shieldheader,
+.grey .eagle,
+.dark-grey .eagle,
+.grey .books,
+.dark-grey .books,
+.light-slate .social,
+.slate .social,
+.dark-slate .social,
+.light-maroon .social,
+.maroon .social,
+.black .social {
+  fill: #ffffff;
+}
+/* ===FOOTER=== */
+footer {
+  background: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+}
+footer a, footer a .social  {
+  -webkit-transition: all 0.3s ease-out;  transition: all 0.3s ease-out;
+}
+footer ul {
+  margin: 20px 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+}
+footer ul li {
+  display: inline;
+  padding: 5px;
+  white-space: nowrap;
+}
+footer ul li a {
+  text-decoration: none;
+  color: #6a7882;
+}
+
+footer #mcmaster-logo {
+  width: 145px;
+     height: 80px;
+  margin-top: 5px;
+}
+/* ===FOOTER COLOURS=== */
+footer.light-grey {
+  background: #f1f1f1;
+}
+footer.grey {
+  background: #c6cbce;
+}
+footer.dark-grey {
+  background: #8e979d;
+}
+footer.light-slate {
+  background: #6a7882;
+}
+footer.slate {
+  background: #323e48;
+}
+footer.dark-slate {
+  background: #1e252b;
+}
+footer.black {
+  background: #000000;
+}
+footer.maroon {
+  background: #7a003c;
+}
+footer.light-grey a {
+  color: #323e48;
+}
+footer.grey a {
+  color: #1e252b;
+}
+footer.dark-grey a {
+  color: #000000;
+}
+footer.light-slate a,
+footer.slate a,
+footer.dark-slate a,
+footer.light-maroon a,
+footer.maroon a,
+footer.black a {
+  color: #ffffff;
+}
+/* McMaster Logo */
+.shieldoutline {
+  fill: #ffffff;
+}
+.logoletters,
+.shield,
+.shieldheader {
+  fill: #6a7882;
+}
+.bookoutline,
+.shieldbg,
+.books,
+.leaves {
+  fill: #fdbf57;
+}
+.bookspine,
+.bookbg,
+.eagle {
+  fill: #7a003c;
+}
+.social{
+  fill:#6a7882;
+  width:21px; height:21px;
+}
+/*    Contact List Hover */
+#social-links a:hover {
+  text-decoration:none;
+}
+.maroon #contact-links a:hover,
+.black #contact-links a:hover,
+.dark-slate #contact-links a:hover,
+.slate #contact-links a:hover{
+  color:#fdbf57;
+}
+.light-slate #contact-links a:hover{
+  color:#000;
+}
+.dark-grey #contact-links a:hover {
+  color:#56002a;
+}
+.grey #contact-links a:hover {
+  color:#7a003c;
+}
+.light-grey #contact-links a:hover,
+#contact-links a:hover {
+  color:#ac1455;
+}
+/* Soical Links Hovers */
+.maroon #social-links a:hover .social,
+.black #social-links a:hover .social,
+.dark-slate #social-links a:hover .social,
+.slate #social-links a:hover .social{
+  fill:#fdbf57;
+}
+.light-slate #social-links a:hover .social{
+  fill:#000;
+}
+.dark-grey #social-links a:hover .social {
+  fill:#56002a;
+}
+.grey #social-links a:hover .social {
+  fill:#7a003c;
+}
+.light-grey #social-links a:hover .social,
+#social-links a:hover .social {
+  fill:#ac1455;
+}
+/* ===LOGO COLOUR ADJUSTMENTS=== */
+.grey .logoletters,
+.dark-grey .logoletters,
+.grey .shield,
+.dark-grey .shield,
+.grey .shieldbg,
+.dark-grey .shieldbg,
+.grey .leaves,
+.dark-grey .leaves,
+.grey .bookbg,
+.dark-grey .bookbg,
+.grey .bookoutline,
+.dark-grey .bookoutline,
+.grey .bookspine,
+.dark-grey .bookspine,
+.grey .social,
+.dark-grey .social,
+.grey .social,
+.dark-grey .social {
+  fill: #000000;
+}
+.light-slate .logoletters,
+.slate .logoletters,
+.dark-slate .logoletters,
+.light-maroon .logoletters,
+.maroon .logoletters,
+.black .logoletters,
+.grey .shieldheader,
+.dark-grey .shieldheader,
+.grey .eagle,
+.dark-grey .eagle,
+.grey .books,
+.dark-grey .books,
+.light-slate .social,
+.slate .social,
+.dark-slate .social,
+.light-maroon .social,
+.maroon .social,
+.black .social {
+  fill: #ffffff;
+}

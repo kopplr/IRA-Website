@@ -9,7 +9,7 @@ $curr_cat = get_category($cat_id);
     <div style="flex: 1;" ></div>
     <div style="flex: 1; order: 99;"></div>
     <div style="flex: 1 1 1000px">
-        <h1><?php echo $curr_cat->name; ?></h1>
+        <h2><?php echo $curr_cat->name; ?></h2>
     </div>
 
 </div>
@@ -100,7 +100,7 @@ $curr_cat = get_category($cat_id);
 
                                  ?>"> <!-- Link to post -->
                             <article class="post">
-                                <h1><?php the_title() ?></h1>
+                                <h3><?php the_title() ?></h3>
                                 <?php the_content()?>
                             </article>
                         </a>

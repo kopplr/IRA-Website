@@ -221,6 +221,32 @@ jQuery(document).ready(function($) {
     });
 
 
+    // Allow enter to open the menu and search thing
+    $('#mcmaster-search').keypress(function(event){
+        if(event.keyCode == 13){
+            macSearchToggle();
+        }
+    });
+    $('#mcmaster-menu').keypress(function(event){
+        if(event.keyCode == 13){
+            macMenuToggle();
+        }
+    });
+
+    //Toggle dropdown menu in menu
+    $('#mcmaster-nav h3').keypress(function(event){
+
+        if(event.keyCode == 13){
+            console.log($(this).siblings('input').checked);
+            $(this).siblings('ul').slideToggle();
+        }
+    });
+    $('#mcmaster-nav li > h3').click(function() {
+        $(this).parent().siblings().find('ul').slideUp(400);
+        $(this).next('ul').stop(true, false, true).slideToggle(400);
+        return false;
+    });
+
     // Extra jQuery functions
     $.fn.exists = function () {
         return this.length !== 0;

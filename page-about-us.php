@@ -48,7 +48,7 @@ get_header();
         if ( $team_posts ):
         ?>
             <div class="position" id="avp">
-            <h3>Associate Vice President</h3>
+            <h4>Associate Vice President</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
@@ -59,7 +59,7 @@ get_header();
                 </div>
 
                 <div class="profile-content">
-                    <h3><?php the_title(); ?></h3>
+                    <h4><?php the_title(); ?></h4>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -80,7 +80,7 @@ get_header();
         if ( $team_posts ):
         ?>
         <div class="position" id="executive-assistant">
-            <h3 style="">Executive Assistant</h3>
+            <h4 style="">Executive Assistant</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
@@ -91,7 +91,7 @@ get_header();
                 </div>
 
                 <div class="profile-content">
-                    <h3><?php the_title(); ?></h3>
+                    <h4><?php the_title(); ?></h4>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -112,7 +112,7 @@ get_header();
 
         if ( $team_posts ):
         ?>
-            <h3>Senior Project Analysts</h3>
+            <h4>Senior Project Analysts</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
@@ -123,7 +123,7 @@ get_header();
                 </div>
 
                 <div class="profile-content">
-                    <h3><?php the_title(); ?></h3>
+                    <h4><?php the_title(); ?></h4>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -143,7 +143,7 @@ get_header();
 
         if ( $team_posts ):
         ?>
-            <h3>Statistician and Programmers</h3>
+            <h4>Statistician and Programmers</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
@@ -154,7 +154,7 @@ get_header();
                 </div>
 
                 <div class="profile-content">
-                    <h3><?php the_title(); ?></h3>
+                    <h4><?php the_title(); ?></h4>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -174,7 +174,7 @@ get_header();
 
         if ( $team_posts ):
         ?>
-            <h3>Information and Data Analysts</h3>
+            <h4>Information and Data Analysts</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
@@ -185,7 +185,7 @@ get_header();
                 </div>
 
                 <div class="profile-content">
-                    <h3><?php the_title(); ?></h3>
+                    <h4><?php the_title(); ?></h4>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -205,7 +205,7 @@ get_header();
 
         if ( $team_posts ):
         ?>
-            <h3>Junior Analysts</h3>
+            <h4>Junior Analysts</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
@@ -216,7 +216,7 @@ get_header();
                 </div>
 
                 <div class="profile-content">
-                    <h3><?php the_title(); ?></h3>
+                    <h4><?php the_title(); ?></h4>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -236,11 +236,11 @@ get_header();
                         <div id="community-text">
                             <div style="display:flex;">
                                 <i class="fa fa-quote-left fa-3x fa-pull-left" aria-hidden="true"></i>
-                                <h3><?php
+                                <h4><?php
                                     $page = get_page_by_title('About Us');
                                     echo get_post_meta($page->ID, 'quotation', true); ?> <br>
                                     <span>- <?php echo get_post_meta($page->ID, 'quotation-person', true); ?></span>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
                     </div>
