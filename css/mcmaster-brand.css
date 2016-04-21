@@ -478,6 +478,9 @@ body {
     #mcmaster-nav {
         padding-top: 200px;
     }
+    #mcmaster-header .nav-item {
+        min-width: 60px;
+    }
 }
 #mcmaster-nav a {
   display: inline-block;

@@ -80,6 +80,9 @@ h3 {
 h4 {
     font-size: 20px;
 }
+h6 {
+    font-size: 11px;
+}
 .site-content {
     width: 100%;
     min-height: 80vh;
@@ -751,7 +754,7 @@ table {
 
 }
 
-#submit-request h2 {
+#submit-request h3 {
 /*    background: #6a7882;*/
     color: white;
     font-weight: 300;
@@ -759,7 +762,7 @@ table {
 #submit-request a {
     transition: all  0.3s ease-out;
 }
-#submit-request h3 {
+#submit-request h4 {
     border: 1px solid #f1f1f1;
     color: #f1f1f1;
     padding: 15px 40px;
@@ -768,7 +771,7 @@ table {
 /*    font-weight: 300;*/
 /*    //box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
 }
-#submit-request h3:hover {
+#submit-request h4:hover {
     background: #f1f1f1;
     color: #323e48;
 }
@@ -826,15 +829,40 @@ table {
     justify-content: center;
 }
 @media (max-width: 650px) {
+    #mcmaster-nav-items ul {
+        justify-content: center;
+    }
     #mcmaster-nav-items li:nth-child(2) {
-        flex: 1 1 100%;
+        flex-basis: 100%;
         order: -1;
+        justify-content: center;
+    }
+    #mcmaster-nav-items li:nth-child(2) h1 {
+        display:flex;
+        justify-content: center;
+    }
+    #mcmaster-title {
+        width: 100%;
+        text-align: center;
+    }
+    #mcmaster-header .nav-item h6 { /* mcmaster-search and mcmaster-menu*/
+        display: none;
+    }
+    #mcmaster-nav-items li:nth-child(3), #mcmaster-nav-items li:last-child {
+        flex-basis: 60px;
     }
     #menu-primary-menu-links li{
         width: 100%;
     }
-    #mcmaster-nav-items ul {
-        justify-content: center;
+
+
+}
+@media (max-height: 700px) {
+    #clever-vis {
+        height: 410px;
+    }
+    #vis-group {
+        height: 410px;
     }
 }
 /*
@@ -1280,7 +1308,7 @@ dd {
     margin: auto;
     height: 520px;
     background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
-    background-repeat: no-repeat;
+/*    background-repeat: no-repeat;*/
 
 }
 

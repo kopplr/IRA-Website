@@ -1,8 +1,8 @@
 <?php if(!is_page('submit-request')){
     echo '
     <div id="submit-request">
-        <h2>Can\'t find what you\'re looking for?</h2>
-        <a href="http://localhost/wordpress/submit-request"><h3>SUBMIT A REQUEST</h3></a>
+        <h3>Can\'t find what you\'re looking for?</h3>
+        <a href="http://localhost/wordpress/submit-request"><h4>SUBMIT A REQUEST</h4></a>
     </div>';
 }?>
 <div class="site-footer <?php if(is_front_page()){ echo 'home-page-footer';} ?>"><!-- site-footer -->

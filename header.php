@@ -58,8 +58,8 @@
                   </svg>
                     </a></li>
                 <li style><h1><a id="mcmaster-title" href="<?php echo home_url(); ?>" tabindex=""> <?php bloginfo('name') ?></a></h1></li>
-                <li><a id="mcmaster-menu" class="nav-item" onClick="macMenuToggle()" tabindex="0"><span></span>Menu</a></li>
-                <li><a id="mcmaster-search" class="nav-item" onClick="macSearchToggle()" tabindex="0"><span></span>Search</a></li>
+                <li><a id="mcmaster-menu" class="nav-item" onClick="macMenuToggle()" tabindex="0"><span></span><h6>Menu</h6></a></li>
+                <li><a id="mcmaster-search" class="nav-item" onClick="macSearchToggle()" tabindex="0"><span></span><h6>Search</h6></a></li>
             </ul>
         </div>
         <!--    McMaster Menu -->

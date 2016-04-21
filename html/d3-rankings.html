@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    @font-face {
+    font-family: 'Roboto';
+    src: url('RobotoCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        line-height: 1;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+        pointer-events: none;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .d3-slider {
+        position: relative;
+        font-family: Verdana,Arial,sans-serif;
+        font-size: 1.1em;
+        border: 1px solid #aaaaaa;
+        z-index: 2;
+    }
+
+    .d3-slider-horizontal {
+        height: .8em;
+    }
+
+    .d3-slider-range {
+      background:#2980b9;
+      left:0px;
+      right:0px;
+      height: 0.8em;
+      position: absolute;
+    }
+
+    .d3-slider-range-vertical {
+      background:#2980b9;
+      left:0px;
+      right:0px;
+      position: absolute;
+      top:0;
+    }
+
+    .d3-slider-vertical {
+        width: .8em;
+        height: 100px;
+    }
+
+    .d3-slider-handle {
+        position: absolute;
+        width: 1.2em;
+        height: 1.2em;
+        border: 1px solid #d3d3d3;
+        border-radius: 4px;
+        background: #eee;
+        background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+        z-index: 3;
+    }
+
+    .d3-slider-handle:hover {
+        border: 1px solid #999999;
+    }
+
+    .d3-slider-horizontal .d3-slider-handle {
+        top: -.3em;
+        margin-left: -.6em;
+    }
+
+    .d3-slider-axis {
+        position: relative;
+        z-index: 1;
+    }
+
+    .d3-slider-axis-bottom {
+        top: .8em;
+    }
+
+    .d3-slider-axis-right {
+        left: .8em;
+    }
+
+    .d3-slider-axis path {
+        stroke-width: 0;
+        fill: none;
+    }
+
+    .d3-slider-axis line {
+        fill: none;
+        stroke: #aaa;
+        shape-rendering: crispEdges;
+    }
+
+    .d3-slider-axis text {
+        font-size: 11px;
+    }
+
+    .d3-slider-vertical .d3-slider-handle {
+        left: -.25em;
+        margin-left: 0;
+        margin-bottom: -.6em;
+    }
+
+    #slidebars div {
+        width: 800px;
+    }
+
+</style>
+<body>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="d3.slider.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="gaussian.js"></script>
+
+    <div id="slidebars">
+        <h2>Academic Staff</h2>
+        <h3><span id="acadStaff-text">0</span></h3>
+        <div id="acadStaff" ></div>
+
+        <h2>International Academic Staff</h2>
+        <h3><span id="intlAcadStaff-text">0</span></h3>
+        <div id="intlAcadStaff"></div>
+
+        <h3><span id="intlFacRatio">0</span></h3>
+    </div>
+    <div id="donut-chart" style=""></div>
+<!--
+    <h2>Slider 3</h2>
+    <h3><span id="slider-3-text">0</span></h3>
+    <div id="slider3"></div>
+
+    <h2>Slider 4</h2>
+    <h3><span id="slider-4-text">0</span></h3>
+    <div id="slider4"></div>
+
+    <h2>Slider 5</h2>
+    <h3><span id="slider-1-text">0</span></h3>
+    <div id="slider1"></div>
+-->
+
+
+
+
+    <script>
+
+//        queue()
+//            .defer(d3.csv, "Admissions-2014.csv")
+//            .defer(d3.csv, "Admmissionts-2014-Registrants.csv")
+//            .await(ready);
+//
+//        function ready(error, data, regis){
+//            if (error) throw error;
+//
+//
+//        }
+
+
+
+//        d3.select('#slider-2-text').on("click", function() {
+//            slider2.value(2050);
+//        });
+//        var dataset = [
+//            { label: 'Academic Reputation', count: 10 },
+//            { label: 'Employer Reputation', count: 10 },
+//            { label: 'Faculty Student', count: 10 },
+//            { label: 'International Faculty', count: 10 },
+//            { label: 'International Students', count: 20 },
+//            { label: 'Citations per Faculty', count: 10 },
+//            {label: 'empty', count: 30}
+//        ];
+        var distribution = gaussian(0, 1);
+
+//        var dataset = {
+//            original: [10, 10, 10, 10, 10, 10, 40],
+//            new: [15, 15, 15, 15, 10, 10, 20],
+//
+//        };
+
+        var dataset = {
+          original: [10, 10, 10, 10, 10, 10, 40],
+          new: [10, 10, 10, 10, 10, 20, 30],
+        };
+
+        var width = 460,
+            height = 300,
+            cwidth = 50;
+
+        var color = d3.scale.ordinal()
+           .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#fff"]);
+
+        var pie = d3.layout.pie()
+            .sort(null);
+
+        var arc = d3.svg.arc();
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+            .attr("id", "donutBox");
+
+        var gs = svg.selectAll("g").data(d3.values(dataset)).enter().append("g");
+        var path = gs.selectAll("path")
+            .data(pie)
+            .enter().append("path")
+            .attr("fill", function(d, i) { return color(i); })
+            .attr("d", arc)
+            .each(function(d){ this._current = d;})
+            .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
+
+        // INTERNATIONAL FACULTY RATIO *****************************************************************************************
+        var intlFacRatioWeight = 40;
+
+        var meanIntlFacRatio = 0.1865;
+        var stdDevIntlFacRatio = 0.125;
+
+        var acadStaff;
+        var intlAcadStaff;
+        var intlFacRatioFinal;
+        var intlFacRatio;
+
+        var acadStaffSlider = d3.slider().axis(true).min(2000).max(3000).step(100);
+        d3.select('#acadStaff').call(acadStaffSlider);
+
+        acadStaffSlider.on("slide", function(evt, value) {
+            d3.select('#acadStaff-text').text(value);
+            acadStaff = value;
+            intlFacRatio = intlAcadStaff/acadStaff;
+            intlFacRatioFinal = distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+            d3.select('#intlFacRatio').text(intlFacRatioFinal);
+        })
+
+
+        var intlAcadStaffSlider = d3.slider().axis(true).min(0).max(1000).step(100);
+        d3.select('#intlAcadStaff').call(intlAcadStaffSlider);
+
+        intlAcadStaffSlider.on("slide", function(evt, value) {
+            d3.select('#intlAcadStaff-text').text(value);
+            intlAcadStaff = value;
+            intlFacRatio = intlAcadStaff/acadStaff;
+            intlFacRatioFinal = distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+            d3.select('#intlFacRatio').text(intlFacRatioFinal);
+            dataset.new[0]=50;
+            gs.data(d3.values(dataset)).each(change);
+
+        });
+
+
+
+
+
+
+
+//        d3.select("#click").on("click", function(){
+//            gs.data(d3.values(dataset)).each(change);
+//        });
+
+        function change() {
+            console.log(this);
+            var value = this;
+            console.log
+            console.log(value);
+            path.data(pie)
+//                .attr("d", arc)
+                .transition().duration(500)
+                .attrTween("d", arcTween)
+                .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
+
+        }
+
+
+        function arcTween(a) {
+            //console.log(this);
+          var i = d3.interpolate(this._current, a);
+          this._current = i(0);
+          return function(t) {
+            return arc(i(t));
+          };
+        }
+
+    </script>
+
+</body>

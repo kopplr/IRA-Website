@@ -1,40 +1,108 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-    body {
-        background: black;
-        display: flex;
-        justify-content: center;
+    @font-face {
+    font-family: 'Roboto';
+    src: url('RobotoCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
     }
-    .your-class {
-        flex: 0 1 500px;
-        background: white;
-        width: 50%;
+
+
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        line-height: 1;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+        pointer-events: none;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+    #click {
+        width: 100px;
+        height: 100px;
+        background: black;
     }
 
 
 </style>
-<head>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-</head>
 <body>
-    <div class="your-class">
-        <div>your content</div>
-        <div>your content</div>
-        <div>your content</div>
-    </div>
-
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="slick/slick.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+<!--    <script src="d3-legend.min.js"></script>-->
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <div id="click"></div>
     <script>
-        $(document).ready(function(){
-            $('.your-class').slick({
 
-            });
+
+
+        var dataset = {
+          original: [10, 10, 10, 10, 10, 10, 40],
+          new: [10, 10, 10, 10, 10, 20, 30],
+        };
+
+        var dataset2 = {
+          original: [10, 10, 10, 10, 10, 10, 40],
+          new: [10, 10, 10, 15, 10, 25, 20],
+        };
+
+        var width = 460,
+            height = 300,
+            cwidth = 50;
+
+        var color = d3.scale.ordinal()
+           .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#fff"]);
+
+        var pie = d3.layout.pie()
+            .sort(null);
+
+        var arc = d3.svg.arc();
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+            .attr("id", "donutBox");
+
+        var gs = svg.selectAll("g").data(d3.values(dataset)).enter().append("g");
+        var path = gs.selectAll("path")
+            .data(pie)
+            .enter().append("path")
+            .attr("fill", function(d, i) { return color(i); })
+            .attr("d", arc)
+            .each(function(d){ this._current = d;})
+            .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
+
+
+        d3.select("#click").on("click", function(){
+            gs.data(d3.values(dataset2)).each(change);
         });
-    </script>
 
+        function change() {
+            console.log(this);
+            var value = this;
+            console.log
+            console.log(value);
+            path.data(pie)
+//                .attr("d", arc)
+                .transition().duration(500)
+                .attrTween("d", arcTween)
+                .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
+
+        }
+
+
+        function arcTween(a) {
+            //console.log(this);
+          var i = d3.interpolate(this._current, a);
+          this._current = i(0);
+          return function(t) {
+            return arc(i(t));
+          };
+        }
+
+
+        </script>
 </body>
