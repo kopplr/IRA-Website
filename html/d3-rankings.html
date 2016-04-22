@@ -109,7 +109,17 @@
     }
 
     #slidebars div {
-        width: 800px;
+        width: 90%;
+    }
+    #container {
+        display: flex;
+/*        flex-direction: column;*/
+    }
+    #slidebars {
+        flex: 0 1 30%;
+    }
+    #donut-chart {
+        flex: 0 1 70%;
     }
 
 </style>
@@ -118,24 +128,37 @@
     <script src="d3.slider.js"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script src="gaussian.js"></script>
+    <div id="container">
+        <div id="slidebars">
+            <h2>Academic Staff</h2>
+            <h3><span id="acadStaff-text">0</span></h3>
+            <div id="acadStaff" ></div>
 
-    <div id="slidebars">
-        <h2>Academic Staff</h2>
-        <h3><span id="acadStaff-text">0</span></h3>
-        <div id="acadStaff" ></div>
+            <h2>International Academic Staff</h2>
+            <h3><span id="intlAcadStaff-text">0</span></h3>
+            <div id="intlAcadStaff"></div>
 
-        <h2>International Academic Staff</h2>
-        <h3><span id="intlAcadStaff-text">0</span></h3>
-        <div id="intlAcadStaff"></div>
+            <h3>Faculty Ratio: <span id="intlFacRatio">0</span></h3>
 
-        <h3><span id="intlFacRatio">0</span></h3>
+    <!--
+            <h2>Students</h2>
+            <h3><span id="students-text">0</span></h3>
+            <div id="students" ></div>
+
+            <h2>International Students</h2>
+            <h3><span id="intlStudents-text">0</span></h3>
+            <div id="intlStudents"></div>
+
+            <h3>International Student Ratio: <span id="intlStudRatio">0</span></h3>
+    -->
+
+
+        </div>
+        <div id="donut-chart" style=""></div>
     </div>
-    <div id="donut-chart" style=""></div>
-<!--
-    <h2>Slider 3</h2>
-    <h3><span id="slider-3-text">0</span></h3>
-    <div id="slider3"></div>
 
+
+<!--
     <h2>Slider 4</h2>
     <h3><span id="slider-4-text">0</span></h3>
     <div id="slider4"></div>
@@ -177,12 +200,6 @@
 //        ];
         var distribution = gaussian(0, 1);
 
-//        var dataset = {
-//            original: [10, 10, 10, 10, 10, 10, 40],
-//            new: [15, 15, 15, 15, 10, 10, 20],
-//
-//        };
-
         var dataset = {
           original: [10, 10, 10, 10, 10, 10, 40],
           new: [10, 10, 10, 10, 10, 20, 30],
@@ -193,14 +210,14 @@
             cwidth = 50;
 
         var color = d3.scale.ordinal()
-           .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#fff"]);
+           .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ddd"]);
 
         var pie = d3.layout.pie()
             .sort(null);
 
         var arc = d3.svg.arc();
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("#donut-chart").append("svg")
             .attr("width", width)
             .attr("height", height)
             .append("g")
@@ -217,51 +234,51 @@
             .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
 
         // INTERNATIONAL FACULTY RATIO *****************************************************************************************
-        var intlFacRatioWeight = 40;
+        var intlFacRatioWeight = 5;
 
         var meanIntlFacRatio = 0.1865;
         var stdDevIntlFacRatio = 0.125;
 
-        var acadStaff;
-        var intlAcadStaff;
+        var acadStaff = 977;
+        var intlAcadStaff = 2733;
         var intlFacRatioFinal;
         var intlFacRatio;
 
-        var acadStaffSlider = d3.slider().axis(true).min(2000).max(3000).step(100);
+        var acadStaffSlider = d3.slider().axis(false).min(2000).max(3000).step(100);
         d3.select('#acadStaff').call(acadStaffSlider);
 
         acadStaffSlider.on("slide", function(evt, value) {
             d3.select('#acadStaff-text').text(value);
             acadStaff = value;
             intlFacRatio = intlAcadStaff/acadStaff;
-            intlFacRatioFinal = distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
-            d3.select('#intlFacRatio').text(intlFacRatioFinal);
+            intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+            d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1));
+            dataset.new[6] = dataset.new[6] - (intlFacRatioFinal - dataset.new[0]); // Add the difference to the blank bar.
+            dataset.new[0] = intlFacRatioFinal;
+            gs.data(d3.values(dataset)).each(change);
         })
 
 
-        var intlAcadStaffSlider = d3.slider().axis(true).min(0).max(1000).step(100);
+        var intlAcadStaffSlider = d3.slider().axis(false).min(100).max(1100).step(100);
         d3.select('#intlAcadStaff').call(intlAcadStaffSlider);
 
         intlAcadStaffSlider.on("slide", function(evt, value) {
             d3.select('#intlAcadStaff-text').text(value);
             intlAcadStaff = value;
             intlFacRatio = intlAcadStaff/acadStaff;
-            intlFacRatioFinal = distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
-            d3.select('#intlFacRatio').text(intlFacRatioFinal);
-            dataset.new[0]=50;
+            intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+            d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1));
+            dataset.new[6] = dataset.new[6] - (intlFacRatioFinal - dataset.new[0]); // Add the difference to the blank bar.
+            dataset.new[0]=intlFacRatioFinal;
             gs.data(d3.values(dataset)).each(change);
 
         });
 
 
+        // INTERNATIONAL STUDENT RATIO *****************************************************************************************
 
 
 
-
-
-//        d3.select("#click").on("click", function(){
-//            gs.data(d3.values(dataset)).each(change);
-//        });
 
         function change() {
             console.log(this);
