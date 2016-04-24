@@ -155,6 +155,7 @@
 
         </div>
         <div id="donut-chart" style=""></div>
+        <div id="rankings-table"><span id="rankings-text"></span></div>
     </div>
 
 
@@ -198,109 +199,193 @@
 //            { label: 'Citations per Faculty', count: 10 },
 //            {label: 'empty', count: 30}
 //        ];
-        var distribution = gaussian(0, 1);
+        queue()
+            .defer(d3.csv, "rankings-data-sample.csv")
+            .await(ready);
 
-        var dataset = {
-          original: [10, 10, 10, 10, 10, 10, 40],
-          new: [10, 10, 10, 10, 10, 20, 30],
-        };
+        function ready(error, rankings){
+            if(error) throw error;
+            console.log(rankings);
 
-        var width = 460,
-            height = 300,
-            cwidth = 50;
+            var distribution = gaussian(0, 1);
 
-        var color = d3.scale.ordinal()
-           .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ddd"]);
+            // Indicators
+            var academicReputation = 61.7,
+                employerReputation = 60.2,
+                facPerStud = 64.6,
+                citationsPerFac = 53.3,
+                percentIntlStud = 50.6;
 
-        var pie = d3.layout.pie()
-            .sort(null);
+            // Weights
+            var academicReputationWeight = 0.4,
+                employerReputationWeight = 0.1,
+                facPerStudWeight = 0.2,
+                citationsPerFacWeight = 0.2,
+                percentIntlStudWeight = 0.05;
 
-        var arc = d3.svg.arc();
+            // Weighted Indicators
+            var academicReputationFinal = academicReputation*academicReputationWeight,
+                employerReputationFinal = employerReputation*employerReputationWeight,
+                facPerStudFinal = facPerStud*facPerStudWeight,
+                citationsPerFacFinal = citationsPerFac*citationsPerFacWeight,
+                percentIntlStudFinal = percentIntlStud*percentIntlStudWeight;
 
-        var svg = d3.select("#donut-chart").append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-            .attr("id", "donutBox");
+            // Final score
+            var finalScore = academicReputationFinal + employerReputationFinal + facPerStudFinal + citationsPerFacFinal + 5 + percentIntlStudFinal;
 
-        var gs = svg.selectAll("g").data(d3.values(dataset)).enter().append("g");
-        var path = gs.selectAll("path")
-            .data(pie)
-            .enter().append("path")
-            .attr("fill", function(d, i) { return color(i); })
-            .attr("d", arc)
-            .each(function(d){ this._current = d;})
-            .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
+            finalScore = 59.1;
+            console.log(finalScore);
 
-        // INTERNATIONAL FACULTY RATIO *****************************************************************************************
-        var intlFacRatioWeight = 5;
+            for(index in rankings){
+                if (rankings[index].Score < finalScore) {
+                    console.log(rankings[index]);
+                    rankings.splice(index, 0, {UniversityName: "McMaster", Score: finalScore});
+                    break;
+                }
+            }
 
-        var meanIntlFacRatio = 0.1865;
-        var stdDevIntlFacRatio = 0.125;
+            console.log(rankings);
 
-        var acadStaff = 977;
-        var intlAcadStaff = 2733;
-        var intlFacRatioFinal;
-        var intlFacRatio;
+            var dataset = {
+              original: [academicReputationFinal, employerReputationFinal, facPerStudFinal, citationsPerFacFinal, 91.5*0.05, percentIntlStudFinal, 100-(91.5*0.05 + academicReputationFinal + employerReputationFinal + facPerStudFinal + citationsPerFacFinal + percentIntlStudFinal)],
+              new: [10, 10, 10, 10, 10, 20, 30],
+            };
 
-        var acadStaffSlider = d3.slider().axis(false).min(2000).max(3000).step(100);
-        d3.select('#acadStaff').call(acadStaffSlider);
+            var width = 460,
+                height = 300,
+                cwidth = 50;
 
-        acadStaffSlider.on("slide", function(evt, value) {
-            d3.select('#acadStaff-text').text(value);
-            acadStaff = value;
-            intlFacRatio = intlAcadStaff/acadStaff;
-            intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
-            d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1));
-            dataset.new[6] = dataset.new[6] - (intlFacRatioFinal - dataset.new[0]); // Add the difference to the blank bar.
-            dataset.new[0] = intlFacRatioFinal;
-            gs.data(d3.values(dataset)).each(change);
-        })
+            var color = d3.scale.ordinal()
+               .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ddd"]);
 
+            var pie = d3.layout.pie()
+                .sort(null);
 
-        var intlAcadStaffSlider = d3.slider().axis(false).min(100).max(1100).step(100);
-        d3.select('#intlAcadStaff').call(intlAcadStaffSlider);
+            var arc = d3.svg.arc();
 
-        intlAcadStaffSlider.on("slide", function(evt, value) {
-            d3.select('#intlAcadStaff-text').text(value);
-            intlAcadStaff = value;
-            intlFacRatio = intlAcadStaff/acadStaff;
-            intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
-            d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1));
-            dataset.new[6] = dataset.new[6] - (intlFacRatioFinal - dataset.new[0]); // Add the difference to the blank bar.
-            dataset.new[0]=intlFacRatioFinal;
-            gs.data(d3.values(dataset)).each(change);
+            var svg = d3.select("#donut-chart").append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+                .attr("id", "donutBox");
 
-        });
-
-
-        // INTERNATIONAL STUDENT RATIO *****************************************************************************************
-
-
-
-
-        function change() {
-            console.log(this);
-            var value = this;
-            console.log
-            console.log(value);
-            path.data(pie)
-//                .attr("d", arc)
-                .transition().duration(500)
-                .attrTween("d", arcTween)
+            var gs = svg.selectAll("g").data(d3.values(dataset)).enter().append("g");
+            var path = gs.selectAll("path")
+                .data(pie)
+                .enter().append("path")
+                .attr("fill", function(d, i) { return color(i); })
+                .attr("d", arc)
+                .each(function(d){ this._current = d;})
                 .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
 
-        }
+            // INTERNATIONAL FACULTY RATIO *****************************************************************************************
+            var intlFacRatioWeight = 5;
+
+            var meanIntlFacRatio = 0.1865;
+            var stdDevIntlFacRatio = 0.125;
+
+            var acadStaff = 977;
+            var intlAcadStaff = 2733;
+            var intlFacRatioFinal;
+            var intlFacRatio;
+
+            var acadStaffSlider = d3.slider().axis(false).min(500).max(10000).step(500);
+            d3.select('#acadStaff').call(acadStaffSlider);
+
+            acadStaffSlider.on("slide", function(evt, value) {
+                d3.select('#acadStaff-text').text(value);
+                acadStaff = value;
+                intlFacRatio = intlAcadStaff/acadStaff;
+                intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+                d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1));
+                updateDonut(4, intlFacRatioFinal);
+            });
 
 
-        function arcTween(a) {
-            //console.log(this);
-          var i = d3.interpolate(this._current, a);
-          this._current = i(0);
-          return function(t) {
-            return arc(i(t));
-          };
+            var intlAcadStaffSlider = d3.slider().axis(false).min(100).max(5000).step(250);
+            d3.select('#intlAcadStaff').call(intlAcadStaffSlider);
+
+            intlAcadStaffSlider.on("slide", function(evt, value) {
+                d3.select('#intlAcadStaff-text').text(value);
+                intlAcadStaff = value;
+                intlFacRatio = intlAcadStaff/acadStaff;
+                intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+                d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1));
+                updateDonut(4, intlFacRatioFinal);
+            });
+
+
+            // INTERNATIONAL STUDENT RATIO *****************************************************************************************
+            var intlStudRatioWeight = 5;
+
+            var meanIntlStudRatio = 0.1865;
+            var stdDevIntlStudRatio = 0.125;
+
+            var students = 24271;
+            var intlStudents = 3762;
+            var intlStudRatioFinal;
+            var intlStudRatio;
+
+            var studentsSlider = d3.slider().axis(false).min(1000).max(75000).step(5000);
+            d3.select('#students').call(studentsSlider);
+
+            studentsSlider.on("slide", function(evt, value) {
+                d3.select('#students-text').text(value);
+                acadStaff = value;
+                intlFacRatio = intlAcadStaff/acadStaff;
+                intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+                d3.select('#intlStudRatio').text(intlFacRatioFinal.toFixed(1));
+                updateDonut(0, intlFacRatioFinal);
+            });
+
+
+            var intlAcadStaffSlider = d3.slider().axis(false).min(100).max(25000).step(2000);
+            d3.select('#intlStudents').call(intlAcadStaffSlider);
+
+            intlAcadStaffSlider.on("slide", function(evt, value) {
+                d3.select('#intlAcadStaff-text').text(value);
+                intlAcadStaff = value;
+                intlFacRatio = intlAcadStaff/acadStaff;
+                intlFacRatioFinal = intlFacRatioWeight*distribution.cdf((intlFacRatio-meanIntlFacRatio)/stdDevIntlFacRatio);
+                d3.select('#intlFacRatio').text(intlFacRatioFinal.toFixed(1)); // Show rounded final international faculty ratio
+                updateDonut(0, intlFacRatioFinal);
+
+            });
+
+
+
+
+            function updateDonut(indicatorIndex, newIndicator) { // Indicator index is 0 to 5, newIndicator is the weighted value of the indicator
+                dataset.new[6] = dataset.new[6] - (newIndicator - dataset.new[indicatorIndex]);
+                dataset.new[indicatorIndex] = newIndicator;
+                gs.data(d3.values(dataset)).each(change);
+                finalScore = academicReputationFinal + employerReputationFinal + facPerStudFinal + citationsPerFacFinal + intlFacRatioFinal + percentIntlStudFinal
+                console.log(finalScore);
+            }
+
+            function change() {
+                console.log(this);
+                var value = this;
+                console.log
+                console.log(value);
+                path.data(pie)
+    //                .attr("d", arc)
+                    .transition().duration(500)
+                    .attrTween("d", arcTween)
+                    .attr("d", function(d, i, j) { return arc.innerRadius(80+cwidth*j).outerRadius(cwidth*(j+1))(d); });
+
+            }
+
+
+            function arcTween(a) {
+                //console.log(this);
+              var i = d3.interpolate(this._current, a);
+              this._current = i(0);
+              return function(t) {
+                return arc(i(t));
+              };
+            }
         }
 
     </script>
