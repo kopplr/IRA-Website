@@ -285,6 +285,13 @@ function pa_category_top_parent_id ($catid) {
     return $catParentName;
 }
 
+// Order posts by last name
+function posts_orderby_lastname ($orderby_statement)
+{
+  $orderby_statement = "RIGHT(post_title, LOCATE(' ', REVERSE(post_title)) - 1) ASC";
+    return $orderby_statement;
+}
+
 //// Change email address
 //add_filter('wp_mail_from', 'my_mail_from');
 //add_filter('wp_mail_from_name', 'my_mail_from_name');

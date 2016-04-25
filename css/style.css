@@ -75,7 +75,7 @@ h2 {
     font-size: 32px;
 }
 h3 {
-    font-size: 24px;
+    font-size: 26px;
 }
 h4 {
     font-size: 20px;
@@ -128,7 +128,7 @@ article.post h3, article.post p {
     margin: 0;
 }
 article.post h3  {
-    font-weight: 300;
+/*    font-weight: 300;*/
     color: #ac1455;
 }
 .inline-layout article{
@@ -184,6 +184,13 @@ article:hover .overlay {
 }
 .element-item:first-child h2 {
     margin: 0px 0px 20px 5px;
+}
+.element-item > h4 {
+    margin: 0;
+    font-weight: 300;
+}
+.element-item > h3 {
+    margin: 10px 0;
 }
 #mcmaster-title {
 /*    letter-spacing: 1px;*/
@@ -390,10 +397,9 @@ article:hover .overlay {
 .sidebar-column button {
     width: 100%;
     font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 300;
-    font-size: 14px;
-/*    font-weight: 700;*/
-    padding: 10px 40px;
+/*    font-weight: 300;*/
+    font-size: 16px;
+    padding: 10px 20px;
     cursor: pointer;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -872,25 +878,42 @@ table {
 */
 
 /* About Us Profiles **********************************************************************************************/
+#tab1 {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#avp-ea {
+    display: flex;
+    flex: 1 1 100%;
+}
+#all-positions {
+    display: flex;
+    flex-wrap: wrap;
+}
 .profile {
-    display: inline-block;
-    margin-right: 20px;
+    display: flex;
+    margin: 20px 20px 20px 0;
+    flex: 0 1 330px;
 }
 .profile-content {
-    float: left;
+    flex: 1;
 }
 .profile-picture {
-    float: left;
+
 }
 .profile-content h4 {
-    padding: 0;
+    padding: 0 0 0 2px;
     margin: 5px 5px 10px 5px;
     border-bottom: 2px solid black;
 }
 .profile-content p {
     padding: 0;
     margin:0 0 0 5px;
-    line-height: 1em;
+    line-height: 16px;
+}
+.profile-content p:first-child {
+    margin-bottom: 5px;
 }
 .profile-content i {
     margin-right: 3px;
@@ -917,10 +940,6 @@ table {
     margin-right: auto;
     display:inline-block;
     background-color: #f1f1f1;
-}
-.tab-content article {
-    width: 300px;
-    margin: 5px 0px;
 }
 
 /*----- Tab Links -----*/
@@ -989,9 +1008,6 @@ li a, li a:hover {
 }
 .tab.active {
     display:block;
-}
-#tab1 > h4, .position > h4 {
-    color: #ac1455;
 }
 #tab2 h1 {
     margin: 0.5em 0;
@@ -1210,7 +1226,7 @@ section h2 {
     margin: 16px 30px;
     display: flex;
     justify-content: center;
-    flex: 2;
+    flex: 1;
 }
 section:not(:last-child) {
     padding-bottom: 16px;
@@ -1236,18 +1252,17 @@ a.back-to-top {
 	-moz-border-radius: 2px;
 }
 section > div {
-    flex: 3;
+    flex: 0 1 800px;
     display: flex;
     flex-wrap: wrap;
-}
-.right-thing {
-    flex: 2;
+    justify-content: flex-start;
 }
 dl {
     margin: 1em 2em;
     padding: 10px;
     background: white;
     flex: 1 1 100%;
+    max-width: 450px;
 /*
     display: flex;
     flex-direction: column;

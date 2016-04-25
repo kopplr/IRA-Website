@@ -47,24 +47,23 @@ get_header();
 
         if ( $team_posts ):
         ?>
-            <div class="position" id="avp">
-            <h4>Associate Vice President</h4>
+            <div class="position" id="avp-ea">
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
             ?>
             <article class="profile">
-                <div class="profile-picture" style="float:left;">
+                <div class="profile-picture">
                     <img src="<?php the_field('photo'); ?>" alt="<?php the_title(); ?>, <?php the_field('position'); ?>" class="img-circle">
                 </div>
 
                 <div class="profile-content">
                     <h4><?php the_title(); ?></h4>
+                    <p><i class="fa fa-user fa-fw" aria-hidden="true"></i><?php the_field('position') ?></p>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
             </article><!-- /.profile -->
-            </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
@@ -79,19 +78,18 @@ get_header();
 
         if ( $team_posts ):
         ?>
-        <div class="position" id="executive-assistant">
-            <h4 style="">Executive Assistant</h4>
             <?php
             foreach ( $team_posts as $post ):
             setup_postdata($post);
             ?>
             <article class="profile">
-                <div class="profile-picture" style="float:left;">
+                <div class="profile-picture">
                     <img src="<?php the_field('photo'); ?>" alt="<?php the_title(); ?>, <?php the_field('position'); ?>" class="img-circle">
                 </div>
 
                 <div class="profile-content">
                     <h4><?php the_title(); ?></h4>
+                    <p><i class="fa fa-user fa-fw" aria-hidden="true"></i><?php the_field('position') ?></p>
                     <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
                     <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
                 </div>
@@ -101,128 +99,42 @@ get_header();
 
         <?php endif; ?>
 
-        <!-- SENIOR PROJECT ANALYSTS **************************************************************************************************** -->
+        <!-- ALL OTHERS **************************************************************************************************** -->
+        <div id="all-positions">
         <?php
-        $team_posts = get_posts( array(
+        add_filter( 'posts_orderby' , 'posts_orderby_lastname' );
+        $loop = new WP_Query(
+        array (
             'post_type' => 'team',
             'posts_per_page' => -1, // Unlimited posts
             'orderby' => 'title', // Order alphabetically by name
-            'meta_query' => array(array('key' => 'position', 'value' => 'Senior Project Analyst',))
-        ) );
-
-        if ( $team_posts ):
-        ?>
-            <h4>Senior Project Analysts</h4>
-            <?php
-            foreach ( $team_posts as $post ):
-            setup_postdata($post);
-            ?>
+            'meta_query' => array(array('key' => 'position',
+                                        'value' => array('Executive Assistant', 'Associate Vice President'),
+                                        'compare' => 'NOT IN'))
+            )
+        );
+        while ($loop->have_posts()){
+            $loop->the_post();
+            $meta = get_post_meta(get_the_id()); ?>
             <article class="profile">
-                <div class="profile-picture" style="float:left;">
+                <div class="profile-picture">
                     <img src="<?php the_field('photo'); ?>" alt="<?php the_title(); ?>, <?php the_field('position'); ?>" class="img-circle">
                 </div>
 
                 <div class="profile-content">
                     <h4><?php the_title(); ?></h4>
-                    <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
-                    <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
+                    <p><i class="fa fa-user fa-fw" aria-hidden="true"></i><?php the_field('position') ?></p>
+                    <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw" aria-hidden="true"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
+                    <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i><?php the_field('email'); ?></a></p>
                 </div>
             </article><!-- /.profile -->
-            <?php endforeach; ?>
-
-        <?php endif; ?>
-
-        <!-- STATISTICIAN AND PROGRAMMERS ************************************************************************************************ -->
         <?php
-        $team_posts = get_posts( array(
-            'post_type' => 'team',
-            'posts_per_page' => -1, // Unlimited posts
-            'orderby' => 'title', // Order alphabetically by name
-            'meta_query' => array(array('key' => 'position', 'value' => 'Statistician and Programmer',))
-        ) );
-
-        if ( $team_posts ):
+        }
+        remove_filter( 'posts_orderby' , 'posts_orderby_lastname' );
         ?>
-            <h4>Statistician and Programmers</h4>
-            <?php
-            foreach ( $team_posts as $post ):
-            setup_postdata($post);
-            ?>
-            <article class="profile">
-                <div class="profile-picture" style="float:left;">
-                    <img src="<?php the_field('photo'); ?>" alt="<?php the_title(); ?>, <?php the_field('position'); ?>" class="img-circle">
-                </div>
 
-                <div class="profile-content">
-                    <h4><?php the_title(); ?></h4>
-                    <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
-                    <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
-                </div>
-            </article><!-- /.profile -->
-            <?php endforeach; ?>
+        </div>
 
-        <?php endif; ?>
-
-        <!-- INFORMATION AND DATA ANALYSTS *********************************************************************************************** -->
-        <?php
-        $team_posts = get_posts( array(
-            'post_type' => 'team',
-            'posts_per_page' => -1, // Unlimited posts
-            'orderby' => 'title', // Order alphabetically by name
-            'meta_query' => array(array('key' => 'position', 'value' => 'Information and Data Analyst',))
-        ) );
-
-        if ( $team_posts ):
-        ?>
-            <h4>Information and Data Analysts</h4>
-            <?php
-            foreach ( $team_posts as $post ):
-            setup_postdata($post);
-            ?>
-            <article class="profile">
-                <div class="profile-picture" style="float:left;">
-                    <img src="<?php the_field('photo'); ?>" alt="<?php the_title(); ?>, <?php the_field('position'); ?>" class="img-circle">
-                </div>
-
-                <div class="profile-content">
-                    <h4><?php the_title(); ?></h4>
-                    <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
-                    <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
-                </div>
-            </article><!-- /.profile -->
-            <?php endforeach; ?>
-
-        <?php endif; ?>
-
-        <!-- JUNIOR ANALYSTS **************************************************************************************************** -->
-        <?php
-        $team_posts = get_posts( array(
-            'post_type' => 'team',
-            'posts_per_page' => -1, // Unlimited posts
-            'orderby' => 'title', // Order alphabetically by name
-            'meta_query' => array(array('key' => 'position', 'value' => 'Junior Analyst',))
-        ) );
-
-        if ( $team_posts ):
-        ?>
-            <h4>Junior Analysts</h4>
-            <?php
-            foreach ( $team_posts as $post ):
-            setup_postdata($post);
-            ?>
-            <article class="profile">
-                <div class="profile-picture" style="float:left;">
-                    <img src="<?php the_field('photo'); ?>" alt="<?php the_title(); ?>, <?php the_field('position'); ?>" class="img-circle">
-                </div>
-
-                <div class="profile-content">
-                    <h4><?php the_title(); ?></h4>
-                    <p><a href="tel:+19055259140p<?php the_field('extension'); ?>"><i class="fa fa-phone fa-fw"></i>905-525-9140 x<?php the_field('extension'); ?></a></p>
-                    <p><a href="mailto:<?php echo antispambot( get_field('email') ); ?>"><i class="fa fa-envelope fa-fw"></i><?php the_field('email'); ?></a></p>
-                </div>
-            </article><!-- /.profile -->
-            <?php endforeach; ?>
-        <?php endif; ?>
                 </div>
 
                 <div id="tab2" class="tab">

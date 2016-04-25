@@ -58,7 +58,10 @@
                 <?php
                 $posts = get_posts($args);
                 if($posts) {
-                    echo '<h2><a id="' . $category->slug .'">' . $category->name.'</a> </h2> ';
+                    echo '<h3><a id="' . $category->slug . '">' . $category->name . '</a></h3>';
+                    if ($category->slug == "institutional-research-offices"){
+                        echo '<h4>U15 and Ontario Offices</h4>';
+                    }
                     foreach($posts as $post) {
                       setup_postdata($post); ?>
 
@@ -69,7 +72,7 @@
                         <a href="<?php the_field('external_link_url'); ?>" target="_blank"> <!-- Link to post -->
                             <article class="post">
                                 <?php
-                                    echo '<h1>' . $post->post_title . '</h1>';
+                                    echo '<h3>' . $post->post_title . '</h3>';
                                 ?>
 
                             </article>
