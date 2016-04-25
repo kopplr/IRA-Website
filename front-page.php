@@ -4,7 +4,7 @@ get_header(); ?>
 <div id="front-page-container">
     <div id="vis-group">
         <div id="clever-vis">
-            <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html-small.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
+            <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
 
 
         </div>

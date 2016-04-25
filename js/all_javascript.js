@@ -17,7 +17,13 @@ jQuery(document).ready(function($) {
     $('#menu-sidebar-menu-links li').first().children().addClass('is-checked');
 
     // init Isotope
-    var $grid = $('.grid').isotope({itemSelector: '.element-item'});
+    var $grid = $('.grid').isotope({
+        itemSelector: '.element-item',
+        getSortData: {
+            postOrder: '[data-order]'
+        },
+        sortBy: 'postOrder', // Post order for IQAP vs IRA Portal (not alphabetical)
+    });
 
 
     // filter items on button click

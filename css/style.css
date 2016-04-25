@@ -221,7 +221,7 @@ article:hover .overlay {
 .site-nav ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 /* Site Header Menu ***********************************************************************************/
@@ -1143,6 +1143,23 @@ form h3 {
     margin: 20px 0 5px 0;
     text-transform: uppercase;
     font-weight: 300;
+}
+form h4 {
+    margin: 5px 0px 5px 20px;
+    flex: 0 1 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    order: 2;
+/*    text-transform: uppercase;*/
+}
+.form-entry {
+    display: flex;
+    margin-top: 10px;
+}
+.form-entry input {
+    flex: 1;
+    order: 1;
 }
 form > h3:nth-child(2) {
     margin: 0 0 5px 0;

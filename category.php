@@ -79,20 +79,29 @@ $curr_cat = get_category($cat_id);
             ?>
             <div class="grid">
                 <?php
+                    query_posts(array(
+                        'cat' => $cat_id,
+                        'orderby' => 'title', // Order alphabetically
+                        'order' => 'ASC',
+                        'posts_per_page' => -1 // Display all posts of the category
+                    ));
 
-                query_posts(array(
-                    'cat' => $cat_id,
-                    'orderby' => 'title', // Order alphabetically
-                    'order' => 'ASC',
-                    'posts_per_page' => -1 // Display all posts of the category
-                ));
 
                 if (have_posts()) :
                     while (have_posts()) : the_post();
                 ?>
 
 
-                    <div class="element-item <?php $cats = get_the_category(); foreach ($cats as $cat){ echo $cat->slug . ' ';} ?>"> <!-- Add in categories as classes to be able to filter in Isotope -->
+                    <div class="element-item <?php
+                                $cats = get_the_category();
+                                foreach ($cats as $cat)
+                                    { echo $cat->slug . ' ';}
+                                echo '"';
+                                $postOrder = get_post_meta($post->ID, 'post-order', true);
+                                if ($postOrder) {
+                                    echo 'data-order="' . $postOrder . '"';
+                                }
+                                ?>> <!-- Add in categories as classes to be able to filter in Isotope -->
 
                         <a href="<?php
                                  $externalLink = get_post_meta($post->ID, 'external_link_url', true);

@@ -92,18 +92,16 @@
 
             // Initialize Ordinal Colour Scale
             var color = d3.scale.ordinal()
-                .domain(["02", "03", "04", "05", "06", "07", "14", "15", "21", "22", "23"])
+                .domain(["02", "03", "04", "06", "07", "14", "15", "21", "23"])
                 .range([
                     "#009933", // Science
                     "#ff0000", // Engineering
-                    "#003366", // Health Science
-                    "#ffff00", // Nursing
+                    "#003366", // Health Science (includes Nursing and Midwifery)
                     "#996633", // Business
                     "#ff9933", // Arts and Science
                     "#ffcccc", // Humanities
                     "#ff66ff", // Social Science
                     "#0000cc", // Medicine
-                    "#cc9900", // Midwifery
                     "#00ccff", // Interns and Residents
             ]);
 

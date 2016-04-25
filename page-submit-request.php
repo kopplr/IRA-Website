@@ -29,7 +29,7 @@ $human = $_POST['message_human'];
 
 //php mailer variables
 $to = get_option('admin_email');
-$subject = "Someone sent a message from ".get_bloginfo('name');
+$subject = $name . "sent a message from " . get_bloginfo('name');
 $headers = 'From: '. $email . "\r\n" .
   'Reply-To: ' . $email . "\r\n";
 
@@ -92,7 +92,6 @@ if(isset($_POST['submit-request-nonce'])){
             <?php while ( have_posts() ) : the_post(); ?>
 
             <div class="entry-content">
-                <div id="instructions"><?php the_content(); ?><p>All fields are required.</p></div>
 
 
 
@@ -105,6 +104,19 @@ if(isset($_POST['submit-request-nonce'])){
 
                         <h3><label for="email-form">Email <span>*</span></label></h3>
                         <input id="email-form" class="required-field" type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>">
+
+                        <div class="not-required-fields">
+                        <div class="form-entry">
+                            <h4><label for="department-form">Department and Relationship to McMaster</label></h4>
+                            <input id="department-form" class="required-field" type="text" name="message_department" value="<?php echo ( isset( $_POST['message_department'] ) ) ? esc_attr($_POST['message_department']) : ''; ?>">
+                        </div>
+
+                        <div class="form-entry">
+                            <h4><label for="purpose-form">Purpose and Who will be using the Report</label></h4>
+                            <input id="purpose-form" class="required-field" type="text" name="message_purpose" value="<?php echo ( isset( $_POST['message_purpose'] ) ) ? esc_attr($_POST['message_purpose']) : ''; ?>">
+                        </div>
+
+                        </div>
 
                         <h3><label for="message-text-form">Message <span>*</span></label></h3>
                         <textarea id="message-text-form" class="required-field" rows="10" type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea>
