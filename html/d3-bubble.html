@@ -1,652 +1,865 @@
-
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
     @font-face {
-    font-family: 'Roboto';
-    src: url('RobotoCondensed-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+        font-family: 'Roboto';
+        src: url('RobotoCondensed-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
     }
 
-    a, a:visited, a:active {
-  color: #444;
-}
+    a,
+    a:visited,
+    a:active {
+        color: #444;
+    }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-}
+    .container {
+        max-width: 900px;
+        margin: auto;
+    }
+    #vis {
+        width: 940px;
+        height: 600px;
+        clear: both;
+        margin-bottom: 10px;
+    }
+    .year {
+        font-size: 21px;
+        fill: #aaa;
+        font-family: 'Roboto Condensed', sans-serif;
+        cursor: default;
+    }
 
-.button {
-  min-width: 130px;
-  padding: 10px;
-  cursor: pointer;
-  text-align: center;
-  font-size: 13px;
-  font-family: 'Roboto Condensed', sans-serif;
-    text-transform: uppercase;
-  border: 1px solid #e0e0e0;
-    font-size: 14px;
-  text-decoration: none;
-}
+    .tooltip {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid #000;
+        background: #fff;
+        opacity: .9;
+        color: black;
+        padding: 10px;
+        width: 300px;
+        font-size: 12px;
+        z-index: 10;
+    }
 
-.button.active {
-  background: #323e48;
-  color: #e8941a;
+    .tooltip .title {
+        font-size: 13px;
+    }
 
-}
+    .tooltip .name {
+        font-weight: bold;
+    }
 
+    .footer {
+        text-align: center;
+    }
 
-#vis {
-  width: 940px;
-  height: 600px;
-  clear: both;
-  margin-bottom: 10px;
-}
+    .legendContainer {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
 
-#toolbar {
-  margin-top: 10px;
-}
+    .legendContainer > text {
+        fill: white;
+        font-size: 22px;
+    }
 
-.year {
-  font-size: 21px;
-  fill: #aaa;
-  cursor: default;
-}
+    .legendContainer > text:nth-child(2) {
+        font-size: 24px;
+    }
 
-.tooltip {
-	position: absolute;
-	top: 100px;
-	left: 100px;
-  -moz-border-radius:5px;
-	border-radius: 5px;
-  border: 2px solid #000;
-  background: #fff;
-	opacity: .9;
-  color: black;
-	padding: 10px;
-	width: 300px;
-	font-size: 12px;
-	z-index: 10;
-}
+    .legendContainer g text {
+        fill: black;
+        text-transform: uppercase;
+    }
 
-.tooltip .title {
-	font-size: 13px;
-}
+    .legendContainer rect {
+        fill: rgb(221, 221, 221);
+        cursor: pointer;
+    }
+    g.active rect {
+        fill: #e8941a;
+    }
+    g.active text {
+/*        fill: #e8941a;*/
+    }
+    /*
+    .legendContainer rect:hover {
+        fill: #323e48;
+    }
+    .legendContainer rect:hover + text{
+        fill: #e8941a;
+    }
+*/
 
-.tooltip .name {
-  font-weight:bold;
-}
-
-.footer {
-  text-align: center;
-}
-
-
-
-
+    .legendContainer g.active {}
 </style>
+
 <body>
-    <div id="toolbar">
-        <button class="button active" id="all">All</button>
-        <button class="button" id="region">Region</button>
-        <button class="button" id="line">Line</button>
-    </div>
     <div id="vis"></div>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
     <script src="//d3js.org/d3.v3.min.js"></script>
-<!--    <script src="d3-legend.min.js"></script>-->
+    <!--    <script src="d3-legend.min.js"></script>-->
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script>
         // Function for moving nodes to front
-            d3.selection.prototype.moveToFront = function() {
-              return this.each(function(){
+        d3.selection.prototype.moveToFront = function () {
+            return this.each(function () {
                 this.parentNode.appendChild(this);
-              });
-            };
+            });
+        };
         /*
- * Creates tooltip with provided id that
- * floats on top of visualization.
- * Most styling is expected to come from CSS
- * so check out bubble_chart.css for more details.
- */
-function floatingTooltip(tooltipId, width) {
-  // Local variable to hold tooltip div for
-  // manipulation in other functions.
-  var tt = d3.select('body')
-    .append('div')
-    .attr('class', 'tooltip')
-    .attr('id', tooltipId)
-    .style('pointer-events', 'none');
+         * Creates tooltip with provided id that
+         * floats on top of visualization.
+         * Most styling is expected to come from CSS
+         * so check out bubble_chart.css for more details.
+         */
+        function floatingTooltip(tooltipId, width) {
+            // Local variable to hold tooltip div for
+            // manipulation in other functions.
+            var tt = d3.select('body')
+                .append('div')
+                .attr('class', 'tooltip')
+                .attr('id', tooltipId)
+                .style('pointer-events', 'none');
 
-  // Set a width if it is provided.
-  if (width) {
-    tt.style('width', width);
-  }
+            // Set a width if it is provided.
+            if (width) {
+                tt.style('width', width);
+            }
 
-  // Initially it is hidden.
-  hideTooltip();
+            // Initially it is hidden.
+            hideTooltip();
 
-  /*
-   * Display tooltip with provided content.
-   *
-   * content is expected to be HTML string.
-   *
-   * event is d3.event for positioning.
-   */
-  function showTooltip(content, event) {
-    tt.style('opacity', 1.0)
-      .html(content);
+            /*
+             * Display tooltip with provided content.
+             *
+             * content is expected to be HTML string.
+             *
+             * event is d3.event for positioning.
+             */
+            function showTooltip(content, event) {
+                tt.style('opacity', 1.0)
+                    .html(content);
 
-    updatePosition(event);
-  }
+                updatePosition(event);
+            }
 
-  /*
-   * Hide the tooltip div.
-   */
-  function hideTooltip() {
-    tt.style('opacity', 0.0);
-  }
+            /*
+             * Hide the tooltip div.
+             */
+            function hideTooltip() {
+                tt.style('opacity', 0.0);
+            }
 
-  /*
-   * Figure out where to place the tooltip
-   * based on d3 mouse event.
-   */
-  function updatePosition(event) {
-    var xOffset = 20;
-    var yOffset = 10;
+            /*
+             * Figure out where to place the tooltip
+             * based on d3 mouse event.
+             */
+            function updatePosition(event) {
+                var xOffset = 20;
+                var yOffset = 10;
 
-    var ttw = tt.style('width');
-    var tth = tt.style('height');
+                var ttw = tt.style('width');
+                var tth = tt.style('height');
 
-    var wscrY = window.scrollY;
-    var wscrX = window.scrollX;
+                var wscrY = window.scrollY;
+                var wscrX = window.scrollX;
 
-    var curX = (document.all) ? event.clientX + wscrX : event.pageX;
-    var curY = (document.all) ? event.clientY + wscrY : event.pageY;
-    var ttleft = ((curX - wscrX + xOffset * 2 + ttw) > window.innerWidth) ?
-                 curX - ttw - xOffset * 2 : curX + xOffset;
+                var curX = (document.all) ? event.clientX + wscrX : event.pageX;
+                var curY = (document.all) ? event.clientY + wscrY : event.pageY;
+                var ttleft = ((curX - wscrX + xOffset * 2 + ttw) > window.innerWidth) ?
+                    curX - ttw - xOffset * 2 : curX + xOffset;
 
-    if (ttleft < wscrX + xOffset) {
-      ttleft = wscrX + xOffset;
-    }
+                if (ttleft < wscrX + xOffset) {
+                    ttleft = wscrX + xOffset;
+                }
 
-    var tttop = ((curY - wscrY + yOffset * 2 + tth) > window.innerHeight) ?
-                curY - tth - yOffset * 2 : curY + yOffset;
+                var tttop = ((curY - wscrY + yOffset * 2 + tth) > window.innerHeight) ?
+                    curY - tth - yOffset * 2 : curY + yOffset;
 
-    if (tttop < wscrY + yOffset) {
-      tttop = curY + yOffset;
-    }
+                if (tttop < wscrY + yOffset) {
+                    tttop = curY + yOffset;
+                }
 
-    tt.style({ top: tttop + 'px', left: ttleft + 'px' });
-  }
+                tt.style({
+                    top: tttop + 'px'
+                    , left: ttleft + 'px'
+                });
+            }
 
-  return {
-    showTooltip: showTooltip,
-    hideTooltip: hideTooltip,
-    updatePosition: updatePosition
-  };
-}
+            return {
+                showTooltip: showTooltip
+                , hideTooltip: hideTooltip
+                , updatePosition: updatePosition
+            };
+        }
     </script>
     <script>
+        /* bubbleChart creation function. Returns a function that will
+         * instantiate a new bubble chart given a DOM element to display
+         * it in and a dataset to visualize.
+         *
+         * Organization and style inspired by:
+         * https://bost.ocks.org/mike/chart/
+         *
+         */
+        function bubbleChart() {
+            // Constants for sizing
+            var width = 940;
+            var height = 500;
 
-    /* bubbleChart creation function. Returns a function that will
- * instantiate a new bubble chart given a DOM element to display
- * it in and a dataset to visualize.
- *
- * Organization and style inspired by:
- * https://bost.ocks.org/mike/chart/
- *
- */
-function bubbleChart() {
-  // Constants for sizing
-  var width = 940;
-  var height = 600;
+            // tooltip for mouseover functionality
+            var tooltip = floatingTooltip('gates_tooltip', 240);
 
-  // tooltip for mouseover functionality
-  var tooltip = floatingTooltip('gates_tooltip', 240);
+            // Locations to move bubbles towards, depending
+            // on which view mode is selected.
+            var center = {
+                x: width / 2
+                , y: height / 2
+            };
 
-  // Locations to move bubbles towards, depending
-  // on which view mode is selected.
-  var center = { x: width / 2, y: height / 2 };
+            var regionCenters;
 
-  var regionCenters = {
-    NorthAmerica: { x: width / 4, y: height / 3 },
-    SouthAmerica: { x: width / 2, y: height / 3 },
-    Europe: { x: 3 * width / 4, y: height / 3 },
-      Africa: { x: width / 4, y: 2*height / 3 },
-      Asia: { x: width / 2, y: 2*height / 3 },
-      Oceania: { x: 3*width / 4, y: 2*height / 3 }
-  };
+            // X locations of the year titles.
+            var yearsTitleX;
 
-  // X locations of the year titles.
-  var yearsTitleX = {
-    NorthAmerica: width / 3,
-    SouthAmerica: width / 2,
-    Europe: 2* width / 3
-  };
+            // Used when setting up force and
+            // moving around nodes
+            var damper = 0.101;
 
-  // Used when setting up force and
-  // moving around nodes
-  var damper = 0.101;
+            // These will be set in create_nodes and create_vis
+            var svg = null;
+            var bubbles = null;
+            var nodes = [];
 
-  // These will be set in create_nodes and create_vis
-  var svg = null;
-  var bubbles = null;
-  var nodes = [];
-
-  // Charge function that is called for each node.
-  // Charge is proportional to the diameter of the
-  // circle (which is stored in the radius attribute
-  // of the circle's associated data.
-  // This is done to allow for accurate collision
-  // detection with nodes of different sizes.
-  // Charge is negative because we want nodes to repel.
-  // Dividing by 8 scales down the charge to be
-  // appropriate for the visualization dimensions.
-  function charge(d) {
-      return -Math.pow(d.radius, 2.0) / 7;
-  }
-
-
-  // Here we create a force layout and
-  // configure it to use the charge function
-  // from above. This also sets some contants
-  // to specify how the force layout should behave.
-  // More configuration is done below.
-  var force = d3.layout.force()
-    .size([width, height])
-    .charge(charge)
-  //  .chargeDistance(chargeDistance)
-    .gravity(-0.01)
-    .friction(0.9);
-
-
-  // Nice looking colors - no reason to buck the trend
-  var fillColor = d3.scale.ordinal()
-    .domain(['North America', 'South America', 'Africa', 'Europe', 'Asia', 'Oceania'])
-    .range(['#1f77b4', '#17becf', '#9467bd', '#ff7f0e', '#8c564b', '#e377c2']);
-
-    var radiusScale = d3.scale.linear()
-    .range([25, 2]);
-  // Sizes bubbles based on their area instead of raw radius
-//  var radiusScale = d3.scale.pow()
-//    .exponent(0.5)
-//    .range([30, 2]);
-
-  /*
-   * This data manipulation function takes the raw data from
-   * the CSV file and converts it into an array of node objects.
-   * Each node will store data and visualization values to visualize
-   * a bubble.
-   *
-   * rawData is expected to be an array of data objects, read in from
-   * one of d3's loading functions like d3.csv.
-   *
-   * This function returns the new node array, with a node in that
-   * array for each element in the rawData input.
-   */
-  function createNodes(rawData) {
-    // Use map() to convert raw data into node data.
-    // Checkout http://learnjsdata.com/ for more on
-    // working with data.
-      console.log(rawData);
-    var myNodes = rawData.map(function (d) {
-      return {
-        radius: radiusScale(+d.Rank), // Makes sure Rank is a number
-        rank: d.Rank,
-        name: d.University,
-        country: d.Country,
-        region: d.Continent,
-        id: d.Id,
-        lineIndex: d.lineIndex,
-        x: Math.random() * 900,
-        y: Math.random() * 800
-      };
-    });
-
-    // sort them to prevent occlusion of smaller nodes.
-    myNodes.sort(function (a, b) { return b.id - a.id; });
-    return myNodes;
-  }
-
-  /*
-   * Main entry point to the bubble chart. This function is returned
-   * by the parent closure. It prepares the rawData for visualization
-   * and adds an svg element to the provided selector and starts the
-   * visualization creation process.
-   *
-   * selector is expected to be a DOM element or CSS selector that
-   * points to the parent element of the bubble chart. Inside this
-   * element, the code will add the SVG continer for the visualization.
-   *
-   * rawData is expected to be an array of data objects as provided by
-   * a d3 loading function like d3.csv.
-   */
-  var chart = function chart(selector, rawData) {
-
-      var lineIndex = -1;
-      rawData.forEach(function(d, i){
-//          if (i>0){
-//              console.log(rawData[i-1].Rank);
-//              console.log(d.rank);
-//          }
-         if (i > 0 && rawData[i-1].Rank == d.Rank){
-             d.lineIndex = lineIndex;
-         }
-         else {
-             lineIndex++;
-             d.lineIndex = lineIndex;
-         }
-      });
-      console.log(rawData);
-    // Use the max total_amount in the data as the max in the scale's domain
-    // note we have to ensure the total_amount is a number by converting it
-    // with `+`.
-    var maxAmount = d3.max(rawData, function (d) { return +d.Rank; });
-    radiusScale.domain([0, maxAmount]);
-
-    nodes = createNodes(rawData);
-      console.log(nodes);
-    // Set the force's nodes to our newly created nodes array.
-    force.nodes(nodes);
-
-    // Create a SVG element inside the provided selector
-    // with desired size.
-    svg = d3.select(selector)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height);
-
-    // Bind nodes data to what will become DOM elements to represent them.
-    bubbles = svg.selectAll('.bubble')
-      .data(nodes, function (d) { return d.id; });
-
-     var brightDark = d3.scale.linear()
-        .domain([0, maxAmount])
-        .range([0.5, 1.5]);
-
-    // Create new circle elements each with class `bubble`.
-    // There will be one circle.bubble for each object in the nodes array.
-    // Initially, their radius (r attribute) will be 0.
-    bubbles.enter().append('circle')
-      .classed('bubble', true)
-      .attr('r', 0)
-      .attr('fill', function (d) {
-            if (d.name == 'McMaster'){
-                return '#7a003c';
+            // Charge function that is called for each node.
+            // Charge is proportional to the diameter of the
+            // circle (which is stored in the radius attribute
+            // of the circle's associated data.
+            // This is done to allow for accurate collision
+            // detection with nodes of different sizes.
+            // Charge is negative because we want nodes to repel.
+            // Dividing by 8 scales down the charge to be
+            // appropriate for the visualization dimensions.
+            function charge(d) {
+                return -Math.pow(d.radius, 2.0) / 7;
             }
-            else if (d.country == 'CAN'){
-                return '#d62728';
+
+
+            // Here we create a force layout and
+            // configure it to use the charge function
+            // from above. This also sets some contants
+            // to specify how the force layout should behave.
+            // More configuration is done below.
+            var force = d3.layout.force()
+                .size([width, height])
+                .charge(charge)
+                //  .chargeDistance(chargeDistance)
+                .gravity(-0.01)
+                .friction(0.9);
+
+
+            // Nice looking colors - no reason to buck the trend
+            var fillColor = d3.scale.ordinal()
+                .domain(['North America', 'South America', 'Africa', 'Europe', 'Asia', 'Oceania'])
+                .range(['#1f77b4', '#17becf', '#9467bd', '#ff7f0e', '#8c564b', '#e377c2']);
+
+            var fillColorRank = d3.scale.quantize()
+                .domain([1, 150])
+                .range(['#002966', '#003d99', '#0052cc', '#0066ff', '#3385ff', '#66a3ff', '#99c2ff', '#cce0ff','#e6f0ff']);
+            console.log(fillColorRank(50));
+
+            var radiusScale = d3.scale.linear()
+                .range([20, 2]);
+            // Sizes bubbles based on their area instead of raw radius
+            //  var radiusScale = d3.scale.pow()
+            //    .exponent(0.5)
+            //    .range([30, 2]);
+
+            /*
+             * This data manipulation function takes the raw data from
+             * the CSV file and converts it into an array of node objects.
+             * Each node will store data and visualization values to visualize
+             * a bubble.
+             *
+             * rawData is expected to be an array of data objects, read in from
+             * one of d3's loading functions like d3.csv.
+             *
+             * This function returns the new node array, with a node in that
+             * array for each element in the rawData input.
+             */
+            function createNodes(rawData) {
+                // Use map() to convert raw data into node data.
+                // Checkout http://learnjsdata.com/ for more on
+                // working with data.
+                console.log(rawData);
+                var myNodes = rawData.map(function (d) {
+                    return {
+                        radius: radiusScale(+d.Rank), // Makes sure Rank is a number
+                        rank: d.Rank
+                        , name: d.University
+                        , country: d.Country
+                        , region: d.Continent
+                        , id: d.Id
+                        , lineIndex: d.lineIndex
+                        , x: Math.random() * 900
+                        , y: Math.random() * 800
+                    };
+                });
+
+                // sort them to prevent occlusion of smaller nodes.
+                myNodes.sort(function (a, b) {
+                    return b.id - a.id;
+                });
+                return myNodes;
             }
-            else {
-                return fillColor(d.region);
+
+            /*
+             * Main entry point to the bubble chart. This function is returned
+             * by the parent closure. It prepares the rawData for visualization
+             * and adds an svg element to the provided selector and starts the
+             * visualization creation process.
+             *
+             * selector is expected to be a DOM element or CSS selector that
+             * points to the parent element of the bubble chart. Inside this
+             * element, the code will add the SVG continer for the visualization.
+             *
+             * rawData is expected to be an array of data objects as provided by
+             * a d3 loading function like d3.csv.
+             */
+            var chart = function chart(selector, rawData) {
+
+                var lineIndex = -1;
+                rawData.forEach(function (d, i) {
+                    //          if (i>0){
+                    //              console.log(rawData[i-1].Rank);
+                    //              console.log(d.rank);
+                    //          }
+                    if (i > 0 && rawData[i - 1].Rank == d.Rank) {
+                        d.lineIndex = lineIndex;
+                    } else {
+                        lineIndex++;
+                        d.lineIndex = lineIndex;
+                    }
+                });
+                console.log(rawData);
+                // Use the max total_amount in the data as the max in the scale's domain
+                // note we have to ensure the total_amount is a number by converting it
+                // with `+`.
+                var maxAmount = d3.max(rawData, function (d) {
+                    return +d.Rank;
+                });
+                radiusScale.domain([0, maxAmount]);
+
+                nodes = createNodes(rawData);
+                console.log(nodes);
+                // Set the force's nodes to our newly created nodes array.
+                force.nodes(nodes);
+
+                // Create a SVG element inside the provided selector
+                // with desired size.
+                svg = d3.select(selector)
+                    .append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+
+                // Add in polygon for menu
+                var polygon = svg.append("polygon")
+                    .attr("opacity", 0.8);
+
+                // Container to hold legend elements
+                var legendContainer = svg.append("g")
+                    .attr("class", "legendContainer");
+                xMargin = 20;
+                yMargin = 0;
+                var vizTitle1 = legendContainer.append("text")
+                    .text("TIMES HIGHER EDUCATION");
+                var vizTitle2 = legendContainer.append("text")
+                    .text("UNIVERSITY RANKINGS");
+
+                var buttonAll = legendContainer.append("g")
+                    .attr("class", "svg-button active");
+                var buttonAllRect = buttonAll.append("rect")
+                    .attr("width", 130)
+                    .attr("height", 40);
+                var buttonAllText = buttonAll.append("text")
+                    .text("all");
+                var buttonAllOverlay = buttonAll.append("rect")
+                    .attr("class", "svg-button-overlay")
+                    .attr("width", 130)
+                    .attr("height", 40)
+                    .style("opacity", 0)
+                    .style("pointer-events", "all");
+
+                var buttonRegion = legendContainer.append("g")
+                    .attr("class", "svg-button");
+                var buttonRegionRect = buttonRegion.append("rect")
+                    .attr("width", 130)
+                    .attr("height", 40);
+                var buttonRegionText = buttonRegion.append("text")
+                    .text("region");
+                var buttonRegionOverlay = buttonRegion.append("rect")
+                    .attr("class", "svg-button-overlay")
+                    .attr("width", 130)
+                    .attr("height", 40)
+                    .style("opacity", 0)
+                    .style("pointer-events", "all");
+
+                var buttonLine = legendContainer.append("g")
+                    .attr("class", "svg-button");
+                var buttonLineRect = buttonLine.append("rect")
+                    .attr("width", 130)
+                    .attr("height", 40);
+                var buttonLineText = buttonLine.append("text")
+                    .text("line");
+                var buttonLineOverlay = buttonLine.append("rect")
+                    .attr("class", "svg-button-overlay")
+                    .attr("width", 130)
+                    .attr("height", 40)
+                    .style("opacity", 0)
+                    .style("pointer-events", "all");
+
+                // Bind nodes data to what will become DOM elements to represent them.
+                bubbles = svg.selectAll('.bubble')
+                    .data(nodes, function (d) {
+                        return d.id;
+                    });
+
+                var brightDark = d3.scale.linear()
+                    .domain([0, maxAmount])
+                    .range([0.5, 1.5]);
+
+                 // Create new circle elements each with class `bubble`.
+                 // There will be one circle.bubble for each object in the nodes array.
+                 // Initially, their radius (r attribute) will be 0.
+                    bubbles.enter().append('circle')
+                      .classed('bubble', true)
+                      .attr('r', 0)
+                      .attr('fill', function (d) {
+                            if (d.name == 'McMaster'){
+                                return '#d62728';
+                            }
+                            else if (d.country == 'CAN'){
+                                return '#d62728';
+                            }
+                            else {
+                                return fillColorRank(d.rank);
+                            }
+                        })
+                      .attr('stroke', function (d) {
+                            if (d.name == 'McMaster'){
+                                //return '#ac1455';
+                                return d3.rgb('#d62728').darker();
+                            }
+                            else if (d.country == 'CAN'){
+                                return d3.rgb('#d62728').darker();
+                            }
+                            else {
+                                return d3.rgb(fillColorRank(d.rank)).darker();
+                            }
+                        })
+                      .attr('stroke-width', 1)
+                      .attr('class', function(d){ if(d.name=='McMaster'){ d3.select(this).moveToFront(); } })
+                      .on('mouseover', showDetail)
+                      .on('mouseout', hideDetail);
+
+                // Fancy transition to make bubbles appear, ending with the
+                // correct radius
+                bubbles.transition()
+                    .duration(2000)
+                    .attr('r', function (d) {
+                        return d.radius;
+                    });
+
+                // Set initial layout to single group.
+                groupBubbles();
+
+                d3.selectAll(".svg-button-overlay")
+                .on('click', function () {
+                    console.log("clicked!");
+                    d3.selectAll('.svg-button').classed('active', false);
+                    var svgButton = d3.select(this.parentNode);
+                    svgButton.classed('active', true);
+
+                    var buttonText = d3.select('g.svg-button.active text').text();
+                    console.log(buttonText);
+                    toggleDisplay(buttonText);
+                });
+
+                // Resizes chart according to window size
+                var minWidthPoly1 = 255;
+                var minWidthPoly2 = 355;
+                resize();
+                d3.select(window).on("resize", resize);
+
+
+                function resize() {
+                    console.log("resize");
+                    width = window.innerWidth, height = 500; //(window.innerHeight < 500 ? 500 : window.innerHeight);
+                    d3.select("svg").attr("width", width).attr("height", height);
+                    force.size([width, height]).resume();
+
+                    points = width + ",0 " +
+                        (width - minWidthPoly1) + ",0 " +
+                        (width - minWidthPoly2) + "," +
+                        height + " " +
+                        width + "," + height;
+                    polygon
+                        .attr("points", points);
+
+                    xMargin = width - 252;
+                    yMargin = 5;
+                    vizTitle1
+                        .attr("x", xMargin)
+                        .attr("y", 20)
+                    vizTitle2
+                        .attr("x", xMargin)
+                        .attr("y", 45)
+
+                    var buttonMargin = width - (minWidthPoly1 + 120) / 2 ;
+
+                    buttonAllRect
+                        .attr("x", buttonMargin)
+                        .attr("y", 70);
+                    buttonAllText
+                        .attr("x", buttonMargin + 50)
+                        .attr("y", 95);
+                    buttonAllOverlay
+                        .attr("x", buttonMargin)
+                        .attr("y", 70);
+
+                    buttonRegionRect
+                        .attr("x", buttonMargin)
+                        .attr("y", 120);
+                    buttonRegionText
+                        .attr("x", buttonMargin + 40)
+                        .attr("y", 145);
+                    buttonRegionOverlay
+                        .attr("x", buttonMargin)
+                        .attr("y", 120);
+
+                    buttonLineRect
+                        .attr("x", buttonMargin)
+                        .attr("y", 170);
+                    buttonLineText
+                        .attr("x", buttonMargin + 50)
+                        .attr("y", 195);
+                    buttonLineOverlay
+                        .attr("x", buttonMargin)
+                        .attr("y", 170);
+
+                    var legendHeight = (height - 210) / 2
+                    legendContainer.attr("transform", "translate(0," + (500-210)/2 + ")")
+
+
+                    center.x = (width - minWidthPoly1) / 2;
+                    newRegionCenters(width - minWidthPoly2, height);
+                    regionLabels(width - minWidthPoly2, height);
+                    polygon.moveToFront();
+                    legendContainer.moveToFront();
+                }
+                function regionLabels (width, height) {
+                    yearsTitleX = {
+                        NorthAmerica: {x:50, y: 15, name: "North America"}
+                        , Asia: {x:width-50, y: 15, name: "Asia"}
+                        , Europe: {x: width / 2, y: 15, name: "Europe"}
+                    };
+                }
+                function newRegionCenters (width, height) {
+                    regionCenters = {
+                        NorthAmerica: {
+                            x: width / 4
+                            , y: height / 3
+                        }
+                        , Europe: {
+                            x: width / 2
+                            , y: height / 3
+                        }
+                        , Asia: {
+                            x: 3 * width / 4
+                            , y: height / 3
+                        }
+                        , SouthAmerica: {
+                            x: width / 4
+                            , y: 2 * height / 3
+                        }
+                        , Africa: {
+                            x: width / 2
+                            , y: 2 * height / 3
+                        }
+                        , Oceania: {
+                            x: 3 * width / 4
+                            , y: 2 * height / 3
+                        }
+                    };
+                }
+            };
+
+            /*
+             * Sets visualization in "single group mode".
+             * The year labels are hidden and the force layout
+             * tick function is set to move all nodes to the
+             * center of the visualization.
+             */
+            function groupBubbles() {
+                hideYears();
+
+                force.on('tick', function (e) {
+                    bubbles.each(moveToCenter(e.alpha))
+                        .attr('cx', function (d) {
+                            return d.x;
+                        })
+                        .attr('cy', function (d) {
+                            return d.y;
+                        });
+                });
+
+                force.start();
             }
-        })
-      .attr('stroke', function (d) { return (d.country == 'CAN' ? d3.rgb('#d62728').darker() : d3.rgb(fillColor(d.region)).darker());
-            if (d.name == 'McMaster'){
-                return '#7a003c';
+
+            /*
+             * Helper function for "single group mode".
+             * Returns a function that takes the data for a
+             * single node and adjusts the position values
+             * of that node to move it toward the center of
+             * the visualization.
+             *
+             * Positioning is adjusted by the force layout's
+             * alpha parameter which gets smaller and smaller as
+             * the force layout runs. This makes the impact of
+             * this moving get reduced as each node gets closer to
+             * its destination, and so allows other forces like the
+             * node's charge force to also impact final location.
+             */
+            function moveToCenter(alpha) {
+                return function (d) {
+                    d.x = d.x + (center.x - d.x) * damper * alpha;
+                    d.y = d.y + (center.y - d.y) * damper * alpha;
+                };
             }
-            else if (d.country == 'CAN'){
-                return d3.rgb('#d62728').darker();
+
+            /*
+             * Sets visualization in "split by year mode".
+             * The year labels are shown and the force layout
+             * tick function is set to move nodes to the
+             * yearCenter of their data's year.
+             */
+            function splitBubbles() {
+                    showYears();
+
+                force.on('tick', function (e) {
+                    bubbles.each(moveToRegions(e.alpha))
+                        .attr('cx', function (d) {
+                            return d.x;
+                        })
+                        .attr('cy', function (d) {
+                            return d.y;
+                        });
+                });
+
+                force.start();
             }
-            else {
-                return d3.rgb(fillColor(d.region)).darker();
+
+            /*
+             * Helper function for "split by year mode".
+             * Returns a function that takes the data for a
+             * single node and adjusts the position values
+             * of that node to move it the year center for that
+             * node.
+             *
+             * Positioning is adjusted by the force layout's
+             * alpha parameter which gets smaller and smaller as
+             * the force layout runs. This makes the impact of
+             * this moving get reduced as each node gets closer to
+             * its destination, and so allows other forces like the
+             * node's charge force to also impact final location.
+             */
+            function moveToRegions(alpha) {
+               // force.chargeDistance(250);
+                return function (d) {
+                    var target = regionCenters[d.region];
+                    if (d.region == 'North America' || d.region == 'South America') {
+                        var newString = d.region.replace(/\s+/g, '');
+                        target = regionCenters[newString];
+                    }
+                    d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
+                    d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
+                };
             }
-        })
-      .attr('stroke-width', 1)
-      .attr('class', function(d){ if(d.name=='McMaster'){ d3.select(this).moveToFront(); } })
-      .on('mouseover', showDetail)
-      .on('mouseout', hideDetail);
 
-    // Fancy transition to make bubbles appear, ending with the
-    // correct radius
-    bubbles.transition()
-      .duration(2000)
-      .attr('r', function (d) { return d.radius; });
+            /*
+             * Hides Year title displays.
+             */
+            function hideYears() {
+                svg.selectAll('.year').remove();
+            }
 
-    // Set initial layout to single group.
-    groupBubbles();
-  };
+            /*
+             * Shows Year title displays.
+             */
+            function showYears() {
+                // Another way to do this would be to create
+                // the year texts once and then just hide them.
+                console.log(yearsTitleX);
+                var yearsData = d3.keys(yearsTitleX);
+                console.log(yearsData);
+                var years = svg.selectAll('.year')
+                    .data(yearsData);
 
-  /*
-   * Sets visualization in "single group mode".
-   * The year labels are hidden and the force layout
-   * tick function is set to move all nodes to the
-   * center of the visualization.
-   */
-  function groupBubbles() {
-    hideYears();
+                years.enter().append('text')
+                    .attr('class', 'year')
+                    .attr('x', function (d) {
+                        return yearsTitleX[d].x;
+                    })
+                    .attr('y', function (d) {
+                        return yearsTitleX[d].y;
+                    })
+                 //   .attr('text-anchor', 'middle')
+                    .text(function (d) {
+                        return yearsTitleX[d].name;
+                    });
 
-    force.on('tick', function (e) {
-      bubbles.each(moveToCenter(e.alpha))
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
-    });
 
-    force.start();
-  }
+            }
 
-  /*
-   * Helper function for "single group mode".
-   * Returns a function that takes the data for a
-   * single node and adjusts the position values
-   * of that node to move it toward the center of
-   * the visualization.
-   *
-   * Positioning is adjusted by the force layout's
-   * alpha parameter which gets smaller and smaller as
-   * the force layout runs. This makes the impact of
-   * this moving get reduced as each node gets closer to
-   * its destination, and so allows other forces like the
-   * node's charge force to also impact final location.
-   */
-  function moveToCenter(alpha) {
-    return function (d) {
-      d.x = d.x + (center.x - d.x) * damper * alpha;
-      d.y = d.y + (center.y - d.y) * damper * alpha;
-    };
-  }
 
-  /*
-   * Sets visualization in "split by year mode".
-   * The year labels are shown and the force layout
-   * tick function is set to move nodes to the
-   * yearCenter of their data's year.
-   */
-  function splitBubbles() {
-//    showYears();
+            /*
+             * Function called on mouseover to display the
+             * details of a bubble in the tooltip.
+             */
+            function showDetail(d) {
+                // change outline to indicate hover state.
+                d3.select(this).attr('stroke', 'black');
+                var content = '<span class="name">University: </span><span class="value">' +
+                    d.name +
+                    '</span><br/>' +
+                    '<span class="name">Rank: </span><span class="value">' +
+                    d.rank +
+                    '</span><br/>' +
+                    '<span class="name">Region: </span><span class="value">' +
+                    d.region +
+                    '</span>';
+                tooltip.showTooltip(content, d3.event);
+            }
 
-    force.on('tick', function (e) {
-      bubbles.each(moveToRegions(e.alpha))
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
-    });
+            /*
+             * Hides tooltip
+             */
+            function hideDetail(d) {
+                // reset outline
+                d3.select(this)
+                    .attr('stroke', d3.rgb(fillColorRank(d.rank)).darker());
 
-    force.start();
-  }
+                tooltip.hideTooltip();
+            }
 
-  /*
-   * Helper function for "split by year mode".
-   * Returns a function that takes the data for a
-   * single node and adjusts the position values
-   * of that node to move it the year center for that
-   * node.
-   *
-   * Positioning is adjusted by the force layout's
-   * alpha parameter which gets smaller and smaller as
-   * the force layout runs. This makes the impact of
-   * this moving get reduced as each node gets closer to
-   * its destination, and so allows other forces like the
-   * node's charge force to also impact final location.
-   */
-  function moveToRegions(alpha) {
-    return function (d) {
-      var target = regionCenters[d.region];
-        if (d.region == 'North America' || d.region == 'South America'){
-           var newString = d.region.replace(/\s+/g, '');
-            target = regionCenters[newString];
+
+
+            function lineBubbles() {
+                //    showYears();
+
+                force.on('tick', function (e) {
+                    bubbles.each(moveToLine(e.alpha))
+                        .attr('cx', function (d) {
+                            return d.x;
+                        })
+                        .attr('cy', function (d) {
+                            return d.y;
+                        });
+                });
+
+                force.start();
+            }
+
+            function moveToLine(alpha) {
+                force.chargeDistance(50);
+                return function (d) {
+                    var targetX = ((d.lineIndex % 10) + 1) * width / 11;
+                    var targetY = Math.floor(d.lineIndex / 10) * 55 + 70;
+                    d.x = d.x + (targetX - d.x) * damper * alpha * 1.1;
+                    d.y = d.y + (targetY - d.y) * damper * alpha * 1.1;
+                };
+            }
+
+            /*
+             * Externally accessible function (this is attached to the
+             * returned chart function). Allows the visualization to toggle
+             * between "single group" and "split by year" modes.
+             *
+             * displayName is expected to be a string and either 'region' or 'all'.
+             */
+            function toggleDisplay (displayName) {
+                if (displayName === 'region') {
+                    force.chargeDistance(Infinity);
+                    splitBubbles();
+                } else if (displayName === 'line') {
+                    force.chargeDistance(50);
+                    lineBubbles();
+                } else {
+                    force.chargeDistance(Infinity);
+                    groupBubbles();
+                }
+            };
+
+
+            // return the chart function from closure.
+            return chart;
         }
-      d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
-      d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
-    };
-  }
 
-  /*
-   * Hides Year title displays.
-   */
-  function hideYears() {
-    svg.selectAll('.year').remove();
-  }
+        /*
+         * Below is the initialization code as well as some helper functions
+         * to create a new bubble chart instance, load the data, and display it.
+         */
 
-  /*
-   * Shows Year title displays.
-   */
-  function showYears() {
-    // Another way to do this would be to create
-    // the year texts once and then just hide them.
-    var yearsData = d3.keys(regionCenters);
-    var years = svg.selectAll('.year')
-      .data(yearsData);
+        var myBubbleChart = bubbleChart();
 
-    years.enter().append('text')
-      .attr('class', 'year')
-      .attr('x', function (d) { return regionCenters[d].x; })
-      .attr('y', function (d) { return regionCenters[d].y - 50; })
-      .attr('text-anchor', 'middle')
-      .text(function (d) { return d; });
-  }
+        /*
+         * Function called once data is loaded from CSV.
+         * Calls bubble chart function to display inside #vis div.
+         */
+        function display(error, data) {
+            if (error) {
+                console.log(error);
+            }
 
+            myBubbleChart('#vis', data);
+        }
 
-  /*
-   * Function called on mouseover to display the
-   * details of a bubble in the tooltip.
-   */
-  function showDetail(d) {
-    // change outline to indicate hover state.
-    d3.select(this).attr('stroke', 'black');
-    var content = '<span class="name">University: </span><span class="value">' +
-                  d.name +
-                  '</span><br/>' +
-                  '<span class="name">Rank: </span><span class="value">' +
-                  d.rank +
-                  '</span><br/>' +
-                  '<span class="name">Region: </span><span class="value">' +
-                  d.region +
-                  '</span>';
-    tooltip.showTooltip(content, d3.event);
-  }
-
-  /*
-   * Hides tooltip
-   */
-  function hideDetail(d) {
-    // reset outline
-    d3.select(this)
-      .attr('stroke', d3.rgb(fillColor(d.region)).darker());
-
-    tooltip.hideTooltip();
-  }
+        /*
+         * Sets up the layout buttons to allow for toggling between view modes.
+         */
+        function setupButtons() {
+//            d3.select('#toolbar')
+//                .selectAll('.button')
+//                .on('click', function () {
+//                    // Remove active class from all buttons
+//                    d3.selectAll('.button').classed('active', false);
+//                    // Find the button just clicked
+//                    var button = d3.select(this);
+//
+//                    // Set it as the active button
+//                    button.classed('active', true);
+//
+//                    // Get the id of the button
+//                    var buttonId = button.attr('id');
+//
+//                    // Toggle the bubble chart based on
+//                    // the currently clicked button.
+//                    myBubbleChart.toggleDisplay(buttonId);
+//                });
 
 
+        }
 
-    function lineBubbles() {
-//    showYears();
+        // Load the data.
+        d3.tsv('Times-Higher-Top-150.txt', display);
 
-    force.on('tick', function (e) {
-      bubbles.each(moveToLine(e.alpha))
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
-    });
-
-    force.start();
-  }
-
-  function moveToLine(alpha) {
-      force.chargeDistance(50);
-    return function (d) {
-      var targetX = ((d.lineIndex % 10) + 1) * width / 11;
-        var targetY = Math.floor(d.lineIndex / 10) * 55 + 70;
-      d.x = d.x + (targetX - d.x) * damper * alpha * 1.1;
-      d.y = d.y + (targetY - d.y) * damper * alpha * 1.1;
-    };
-  }
-
-  /*
-   * Externally accessible function (this is attached to the
-   * returned chart function). Allows the visualization to toggle
-   * between "single group" and "split by year" modes.
-   *
-   * displayName is expected to be a string and either 'region' or 'all'.
-   */
-  chart.toggleDisplay = function (displayName) {
-    if (displayName === 'region') {
-        force.chargeDistance(Infinity);
-      splitBubbles();
-    }
-    else if (displayName === 'line'){
-        force.chargeDistance(50);
-      lineBubbles();
-    }
-    else {
-        force.chargeDistance(Infinity);
-      groupBubbles();
-    }
-  };
-
-
-  // return the chart function from closure.
-  return chart;
-}
-
-/*
- * Below is the initialization code as well as some helper functions
- * to create a new bubble chart instance, load the data, and display it.
- */
-
-var myBubbleChart = bubbleChart();
-
-/*
- * Function called once data is loaded from CSV.
- * Calls bubble chart function to display inside #vis div.
- */
-function display(error, data) {
-  if (error) {
-    console.log(error);
-  }
-
-  myBubbleChart('#vis', data);
-}
-
-/*
- * Sets up the layout buttons to allow for toggling between view modes.
- */
-function setupButtons() {
-  d3.select('#toolbar')
-    .selectAll('.button')
-    .on('click', function () {
-      // Remove active class from all buttons
-      d3.selectAll('.button').classed('active', false);
-      // Find the button just clicked
-      var button = d3.select(this);
-
-      // Set it as the active button
-      button.classed('active', true);
-
-      // Get the id of the button
-      var buttonId = button.attr('id');
-
-      // Toggle the bubble chart based on
-      // the currently clicked button.
-      myBubbleChart.toggleDisplay(buttonId);
-    });
-}
-
-// Load the data.
-d3.tsv('Times-Higher-Top-150.txt', display);
-
-// setup the buttons.
-setupButtons();
-</script>
-    </body>
+        // setup the buttons.
+        setupButtons();
+    </script>
+</body>
