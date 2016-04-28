@@ -4,15 +4,16 @@ get_header(); ?>
 <div id="front-page-container">
     <div id="vis-group">
         <div id="clever-vis">
-            <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
+            <iframe id="iframe-1" class="first-vis" style="display:none;"src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-bubble.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
+            <iframe id="iframe-2" class="first-vis" src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-bubble.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
 
 
         </div>
         <div class="carousel-home" style="flex: 0 1 165px; order: -1;">
-            <i class="fa fa-angle-left"></i>
+            <i class="fa fa-angle-left vis-arrow"></i>
         </div>
         <div class="carousel-home" style="flex: 0 1 165px;">
-            <i class="fa fa-angle-right"></i>
+            <i class="fa fa-angle-right vis-arrow"></i>
         </div>
     </div>
     <!--

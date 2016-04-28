@@ -22,7 +22,6 @@
         width: 940px;
         height: 600px;
         clear: both;
-        margin-bottom: 10px;
     }
     .year {
         font-size: 21px;
@@ -85,25 +84,20 @@
         fill: #e8941a;
     }
     g.active text {
-/*        fill: #e8941a;*/
+/*        fill: white;*/
     }
-    /*
-    .legendContainer rect:hover {
-        fill: #323e48;
-    }
-    .legendContainer rect:hover + text{
-        fill: #e8941a;
-    }
-*/
 
-    .legendContainer g.active {}
+    g.legendSymbol text {
+        fill: white;
+        text-transform: capitalize;
+    }
 </style>
 
 <body>
     <div id="vis"></div>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
     <script src="//d3js.org/d3.v3.min.js"></script>
-    <!--    <script src="d3-legend.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.10.0/d3-legend.js"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script>
         // Function for moving nodes to front
@@ -210,8 +204,12 @@
          */
         function bubbleChart() {
             // Constants for sizing
-            var width = 940;
+            var width = 1000;
             var height = 500;
+            var n = 200,
+                m = 10,
+                padding = 50,
+                radius = d3.scale.sqrt().range([0, 12]);
 
             // tooltip for mouseover functionality
             var tooltip = floatingTooltip('gates_tooltip', 240);
@@ -260,8 +258,7 @@
                 .size([width, height])
                 .charge(charge)
                 //  .chargeDistance(chargeDistance)
-                .gravity(-0.01)
-                .friction(0.9);
+                .gravity(-0.01);
 
 
             // Nice looking colors - no reason to buck the trend
@@ -424,6 +421,20 @@
                     .style("opacity", 0)
                     .style("pointer-events", "all");
 
+                var legend = legendContainer.append("g")
+                    .attr("class", "legendSymbol");
+
+                var colorScale = d3.scale.ordinal().domain(['Canada']).range(["#d62728"]);
+                var circle = d3.svg.symbol().type('circle')();
+
+                var legendSymbol = d3.legend.color()
+                    .scale(colorScale)
+                    .shape('circle')
+                    .labels(["Canadian Universities"]);
+
+                var entryLegend = legendContainer.select(".legendSymbol")
+                    .call(legendSymbol);
+
                 // Bind nodes data to what will become DOM elements to represent them.
                 bubbles = svg.selectAll('.bubble')
                     .data(nodes, function (d) {
@@ -521,7 +532,7 @@
                         .attr("x", xMargin)
                         .attr("y", 45)
 
-                    var buttonMargin = width - (minWidthPoly1 + 120) / 2 ;
+                    var buttonMargin = (width - (minWidthPoly1 + 120) / 2) - 20 ;
 
                     buttonAllRect
                         .attr("x", buttonMargin)
@@ -553,8 +564,11 @@
                         .attr("x", buttonMargin)
                         .attr("y", 170);
 
+                    legend
+                        .attr("transform", "translate("+(buttonMargin - 20)+",240)");
+
                     var legendHeight = (height - 210) / 2
-                    legendContainer.attr("transform", "translate(0," + (500-210)/2 + ")")
+                    legendContainer.attr("transform", "translate(0," + (height-230)/2 + ")")
 
 
                     center.x = (width - minWidthPoly1) / 2;
@@ -564,10 +578,15 @@
                     legendContainer.moveToFront();
                 }
                 function regionLabels (width, height) {
+                    var correctionFactor = 30;
                     yearsTitleX = {
-                        NorthAmerica: {x:50, y: 15, name: "North America"}
-                        , Asia: {x:width-50, y: 15, name: "Asia"}
-                        , Europe: {x: width / 2, y: 15, name: "Europe"}
+                        NorthAmerica: {x:width/6 - correctionFactor, y: 15, name: "North America"},
+                        Asia: {x:5*width/6 - correctionFactor, y: 15, name: "Asia"},
+                        Europe: {x: width / 2 - correctionFactor, y: 15, name: "Europe"},
+
+                        SouthAmerica: {x:width/6 - correctionFactor, y: 320, name: "South America"},
+                        Oceania: {x:5*width/6 - correctionFactor, y: 320, name: "Oceania"},
+                        Africa: {x: width / 2 - correctionFactor, y: 320, name: "Africa"}
                     };
                 }
                 function newRegionCenters (width, height) {
@@ -610,7 +629,9 @@
                 hideYears();
 
                 force.on('tick', function (e) {
-                    bubbles.each(moveToCenter(e.alpha))
+                    bubbles
+                        .each(moveToCenter(e.alpha))
+                       // .each(collide(.5))
                         .attr('cx', function (d) {
                             return d.x;
                         })
@@ -653,13 +674,16 @@
                     showYears();
 
                 force.on('tick', function (e) {
-                    bubbles.each(moveToRegions(e.alpha))
+                    bubbles
+                        .each(moveToRegions(e.alpha))
+                       // .each(collide(.5))
                         .attr('cx', function (d) {
                             return d.x;
                         })
                         .attr('cy', function (d) {
                             return d.y;
                         });
+
                 });
 
                 force.start();
@@ -692,6 +716,34 @@
                 };
             }
 
+            function lineBubbles() {
+                hideYears();
+
+                force.on('tick', function (e) {
+                    bubbles
+                        .each(moveToLine(e.alpha))
+                        //.each(collide(.5))
+                        .attr('cx', function (d) {
+                            return d.x;
+                        })
+                        .attr('cy', function (d) {
+                            return d.y;
+                        });
+                });
+
+                force.start();
+            }
+
+            function moveToLine(alpha) {
+                force.chargeDistance(50);
+                return function (d) {
+                    var targetX = ((d.lineIndex % 10) + 1) * (width - 255) / 11;
+                    var targetY = Math.floor(d.lineIndex / 10) * 55 + 70;
+                    d.x = d.x + (targetX - d.x) * damper * alpha * 1.1;
+                    d.y = d.y + (targetY - d.y) * damper * alpha * 1.1;
+                };
+            }
+
             /*
              * Hides Year title displays.
              */
@@ -719,14 +771,12 @@
                     .attr('y', function (d) {
                         return yearsTitleX[d].y;
                     })
-                 //   .attr('text-anchor', 'middle')
+//                    .attr('text-anchor', 'middle')
                     .text(function (d) {
                         return yearsTitleX[d].name;
                     });
 
-
             }
-
 
             /*
              * Function called on mouseover to display the
@@ -760,31 +810,7 @@
 
 
 
-            function lineBubbles() {
-                //    showYears();
 
-                force.on('tick', function (e) {
-                    bubbles.each(moveToLine(e.alpha))
-                        .attr('cx', function (d) {
-                            return d.x;
-                        })
-                        .attr('cy', function (d) {
-                            return d.y;
-                        });
-                });
-
-                force.start();
-            }
-
-            function moveToLine(alpha) {
-                force.chargeDistance(50);
-                return function (d) {
-                    var targetX = ((d.lineIndex % 10) + 1) * width / 11;
-                    var targetY = Math.floor(d.lineIndex / 10) * 55 + 70;
-                    d.x = d.x + (targetX - d.x) * damper * alpha * 1.1;
-                    d.y = d.y + (targetY - d.y) * damper * alpha * 1.1;
-                };
-            }
 
             /*
              * Externally accessible function (this is attached to the
@@ -805,6 +831,36 @@
                     groupBubbles();
                 }
             };
+
+            function collide (alpha){
+                 var quadtree = d3.geom.quadtree(nodes);
+                  return function(d) {
+                    var r = d.radius + radius.domain()[1] + padding,
+                        nx1 = d.x - r,
+                        nx2 = d.x + r,
+                        ny1 = d.y - r,
+                        ny2 = d.y + r;
+                    quadtree.visit(function(quad, x1, y1, x2, y2) {
+                      if (quad.point && (quad.point !== d)) {
+                        var x = d.x - quad.point.x,
+                            y = d.y - quad.point.y,
+                            l = Math.sqrt(x * x + y * y),
+                            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+                        if (l < r) {
+                          l = (l - r) / l * alpha;
+                          d.x -= x *= l;
+                          d.y -= y *= l;
+                          quad.point.x += x;
+                          quad.point.y += y;
+                        }
+                      }
+                      return x1 > nx2
+                          || x2 < nx1
+                          || y1 > ny2
+                          || y2 < ny1;
+                    });
+                  };
+            }
 
 
             // return the chart function from closure.

@@ -253,6 +253,45 @@ jQuery(document).ready(function($) {
         return false;
     });
 
+    // Home page slider
+    var animationIn = 'animated slideInLeft';
+    var animationOut = 'animated slideOutRight';
+    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+    var iframe1 = '#iframe-1';
+    var iframe2 = '#iframe-2';
+    $('.vis-arrow').on("click", function(){
+       console.log("arrow click!");
+        if($(iframe1).css('display') == 'none') {
+            $(iframe2).addClass(animationOut).one(animationEnd, function(){
+                $(iframe2).removeClass(animationOut);
+                $(iframe2).css('display', 'none');
+            });
+
+            $(iframe1).css('display', 'block');
+            $(iframe1).addClass(animationIn).one(animationEnd, function(){
+                $(iframe1).removeClass(animationIn);
+            });
+
+        }
+        else {
+//            $(iframe).addClass('first-vis '+animationIn).one(animationEnd, function(){
+//                $(iframe).removeClass(animationIn);
+//            });
+//            $(iframe).attr('src', "http://localhost/wordpress/wp-content/uploads/2016/03/d3-bubble.html");
+        }
+
+//        $(iframe).addClass(animationOut).one(animationEnd, function(){
+//                $(iframe).removeClass(animationOut);
+//                $(iframe).attr('src', "http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html");
+//                $(iframe).addClass(animationIn).one(animationEnd, function(){
+//                    $(iframe).removeClass(animationIn);
+//                });
+//            });
+
+
+
+    });
+
     // Extra jQuery functions
     $.fn.exists = function () {
         return this.length !== 0;
