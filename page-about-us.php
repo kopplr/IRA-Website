@@ -2,7 +2,7 @@
 get_header();
 ?>
 
-<div class="site-title">
+<div class="site-title" style="background-image: url(<?php echo get_template_directory_uri(); ?>/images/arch_skinny.jpeg);">
 
     <div style="flex: 1;" ></div>
     <div style="flex: 1; order: 99;"></div>
@@ -144,7 +144,7 @@ get_header();
 
                 <div id="tab3" class="tab">
                     <div id="tab3-content">
-                        <img src="http://localhost/wordpress/wp-content/uploads/2016/03/OUAC-our-community-e1459431507321.png">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/OUAC-our-community.png">
                         <div id="community-text">
                             <div style="display:flex;">
                                 <i class="fa fa-quote-left fa-3x fa-pull-left" aria-hidden="true"></i>

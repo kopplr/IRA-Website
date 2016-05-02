@@ -239,7 +239,7 @@
 <!--        Search Overlay-->
         <div id="mcmaster-search-overlay" aria-label="Site Search and Quick Links">
           <div id="mcmaster-search-form">
-            <form id="searchbox_017110053273856412988:akq6v26t6nm" name="search_form" action="http://localhost/wordpress/wp-content/uploads/2016/03/search-results.html">
+            <form id="searchbox_017110053273856412988:akq6v26t6nm" name="search_form" action="<?php echo get_template_directory_uri(); ?>/html/search-results.html">
               <div id="search-input">
                 <div class="input-group">
                   <input type="hidden" name="cx" value="017110053273856412988:akq6v26t6nm">
@@ -378,22 +378,7 @@
         <?php if (!is_front_page()) {wp_nav_menu( $args );} ?>
 
         <?php if (!is_front_page()){
-            echo '</nav>';
-        }?>
-
-        <?php if (!is_front_page()){
-            echo '<nav class="site-nav" id="nav-right">';
-        }?>
-
-        <?php
-        $args2 = array(
-            'theme_location' => 'primary-right'
-        );
-        ?>
-
-        <?php //if (!is_front_page()) {wp_nav_menu( $args2 );} ?>
-        <?php if (!is_front_page()){
-            echo '</nav><!-- /site-nav -->
+            echo '</nav> <!-- /site-nav -->
                     </div>
                     </header><!-- /site-header -->';} ?>
 

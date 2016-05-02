@@ -1,20 +1,8 @@
-<!--
-<iframe src="https://drive.google.com/file/d/0BzgCDxb26EkfR3RvVjk1cVRCNmM/preview" width="640" height="800" frameborder="0"></iframe>
-
-<div><a href="https://drive.google.com/uc?export=download&id=0BzgCDxb26EkfR3RvVjk1cVRCNmM">Download Fact Book PDF</a></div>
--->
-<!--
-<a href="https://docs.google.com/spreadsheets/d/0BzgCDxb26Ekfcm9VdE5QX2RsUUU/export?format=xlsx">Download Headcount Excel</a>
-<a href="https://docs.google.com/spreadsheets/d/0BzgCDxb26Ekfcm9VdE5QX2RsUUU/export?format=pdf">Download Headcount PDF</a>
--->
-
-
-
 <?php
 get_header();
 global $wpdb
 ?>
-<div class="site-title">
+<div class="site-title" style="background-image: url(<?php echo get_template_directory_uri(); ?>/images/arch_skinny.jpeg);">
 
     <div style="flex: 1;" ></div>
     <div style="flex: 1; order: 99;"></div>

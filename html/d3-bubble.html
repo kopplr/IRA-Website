@@ -18,11 +18,13 @@
         max-width: 900px;
         margin: auto;
     }
+/*
     #vis {
-        width: 940px;
-        height: 600px;
+        height: 500px;
         clear: both;
+        margin:0;
     }
+*/
     .year {
         font-size: 21px;
         fill: #aaa;
@@ -91,13 +93,24 @@
         fill: white;
         text-transform: capitalize;
     }
+    body {
+        margin: 0
+    }
+    g.graph > rect {
+        fill: white;
+        opacity: 0.9;
+    }
+/*
+    polygon {
+        fill: #1e252b;
+    }
+*/
 </style>
 
 <body>
-    <div id="vis"></div>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+<!--    <div id="vis"></div>-->
     <script src="//d3js.org/d3.v3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.10.0/d3-legend.js"></script>
+    <script src="../js/d3-legend.min.js"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script>
         // Function for moving nodes to front
@@ -232,6 +245,7 @@
 
             // These will be set in create_nodes and create_vis
             var svg = null;
+            var graph = null;
             var bubbles = null;
             var nodes = [];
 
@@ -269,7 +283,6 @@
             var fillColorRank = d3.scale.quantize()
                 .domain([1, 150])
                 .range(['#002966', '#003d99', '#0052cc', '#0066ff', '#3385ff', '#66a3ff', '#99c2ff', '#cce0ff','#e6f0ff']);
-            console.log(fillColorRank(50));
 
             var radiusScale = d3.scale.linear()
                 .range([20, 2]);
@@ -294,7 +307,6 @@
                 // Use map() to convert raw data into node data.
                 // Checkout http://learnjsdata.com/ for more on
                 // working with data.
-                console.log(rawData);
                 var myNodes = rawData.map(function (d) {
                     return {
                         radius: radiusScale(+d.Rank), // Makes sure Rank is a number
@@ -333,10 +345,6 @@
 
                 var lineIndex = -1;
                 rawData.forEach(function (d, i) {
-                    //          if (i>0){
-                    //              console.log(rawData[i-1].Rank);
-                    //              console.log(d.rank);
-                    //          }
                     if (i > 0 && rawData[i - 1].Rank == d.Rank) {
                         d.lineIndex = lineIndex;
                     } else {
@@ -344,7 +352,6 @@
                         d.lineIndex = lineIndex;
                     }
                 });
-                console.log(rawData);
                 // Use the max total_amount in the data as the max in the scale's domain
                 // note we have to ensure the total_amount is a number by converting it
                 // with `+`.
@@ -354,23 +361,33 @@
                 radiusScale.domain([0, maxAmount]);
 
                 nodes = createNodes(rawData);
-                console.log(nodes);
                 // Set the force's nodes to our newly created nodes array.
                 force.nodes(nodes);
 
                 // Create a SVG element inside the provided selector
                 // with desired size.
-                svg = d3.select(selector)
-                    .append('svg')
+                graph = d3.select("body").append("svg")
                     .attr('width', width)
-                    .attr('height', height);
+                    .attr('height', height)
+                    .append("g")
+                        .attr("class", "graph");
+//                svg = d3.select(selector)
+//                    .append('svg')
+//                    .attr('width', width)
+//                    .attr('height', height);
+
+                graph.append("rect")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("fill", "white")
+                    .attr("fill-opacity", 0.9);
 
                 // Add in polygon for menu
-                var polygon = svg.append("polygon")
+                var polygon = graph.append("polygon")
                     .attr("opacity", 0.8);
 
                 // Container to hold legend elements
-                var legendContainer = svg.append("g")
+                var legendContainer = graph.append("g")
                     .attr("class", "legendContainer");
                 xMargin = 20;
                 yMargin = 0;
@@ -436,7 +453,7 @@
                     .call(legendSymbol);
 
                 // Bind nodes data to what will become DOM elements to represent them.
-                bubbles = svg.selectAll('.bubble')
+                bubbles = graph.selectAll('.bubble')
                     .data(nodes, function (d) {
                         return d.id;
                     });
@@ -492,13 +509,11 @@
 
                 d3.selectAll(".svg-button-overlay")
                 .on('click', function () {
-                    console.log("clicked!");
                     d3.selectAll('.svg-button').classed('active', false);
                     var svgButton = d3.select(this.parentNode);
                     svgButton.classed('active', true);
 
                     var buttonText = d3.select('g.svg-button.active text').text();
-                    console.log(buttonText);
                     toggleDisplay(buttonText);
                 });
 
@@ -510,7 +525,6 @@
 
 
                 function resize() {
-                    console.log("resize");
                     width = window.innerWidth, height = 500; //(window.innerHeight < 500 ? 500 : window.innerHeight);
                     d3.select("svg").attr("width", width).attr("height", height);
                     force.size([width, height]).resume();
@@ -748,7 +762,7 @@
              * Hides Year title displays.
              */
             function hideYears() {
-                svg.selectAll('.year').remove();
+                graph.selectAll('.year').remove();
             }
 
             /*
@@ -757,10 +771,9 @@
             function showYears() {
                 // Another way to do this would be to create
                 // the year texts once and then just hide them.
-                console.log(yearsTitleX);
+
                 var yearsData = d3.keys(yearsTitleX);
-                console.log(yearsData);
-                var years = svg.selectAll('.year')
+                var years = graph.selectAll('.year')
                     .data(yearsData);
 
                 years.enter().append('text')
@@ -883,7 +896,7 @@
                 console.log(error);
             }
 
-            myBubbleChart('#vis', data);
+            myBubbleChart('body', data);
         }
 
         /*

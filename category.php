@@ -4,7 +4,7 @@ $cat_id = get_cat_ID(single_cat_title("", false)); // Get the current category i
 $curr_cat = get_category($cat_id);
 ?>
 
-<div class="site-title">
+<div class="site-title" style="background-image: url(<?php echo get_template_directory_uri(); ?>/images/arch_skinny.jpeg);">
 
     <div style="flex: 1;" ></div>
     <div style="flex: 1; order: 99;"></div>
