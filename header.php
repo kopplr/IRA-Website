@@ -4,7 +4,6 @@
         <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width">
         <title><?php bloginfo('name'); ?></title>
-<!--        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>-->
         <?php wp_head(); ?>
     </head>
     <body <?php body_class(); ?>>
@@ -371,11 +370,15 @@
 
         <?php
         $args = array(
-            'theme_location' => 'primary'
+            'theme_location' => 'primary',
+            'container'       => false, // Other parameters are for removing <li> tag
+            'echo'            => false,
+            'items_wrap'      => '%3$s',
+            'depth'           => 0,
         );
         ?>
 
-        <?php if (!is_front_page()) {wp_nav_menu( $args );} ?>
+        <?php if (!is_front_page()) {echo strip_tags(wp_nav_menu( $args ), '<a>'); } ?>
 
         <?php if (!is_front_page()){
             echo '</nav> <!-- /site-nav -->

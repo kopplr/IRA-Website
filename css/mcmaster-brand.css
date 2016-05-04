@@ -225,12 +225,12 @@ body {
 }
 #mcmaster-header.menu-active #mcmaster-menu {
   color: white;
-  background: #7a003c;
+  background: #323e48;
 }
 /* Mac Menu Icon Active (search icon) */
 #mcmaster-header.menu-active #mcmaster-search {
   color: white !important;
-  background: #7a003c;
+  background: #323e48;
 }
 #mcmaster-header.menu-active #mcmaster-search span {
   border-color: #ffffff !important;
@@ -457,7 +457,7 @@ body {
 /* ===OFF CANVAS MENU=== */
 
 #mcmaster-nav {
-  background: #7a003c;
+  background: #323e48;
   position: fixed;
   padding: 0;
   margin: 0;
@@ -525,12 +525,15 @@ body {
   display: block;
   font-size: 20px;
   padding: 15px 20px 15px 20px;
-  background: #7a003c;
-  border-top: 1px solid #37001a;
+  background: #323e48;
+  border-top: 1px solid #1e252b;
   z-index: 20;
   color: #fff;
   font-weight: 300;
     margin: 0;
+}
+#mcmaster-nav h3:last-child {
+    border-bottom: 1px solid #1e252b;
 }
 #mcmaster-nav h3:hover {
   background: #ac1455;

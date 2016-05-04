@@ -212,7 +212,7 @@ add_action('init', 'external_cats_tax');
 
 function IRAWebsite_resources() {
 
-    wp_enqueue_style('style', get_template_directory_uri() . '/css/style.css', array(), '1.0');
+
 
     wp_register_style('animate-css', get_template_directory_uri() . '/css/animate.min.css', array(), '3.5.0');
     wp_enqueue_style('animate-css');
@@ -223,35 +223,49 @@ function IRAWebsite_resources() {
     wp_register_style('font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.5.0');
     wp_enqueue_style('font-awesome');
 
-    wp_enqueue_script('roboto-google-font', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
+    wp_enqueue_style('style', get_template_directory_uri() . '/css/style.css', array(), '1.0');
+
+    wp_enqueue_script('roboto-google-font', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js');
+
+//     wp_enqueue_script('google-fonts', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
 
     wp_enqueue_script('jquery', get_template_directory_uri() . '/js/jquery-1.12.0.min.js', array(), '1.12.0', true);
+
+
     wp_enqueue_script('javascript', get_template_directory_uri() . '/js/all_javascript.js', array('jquery'), '1.0');
 
-    wp_enqueue_script('isotope', get_template_directory_uri() . '/js/isotope.pkgd.min.js', array('jquery'), '2.2.2', 'true');
-
-    wp_enqueue_script('maps-google-maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBLyeSD8mwqsDddMpRSknH1P5ycTgJg_-M', array(), '1.0.0');
-
-    wp_enqueue_script('d3', '//d3js.org/d3.v3.min.js', array(), '3');
-    wp_enqueue_script('d3-legend', get_template_directory_uri() . '/js/d3-legend.min.js', array(), '1.0');
-
-    wp_enqueue_script('slick-js', get_template_directory_uri() . '/slick/slick.js', array('jquery'), '1.5.9');
-
-    wp_register_style('slick-css', get_template_directory_uri() . '/slick/slick.css', array(), '1.5.9');
-    wp_enqueue_style('slick-css');
-
-    wp_register_style('slick-theme-css', get_template_directory_uri() . '/slick/slick-theme.css', array(), '1.5.9');
-    wp_enqueue_style('slick-theme-css');
+    wp_enqueue_script('javascript', get_template_directory_uri() . '/js/slider.js', array('jquery'), '1.0');
 
     wp_register_style('outdatedbrowser-css', get_template_directory_uri() . '/css/outdatedbrowser.min.css', array(), '1.1.3');
     wp_enqueue_style('outdatedbrowser-css');
 
     wp_enqueue_script('outdatedbrowser-js', get_template_directory_uri() . '/js/outdatedbrowser.min.js', array(), '1.1.3');
 
-    wp_enqueue_script('pdfobject', get_template_directory_uri() . '/js/pdfobject.min.js', array(), '2.0');
+    //if (is_front_page()){
+
+        wp_enqueue_script('d3', '//d3js.org/d3.v3.min.js', array(), '3');
+        wp_enqueue_script('d3-legend', get_template_directory_uri() . '/js/d3-legend.min.js', array(), '1.0');
+
+        wp_enqueue_script('slick-js', get_template_directory_uri() . '/slick/slick.min.js', array('jquery'), '1.5.9');
+
+        wp_register_style('slick-css', get_template_directory_uri() . '/slick/slick.css', array(), '1.5.9');
+        wp_enqueue_style('slick-css');
+
+        wp_register_style('slick-theme-css', get_template_directory_uri() . '/slick/slick-theme.css', array(), '1.5.9');
+        wp_enqueue_style('slick-theme-css');
+
+
+ //   if(!is_front_page()) {
+        wp_enqueue_script('isotope', get_template_directory_uri() . '/js/isotope.pkgd.min.js', array('jquery'), '2.2.2', 'true');
+
+        wp_enqueue_script('maps-google-maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBLyeSD8mwqsDddMpRSknH1P5ycTgJg_-M', array(), '1.0.0');
+ //   }
 }
 
 add_action('wp_enqueue_scripts', 'IRAWebsite_resources');
+
+
+
 
 
 // Navigation Menus

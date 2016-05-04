@@ -29,7 +29,7 @@ $human = $_POST['message_human'];
 
 //php mailer variables
 $to = get_option('admin_email');
-$subject = $name . "sent a message from " . get_bloginfo('name');
+$subject = $name . " sent a message to the " . get_bloginfo('name');
 $headers = 'From: '. $email . "\r\n" .
   'Reply-To: ' . $email . "\r\n";
 

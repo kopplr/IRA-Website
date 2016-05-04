@@ -13,6 +13,38 @@ jQuery(document).ready(function($) {
         languagePath: 'your_path/outdatedbrowser/lang/en.html'
     });
 
+    // Add fonts
+    WebFont.load({
+        google: {
+            families: ['Roboto Condensed:300,400']
+        }
+    });
+
+    // Add icons to menu
+    $('.site-header nav a').each(function(){
+        if($(this).text() == 'IRA Portals'){
+            $(this).prepend('<i class="fa fa-external-link" aria-hidden="true"></i>');
+        }
+        if($(this).text() == 'Data'){
+            $(this).prepend('<i class="fa fa-bar-chart" aria-hidden="true"></i>');
+        }
+        if($(this).text() == 'Publications'){
+            $(this).prepend('<i class="fa fa-newspaper-o" aria-hidden="true"></i>');
+        }
+        if($(this).text() == 'Accountability'){
+            $(this).prepend('<i class="fa fa-check-square-o" aria-hidden="true"></i>');
+        }
+        if($(this).text() == 'Fact Book'){
+            $(this).prepend('<i class="fa fa-book" aria-hidden="true"></i>');
+        }
+        if($(this).text() == 'About Us'){
+            $(this).prepend('<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>');
+        }
+        if($(this).text() == 'Submit a Request'){
+            $(this).prepend('<i class="fa fa-envelope" aria-hidden="true"></i>');
+        }
+    });
+
     // add is-checked to the "Show All" button
     $('#menu-sidebar-menu-links li').first().children().addClass('is-checked');
 
@@ -131,7 +163,7 @@ jQuery(document).ready(function($) {
             var campusContentString = '<h1>University Hall (UH)</h1>'+
                 '<p>McMaster University</p>'+
                 '<p>1280 Main Street West</p>'+
-                '<p>University Hall, Room 207</p>'+
+                '<p>University Hall, Room 215</p>'+
                 '<p>Hamilton, Ontario</p>'+
                 '<p>Canada L8S 4L8</p>'
             ;
@@ -212,10 +244,10 @@ jQuery(document).ready(function($) {
         return false;
     });
 
-    $('.responsive').slick({
-        speed: 300,
-        adaptiveHeight: true,
-    });
+//    $('.responsive').slick({
+//        speed: 300,
+//        adaptiveHeight: true,
+//    });
 
     // Tab allows focus outline, but button click does not
     document.addEventListener('keydown', function(e) {
@@ -254,6 +286,40 @@ jQuery(document).ready(function($) {
         return false;
     });
 
+//    var animationOut = 'animated slideOutRight';
+//    var animationIn = 'animated slideInLeft';
+//    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+//
+//    var src, value, newSrc;
+//
+//    var visArray = ['d3-transfer.html', 'd3-bubble.html'];
+//    var currIndex = 0;
+//    var arrayLength = visArray.length;
+//    console.log($('iframe').width());
+//
+//    $('.carousel-home i').on("click", function(){
+//        $('iframe').addClass(animationOut).one(animationEnd, function(){
+//            $(this).removeClass(animationOut);
+//
+//            if(++currIndex > arrayLength - 1){ // End of array
+//                currIndex = 0;
+//            }
+//            console.log(currIndex);
+//            console.log()
+//            src = $('iframe').attr('src');
+//            value = src.substring(src.lastIndexOf('/') + 1);
+//            newSrc = src.replace(value, visArray[currIndex]);
+//
+//            $(this).attr('src', newSrc);
+//            $(this).addClass(animationIn).one(animationEnd, function(){
+//                $(this).removeClass(animationIn);
+//            });
+//        });
+//    });
+
+
+
+
 
     // Extra jQuery functions
     $.fn.exists = function () {
@@ -262,3 +328,5 @@ jQuery(document).ready(function($) {
 
 
 });
+
+
