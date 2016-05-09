@@ -531,9 +531,7 @@ button.is-checked {
     position: absolute;
     background-color: white;
     width: 240px;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
 }
 .dropdown-options > li {
     cursor: pointer;
@@ -663,7 +661,6 @@ button.is-checked {
 */
 }
 .home-column {
-
     flex: 1;
 /*    background-color: #8e979d;*/
     border-top: 4px solid rgba(0, 0, 0, 0);
@@ -802,6 +799,7 @@ table {
 /*    background: #6a7882;*/
     color: white;
     font-weight: 300;
+    text-align: center;
 }
 #submit-request a {
     transition: all  0.3s ease-out;
@@ -872,41 +870,7 @@ table {
     align-items: center;
     justify-content: center;
 }
-@media (max-width: 650px) {
-    #mcmaster-nav-items ul {
-        justify-content: center;
-    }
-    #mcmaster-nav-items li:nth-child(2) {
-        flex-basis: 100%;
-        order: -1;
-        justify-content: center;
-    }
-    #mcmaster-nav-items li:nth-child(2) h1 {
-        display:flex;
-        justify-content: center;
-    }
-    #mcmaster-title {
-        width: 100%;
-        text-align: center;
-    }
-    #mcmaster-header .nav-item h6 { /* mcmaster-search and mcmaster-menu*/
-        display: none;
-    }
-    #mcmaster-nav-items li:nth-child(3), #mcmaster-nav-items li:last-child {
-        flex-basis: 60px;
-    }
-    #menu-primary-menu-links li{
-        width: 100%;
-    }
 
-
-}
-@media (max-height: 700px) {
-    #clever-vis {
-        height: 410px;
-    }
-
-}
 /*
 #mcmaster-nav-items-list {
     display: table-row;
@@ -1401,4 +1365,106 @@ dd {
     display: flex;
     justify-content: center;
     height: 500px;
+}
+
+#slider {
+/*
+    width: 100%;
+    overflow: hidden;
+    height: 500px;
+    position: relative;
+*/
+}
+#slider ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    top: 0;
+}
+#slider li {
+    padding: 0;
+    margin: 0;
+    width: 50%;
+    height 100%;
+    overflow: hidden;
+/*    position: absolute;*/
+    top: 0;
+    bottom: 0;
+}
+
+#viz-container {
+    flex: 1;
+
+}
+
+@media (max-width: 750px) {
+    .home-column, .home-split-column div{
+        font-size: 16px;
+    }
+    .home-column > div > i {
+        font-size: 40px;
+    }
+    .home-split-column i, #submit-request h3{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 750px) and (min-width: 500px) {
+    #background-pic {
+        height: 200px;
+        background-size: 100% 200px;
+    }
+}
+@media (max-width: 500px) {
+    #background-pic {
+        height: 100px;
+        background-size: 100% 100px;
+    }
+}
+@media (max-width: 650px) {
+    #mcmaster-nav-items ul {
+        justify-content: center;
+    }
+    #mcmaster-nav-items li:nth-child(2) {
+        flex-basis: 100%;
+        order: -1;
+        justify-content: center;
+    }
+    #mcmaster-nav-items li:nth-child(2) h1 {
+        display:flex;
+        justify-content: center;
+    }
+    #mcmaster-title {
+        width: 100%;
+        text-align: center;
+    }
+    #mcmaster-header .nav-item h6 { /* mcmaster-search and mcmaster-menu*/
+        display: none;
+    }
+    #mcmaster-nav-items li:nth-child(3), #mcmaster-nav-items li:last-child {
+        flex-basis: 60px;
+    }
+    #menu-primary-menu-links li{
+        width: 100%;
+    }
+    #mcmaster-menu span {
+        left: 25%;
+    }
+    #mcmaster-search span, {
+        left: 25%;
+    }
+    #mcmaster-header.search-active #mcmaster-search span {
+        left: 30px;
+    }
+
+
+}
+@media (max-height: 700px) {
+    #clever-vis {
+        height: 410px;
+    }
+
 }

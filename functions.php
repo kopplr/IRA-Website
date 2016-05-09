@@ -246,13 +246,11 @@ function IRAWebsite_resources() {
         wp_enqueue_script('d3', '//d3js.org/d3.v3.min.js', array(), '3');
         wp_enqueue_script('d3-legend', get_template_directory_uri() . '/js/d3-legend.min.js', array(), '1.0');
 
-        wp_enqueue_script('slick-js', get_template_directory_uri() . '/slick/slick.min.js', array('jquery'), '1.5.9');
+    wp_register_style('flexslider-css', get_template_directory_uri() . '/css/flexslider.css', array(), '1.8');
+        wp_enqueue_style('flexslider-css');
 
-        wp_register_style('slick-css', get_template_directory_uri() . '/slick/slick.css', array(), '1.5.9');
-        wp_enqueue_style('slick-css');
+    wp_enqueue_script('flexslider-js', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array('jquery'), '1.8');
 
-        wp_register_style('slick-theme-css', get_template_directory_uri() . '/slick/slick-theme.css', array(), '1.5.9');
-        wp_enqueue_style('slick-theme-css');
 
 
  //   if(!is_front_page()) {

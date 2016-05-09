@@ -3,21 +3,25 @@
 get_header(); ?>
 <div id="front-page-container">
     <div id="background-pic">
-        <ul id="viz" style="width:100%;">
-            <li style="float:left; position:relative;">
-            <iframe src="<?php echo get_template_directory_uri(); ?>/html/d3-transfer.html" style="border: 0px;" scrolling="no" width="800px"height="500px" frameborder="0" allowfullscreen></iframe>
-            </li>
-            <li style="float:left; position:relative;">
-            <iframe  src="<?php echo get_template_directory_uri(); ?>/html/d3-bubble.html" style="border: 0px;" scrolling="no" width="800px"height="500px" frameborder="0" allowfullscreen></iframe>
-            </li>
-        </ul>
+            <div class="flexslider" style="width: 80%">
+                <ul class="slides">
+                    <li>
+                    <iframe src="<?php echo get_template_directory_uri(); ?>/html/d3-transfer.html" style="border: 0px; min-height: 100%" scrolling="no" width="100%"height="500px" frameborder="0" allowfullscreen></iframe>
+                    </li>
+                    <li>
+                    <iframe  src="<?php echo get_template_directory_uri(); ?>/html/d3-bubble.html" style="border: 0px; min-height: 100%" scrolling="no" width="100%"height="500px" frameborder="0" allowfullscreen></iframe>
+                    </li>
+                </ul>
+             </div>
 
+<!--
         <div class="carousel-home" style="flex: 0 1 165px; order: -1;">
             <i class="fa fa-angle-left vis-arrow arrow-prev"></i>
         </div>
         <div class="carousel-home" style="flex: 0 1 165px;">
             <i class="fa fa-angle-right vis-arrow arrow-next"></i>
         </div>
+-->
 
     </div>
     <!--

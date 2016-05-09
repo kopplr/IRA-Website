@@ -474,14 +474,39 @@ body {
   transition: all 0.3s ease-out;
     visibility: hidden;
 }
-@media (max-width: 650px) {
+@media (max-width: 937px) and (min-width: 651px) {
+    #mcmaster-search-overlay {
+        top: 140px;
+    }
+}
+@media (max-width: 650px) and (min-width: 609px) {
     #mcmaster-nav {
-        padding-top: 200px;
+        padding-top: 182px;
     }
     #mcmaster-header .nav-item {
         min-width: 60px;
     }
+    #mcmaster-search-overlay {
+        top: 182px;
+    }
 }
+@media (max-width: 608px) {
+    #mcmaster-nav {
+        padding-top: 240px;
+    }
+    #mcmaster-header .nav-item {
+        min-width: 60px;
+    }
+    #mcmaster-search-overlay {
+        top: 240px;
+    }
+}
+@media (max-width: 650px) {
+    #mcmaster-nav {
+        width: calc(50% - 22.5px)
+    }
+}
+
 #mcmaster-nav a {
   display: inline-block;
   width: 100%;

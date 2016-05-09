@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
         bgColor: '#f25648',
         color: '#ffffff',
         lowerThan: 'transform',
-        languagePath: 'your_path/outdatedbrowser/lang/en.html'
+        languagePath: '../html/en.html'
     });
 
     // Add fonts
@@ -317,6 +317,53 @@ jQuery(document).ready(function($) {
 //        });
 //    });
 
+//    var theIframe = $('#viz iframe');
+//    $('#background-pic').load(function(){
+//        console.log("loaded: " + $('#background-pic').width());
+//    });
+//
+//    var theWidth = $('#background-pic').width() - 2*$('.carousel-home').width();
+//        //$('#viz').width();
+//    theIframe.each(function(){
+//        $(this).attr('width', theWidth);
+//    });
+//    console.log(theWidth);
+//
+//    $('#viz').wrap('<div id="mother" />');
+//
+//    $('#mother').css({
+//        width: function() {
+//        return theWidth;
+//      },
+//        height: function() {
+//        return '500px';
+//      },
+//        flex: '1',
+//        position: 'relative',
+//        overflow: 'hidden'
+//    });
+//        //get total of image sizes and set as width for ul
+//    var totalWidth = theIframe.length * theWidth;
+//    console.log(totalWidth);
+//    $('#viz').css({
+//        width: function(){
+//        return totalWidth;
+//    }
+//    });
+//
+//    $('.carousel-home i').on("click", function(){
+//            console.log("clicked!");
+//            $('#viz').animate({
+//               "margin-left": (-(1)*theWidth)}, 1000);
+//    });
+
+    if($(window).width() > 750){ // Disable for small viewports
+        $('.flexslider').flexslider({
+            slideshow: false,
+            controlNav: false,
+        });
+    }
+
 
 
 
@@ -327,6 +374,14 @@ jQuery(document).ready(function($) {
     }
 
 
+});
+jQuery(window).resize(function(){
+    if(jQuery(window).width() < 750){
+        jQuery('.flexslider').hide();
+    }
+    else {
+        jQuery('.flexslider').show();
+    }
 });
 
 
