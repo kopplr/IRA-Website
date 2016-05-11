@@ -132,13 +132,13 @@ jQuery(document).ready(function($) {
         // Load Google Map
         if (currentAttrValue == '#tab2') {
             var campus = {lat: 43.263448, lng: -79.919101};
-            var downtown = {lat: 43.2570048, lng: -79.8692459};
+            var downtown = {lat: 43.257526, lng: -79.8692459};
 
 
 
             var map = new google.maps.Map( document.getElementById( 'map' ), {
                 zoom:           14,
-                center:         new google.maps.LatLng( 43.2676166, -79.8924281 ),
+                center:         new google.maps.LatLng( 43.2676166, -79.869034 ),
                 scrollwheel:    false,
             });
 
@@ -156,7 +156,14 @@ jQuery(document).ready(function($) {
                 stylers: [
                   { visibility: "off" }
                 ]
-              }
+                },
+                {
+                featureType: "poi.business",
+                elementType: "labels",
+                stylers: [
+                  { visibility: "off" }
+                ]
+                },
             ];
             map.setOptions({styles: styles});
 
@@ -165,7 +172,8 @@ jQuery(document).ready(function($) {
                 '<p>1280 Main Street West</p>'+
                 '<p>University Hall, Room 215</p>'+
                 '<p>Hamilton, Ontario</p>'+
-                '<p>Canada L8S 4L8</p>'
+                '<p>Canada L8S 4L8</p>'+
+                '<p><a href="http://maps.google.ca/?daddr=43.263448,-79.919101" target="_blank">Get Directions</a></p>'
             ;
 
             var campusInfowindow = new google.maps.InfoWindow({
@@ -177,7 +185,8 @@ jQuery(document).ready(function($) {
                 '<p>1 James St. North</p>'+
                 '<p>3rd Floor, Room 310</p>'+
                 '<p>Hamilton, Ontario</p>'+
-                '<p>Canada L8R 2K3</p>'
+                '<p>Canada L8R 2K3</p>'+
+                '<p><a href="http://maps.google.ca/?daddr=43.257526,-79.869034" target="_blank">Get Directions</a></p>'
             ;
 
             var downtownInfowindow = new google.maps.InfoWindow({

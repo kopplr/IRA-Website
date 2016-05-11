@@ -1012,6 +1012,11 @@ li a, li a:hover {
 #tab2 h1 {
     margin: 0.5em 0;
 }
+#tab2 a {
+    text-decoration: underline;
+    color: #0645ad;
+    font-size: 14px;
+}
 #community-text {
     flex: 1;
     display: flex;

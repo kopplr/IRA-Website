@@ -153,6 +153,7 @@ get_header();
                                     echo get_post_meta($page->ID, 'quotation', true); ?> <br>
                                     <span>- <?php echo get_post_meta($page->ID, 'quotation-person', true); ?></span>
                                 </h4>
+                                <i class="fa fa-quote-right fa-3x fa-pull-right" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
