@@ -92,7 +92,7 @@
 <body>
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="../js/d3-legend.min.js"></script>
-    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
     <script>
             // Function for moving nodes to front
             d3.selection.prototype.moveToFront = function() {
@@ -168,6 +168,11 @@
                 lookupTable[program.name] = program.faculty;
             });
 
+            var allShowing = true;
+            var facultySelected = false;
+            var nodeHighlighted = false;
+            var timeout;
+
             var mousePos = [0,0];
             var newMousePos = [0,0];
 
@@ -196,12 +201,15 @@
                 .on("drag", dragged)
                 .on("dragend", dragended);
 
-            var mousePos, mousePosX, mousePosY;
+            var getMousePos;
 
             function dragstarted(d){
-                if(d3.select(this).classed("activeNode")){
-                    mousePos = d3.mouse(vis.node());
 
+                if(d3.select(this).classed("activeNode")){
+                    console.log("drag started!");
+                    getMousePos = d3.mouse(vis.node());
+                    mousePos[0] = getMousePos[0];
+                    mousePos[1] = getMousePos[1];
                     d3.select(this).moveToFront();
                     d3.event.sourceEvent.stopPropagation();
                     d3.select(this).classed("dragging", true);
@@ -223,9 +231,18 @@
             }
             function dragended(d){
                 if(d3.select(this).classed("activeNode")){
+                    getMousePos = d3.mouse(vis.node());
+                    newMousePos[0] = getMousePos[0];
+                    newMousePos[1] = getMousePos[1];
+                    var shortDrag = Math.abs(newMousePos[0] - mousePos[0]) < 5 && Math.abs(newMousePos[1] - mousePos[1]) < 5;
+                    if(shortDrag){ // Short drag means click
+                        console.log('Short drag');
+                        connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
+                    }
+
                     d3.select(this).classed("dragging", false);
                     console.log("normal drag resume");
-                    force.resume();
+                    if(!shortDrag){force.resume();} // Resume force layout only if not a short drag
                     isDrag = false;
                 }
             }
@@ -245,6 +262,7 @@
                 .attr("width", "100%")
                 .attr("height", "100%")
                 .attr("fill", "white")
+                .attr("class", "background")
                 .attr("fill-opacity", 0.9);
 
             // Funky shape as background for legend
@@ -379,10 +397,7 @@
                   .data(links)
                 .enter().append("line")
                   .attr("class", "link");
-            var allShowing = true;
-            var facultySelected = false;
-            var nodeHighlighted = false;
-            var timeout;
+
             // Create the node circles.
             var node = vis.selectAll(".node")
                   .data(nodes)
@@ -419,14 +434,14 @@
                   })
                   .style("fill", function(d) {return color(lookupTable[d.name]);})
                   .classed("activeNode", true)
-                  .on("click", function(d){
-                      if (d3.event.defaultPrevented || !d3.select(this).classed("activeNode")){
-                          console.log("click suppressed");
-                          return; // click suppressed
-                      }
-
-                      connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
-                  })
+//                  .on("click", function(d){
+//                      if (d3.event.defaultPrevented || !d3.select(this).classed("activeNode")){
+//                          console.log("click suppressed");
+//                          return; // click suppressed
+//                      }
+//                      console.log("did a click!");
+//                      connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
+//                  })
                   .on("mouseover", function(d){
                       if(d3.select(this).classed("activeNode") && !d3.select(this).classed("baseNode")){
                           force.stop();
@@ -458,7 +473,15 @@
                   .on("tick", function(){tick();})
                   .start();
 
-
+            graph
+                .on("mouseleave", function(){
+                    console.log("svg stop");
+                    force.stop();
+                })
+                .on("mouseenter", function(){
+                    force.resume();
+                    console.log("svg resume");
+                });
 
             /* Configure highlighting of connected nodes */
             var toggle = 0;
@@ -607,7 +630,7 @@
 
             // Show all nodes on click in empty space
             function showAllNodes(){
-                d3.event.stopPropagation();
+                if(d3.event.stopPropagation){d3.event.stopPropagation();}
                 console.log("show all nodes resume");
                 force.resume();
                 //Put them back to opacity=1

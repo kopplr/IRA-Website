@@ -2,7 +2,7 @@
 
 get_header(); ?>
 <div id="front-page-container">
-    <div id="background-pic">
+    <div id="background-pic" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/Arch_700.jpeg')">
             <div class="flexslider" style="width: 80%">
                 <ul class="slides">
                     <li>

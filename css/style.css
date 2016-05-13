@@ -1340,15 +1340,6 @@ dd {
     background-color: #f1f1f1;
 }
 
-#carousel-vis-group {
-    width: 90%;
-    margin: auto;
-    height: 520px;
-    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
-/*    background-repeat: no-repeat;*/
-
-}
-
 #front-page-container {
 /*
     display:flex;
@@ -1365,7 +1356,7 @@ dd {
 
 #background-pic {
     width: 100%;
-    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');
+/*    background-image: url('http://localhost/wordpress/wp-content/themes/IRA Website/images/Arch_700.jpeg');*/
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
@@ -1403,6 +1394,10 @@ dd {
 #viz-container {
     flex: 1;
 
+}
+
+.institutional-research-offices article h3, institutional-research-organizations article h3, rankings-organizations article h3 {
+    font-size: 20px;
 }
 
 @media (max-width: 750px) {

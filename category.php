@@ -89,6 +89,15 @@ $curr_cat = get_category($cat_id);
 
                 if (have_posts()) :
                     while (have_posts()) : the_post();
+                    $externalLink = get_post_meta($post->ID, 'external_link_url', true);
+                    $attachments = get_posts( array(
+                        'post_type' => 'attachment',
+                        'posts_per_page' => -1,
+                        'post_parent' => $post->ID,
+                    ));
+                    if ($attachments || $externalLink) :
+
+
                 ?>
 
 
@@ -104,7 +113,7 @@ $curr_cat = get_category($cat_id);
                                 ?>> <!-- Add in categories as classes to be able to filter in Isotope -->
 
                         <a href="<?php
-                                 $externalLink = get_post_meta($post->ID, 'external_link_url', true);
+
                                  echo ($externalLink == '' ? get_permalink() : $externalLink);
 
                                  ?>"> <!-- Link to post -->
@@ -115,7 +124,9 @@ $curr_cat = get_category($cat_id);
                         </a>
                     </div>
 
-                    <?php endwhile;
+                    <?php
+                    endif;
+                    endwhile;
 
 
                     else :
