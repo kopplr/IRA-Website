@@ -199,6 +199,8 @@
                     <ul>
                         <li><a href="http://registrar.mcmaster.ca/students/">Overview</a>
                       </li>
+                        <li><a href="https://mosaic.mcmaster.ca/">Mosaic</a>
+                      </li>
                       <li><a href="http://studentaffairs.mcmaster.ca">Student Affairs</a>
                       </li>
                       <li><a href="http://www.mcmaster.ca/chaplain/">Chaplaincy</a>
@@ -347,9 +349,11 @@
           var macHead = document.getElementById("mcmaster-header");
           function macMenuToggle() {
             macHead.classList.toggle('menu-active');
+              document.body.classList.toggle('stop-scrolling');
           }
           function macSearchToggle() {
             macHead.classList.toggle('search-active');
+               document.body.classList.toggle('stop-scrolling');
           }
         </script>
         </header>

@@ -33,6 +33,7 @@
     }
 
     .tooltip {
+        font-family: 'Roboto Condensed', sans-serif;
         position: absolute;
         top: 100px;
         left: 100px;
@@ -44,12 +45,12 @@
         color: black;
         padding: 10px;
         width: 300px;
-        font-size: 12px;
+        font-size: 14px;
         z-index: 10;
     }
 
     .tooltip .title {
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .tooltip .name {
@@ -150,8 +151,8 @@
              * event is d3.event for positioning.
              */
             function showTooltip(content, event) {
-                tt.style('opacity', 1.0)
-                    .html(content);
+                tt.html(content)
+                    .style('opacity', 1.0);
 
                 updatePosition(event);
             }
@@ -284,6 +285,9 @@
                 .domain([1, 150])
                 .range(['#002966', '#003d99', '#0052cc', '#0066ff', '#3385ff', '#66a3ff', '#99c2ff', '#cce0ff','#e6f0ff']);
 
+            var fillColorCountry = d3.scale.category20()
+                .domain(['USA', 'CHE', 'GBR', 'JPN', 'SGP', 'DEU', 'CAN', 'AUS', 'HKG', 'SWE', 'CHN', 'ROK', 'BEL', 'FRA', 'ITA', 'NLD', 'TUR', 'FIN', 'DNK']);
+
             var radiusScale = d3.scale.linear()
                 .range([20, 2]);
             // Sizes bubbles based on their area instead of raw radius
@@ -313,6 +317,7 @@
                         rank: d.Rank
                         , name: d.University
                         , country: d.Country
+                        , countryName: d.CountryName
                         , region: d.Continent
                         , id: d.Id
                         , lineIndex: d.lineIndex
@@ -469,27 +474,29 @@
                       .classed('bubble', true)
                       .attr('r', 0)
                       .attr('fill', function (d) {
-                            if (d.name == 'McMaster'){
-                                return '#d62728';
-                            }
-                            else if (d.country == 'CAN'){
-                                return '#d62728';
-                            }
-                            else {
-                                return fillColorRank(d.rank);
-                            }
+                            return fillColorCountry(d.country);
+//                            if (d.name == 'McMaster'){
+//                                return '#d62728';
+//                            }
+//                            else if (d.country == 'CAN'){
+//                                return '#d62728';
+//                            }
+//                            else {
+//                                return fillColorRank(d.rank);
+//                            }
                         })
                       .attr('stroke', function (d) {
-                            if (d.name == 'McMaster'){
-                                //return '#ac1455';
-                                return d3.rgb('#d62728').darker();
-                            }
-                            else if (d.country == 'CAN'){
-                                return d3.rgb('#d62728').darker();
-                            }
-                            else {
-                                return d3.rgb(fillColorRank(d.rank)).darker();
-                            }
+                            return d3.rgb(fillColorCountry(d.country)).darker();
+//                            if (d.name == 'McMaster'){
+//                                //return '#ac1455';
+//                                return d3.rgb('#d62728').darker();
+//                            }
+//                            else if (d.country == 'CAN'){
+//                                return d3.rgb('#d62728').darker();
+//                            }
+//                            else {
+//                                return d3.rgb(fillColorRank(d.rank)).darker();
+//                            }
                         })
                       .attr('stroke-width', 1)
                       .attr('class', function(d){ if(d.name=='McMaster'){ d3.select(this).moveToFront(); } })
@@ -798,14 +805,13 @@
             function showDetail(d) {
                 // change outline to indicate hover state.
                 d3.select(this).attr('stroke', 'black');
-                var content = '<span class="name">University: </span><span class="value">' +
-                    d.name +
+                var content = '<span class="name">' + d.name + '</span><br/>'
+                +
+                    '<span class="value">' +
+                    d.countryName +
                     '</span><br/>' +
-                    '<span class="name">Rank: </span><span class="value">' +
+                    '<span class="value">' +
                     d.rank +
-                    '</span><br/>' +
-                    '<span class="name">Region: </span><span class="value">' +
-                    d.region +
                     '</span>';
                 tooltip.showTooltip(content, d3.event);
             }
@@ -816,7 +822,7 @@
             function hideDetail(d) {
                 // reset outline
                 d3.select(this)
-                    .attr('stroke', d3.rgb(fillColorRank(d.rank)).darker());
+                    .attr('stroke', d3.rgb(fillColorCountry(d.country)).darker());
 
                 tooltip.hideTooltip();
             }
@@ -926,7 +932,7 @@
         }
 
         // Load the data.
-        d3.tsv('Times-Higher-Top-150.txt', display);
+        d3.tsv('Times-Higher-Top-150-2015.txt', display);
 
         // setup the buttons.
         setupButtons();

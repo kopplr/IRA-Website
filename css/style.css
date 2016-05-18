@@ -1400,6 +1400,11 @@ dd {
     font-size: 20px;
 }
 
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
 @media (max-width: 750px) {
     .home-column, .home-split-column div{
         font-size: 16px;
