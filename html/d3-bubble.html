@@ -25,7 +25,7 @@
         margin:0;
     }
 */
-    .year {
+    .region {
         font-size: 21px;
         fill: #aaa;
         font-family: 'Roboto Condensed', sans-serif;
@@ -238,7 +238,7 @@
             var regionCenters;
 
             // X locations of the year titles.
-            var yearsTitleX;
+            var regionsTitleX;
 
             // Used when setting up force and
             // moving around nodes
@@ -530,11 +530,13 @@
                 resize();
                 d3.select(window).on("resize", resize);
 
-
+                var xTotal, avgCount, yTotal
                 function resize() {
                     width = window.innerWidth, height = 500; //(window.innerHeight < 500 ? 500 : window.innerHeight);
                     d3.select("svg").attr("width", width).attr("height", height);
                     force.size([width, height]).resume();
+
+
 
                     points = width + ",0 " +
                         (width - minWidthPoly1) + ",0 " +
@@ -600,14 +602,14 @@
                 }
                 function regionLabels (width, height) {
                     var correctionFactor = 30;
-                    yearsTitleX = {
-                        NorthAmerica: {x:width/6 - correctionFactor, y: 15, name: "North America"},
-                        Asia: {x:5*width/6 - correctionFactor, y: 15, name: "Asia"},
-                        Europe: {x: width / 2 - correctionFactor, y: 15, name: "Europe"},
+                    regionsTitleX = {
+                        NorthAmerica: { y: 15, name: "North America"},
+                        Asia: { y: 15, name: "Asia"},
+                        Europe: { y: 15, name: "Europe"},
 
-                        SouthAmerica: {x:width/6 - correctionFactor, y: 320, name: "South America"},
-                        Oceania: {x:5*width/6 - correctionFactor, y: 320, name: "Oceania"},
-                        Africa: {x: width / 2 - correctionFactor, y: 320, name: "Africa"}
+                        SouthAmerica: { y: 320, name: "South America"},
+                        Oceania: { y: 320, name: "Oceania"},
+                        Africa: { y: 320, name: "Africa"}
                     };
                 }
                 function newRegionCenters (width, height) {
@@ -647,7 +649,7 @@
              * center of the visualization.
              */
             function groupBubbles() {
-                hideYears();
+                hideRegions();
 
                 force.on('tick', function (e) {
                     bubbles
@@ -692,7 +694,7 @@
              * yearCenter of their data's year.
              */
             function splitBubbles() {
-                    showYears();
+
 
                 force.on('tick', function (e) {
                     bubbles
@@ -705,9 +707,15 @@
                             return d.y;
                         });
 
+                }).on('end', function(){
+                    buttonText = d3.select('g.svg-button.active text').text();
+                    if(buttonText == "region"){ //  Only show titles for regions
+                        showRegions();
+                    }
                 });
 
                 force.start();
+
             }
 
             /*
@@ -738,7 +746,7 @@
             }
 
             function lineBubbles() {
-                hideYears();
+                hideRegions();
 
                 force.on('tick', function (e) {
                     bubbles
@@ -768,32 +776,75 @@
             /*
              * Hides Year title displays.
              */
-            function hideYears() {
-                graph.selectAll('.year').remove();
+            function hideRegions() {
+                graph.selectAll('.region').remove();
             }
 
             /*
              * Shows Year title displays.
              */
-            function showYears() {
+            function showRegions() {
                 // Another way to do this would be to create
                 // the year texts once and then just hide them.
 
-                var yearsData = d3.keys(yearsTitleX);
-                var years = graph.selectAll('.year')
-                    .data(yearsData);
+                var regionsData = d3.keys(regionsTitleX);
+                var regions = graph.selectAll('.region')
+                    .data(regionsData);
 
-                years.enter().append('text')
-                    .attr('class', 'year')
+                xTotalNorth = 0, northCount = 0;
+                xTotalEurope = 0, europeCount = 0;
+                xTotalAsia = 0, asiaCount = 0;
+                xTotalSouth = 0, southCount = 0;
+                xTotalAfrica = 0, africaCount = 0;
+                xTotalOceania = 0, oceaniaCount = 0;
+
+
+                bubbles.each(function(d){
+                    if(d.region == "North America"){
+                        xTotalNorth += d.x;
+                        northCount ++;
+                    }
+                    else if(d.region == "Europe"){
+                        xTotalEurope += d.x;
+                        europeCount ++;
+                    }
+                    else if(d.region == "Asia"){
+                        xTotalAsia += d.x;
+                        asiaCount ++;
+                    }
+                    else if(d.region == "South America"){
+                        xTotalSouth += d.x;
+                        southCount ++;
+                    }
+                    else if(d.region == "Africa"){
+                        xTotalAfrica += d.x;
+                        africaCount ++;
+                    }
+                    else if(d.region == "Oceania"){
+                        xTotalOceania += d.x;
+                        oceaniaCount ++;
+                    }
+
+                });
+                regionsTitleX['NorthAmerica'].x = xTotalNorth/northCount;
+                regionsTitleX['Europe'].x = xTotalEurope/europeCount;
+                regionsTitleX['Asia'].x = xTotalAsia/asiaCount;
+                regionsTitleX['SouthAmerica'].x = southCount == 0 ? xTotalNorth/northCount : xTotalSouth/southCount;
+                regionsTitleX['Africa'].x = africaCount == 0 ? xTotalEurope/europeCount : xTotalAfrica/africaCount;
+                regionsTitleX['Oceania'].x = oceaniaCount == 0 ? xTotalAsia/asiaCount : xTotalOceania/oceaniaCount;
+
+                regions.enter().append('text')
+                    .attr('class', 'region')
+                .transition()
                     .attr('x', function (d) {
-                        return yearsTitleX[d].x;
+                        return regionsTitleX[d].x;
                     })
                     .attr('y', function (d) {
-                        return yearsTitleX[d].y;
+                        return regionsTitleX[d].y;
                     })
-//                    .attr('text-anchor', 'middle')
+                    .attr('text-anchor', 'middle')
                     .text(function (d) {
-                        return yearsTitleX[d].name;
+                        return regionsTitleX[d].name;
                     });
 
             }
@@ -812,6 +863,9 @@
                     '</span><br/>' +
                     '<span class="value">' +
                     d.rank +
+                    '</span>' +
+                '<span class="value">' +
+                    d.region +
                     '</span>';
                 tooltip.showTooltip(content, d3.event);
             }
