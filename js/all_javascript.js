@@ -25,22 +25,22 @@ jQuery(document).ready(function($) {
         if($(this).text() == 'IRA Portals'){
             $(this).prepend('<i class="fa fa-external-link" aria-hidden="true"></i>');
         }
-        if($(this).text() == 'Data'){
+        else if($(this).text() == 'Data'){
             $(this).prepend('<i class="fa fa-bar-chart" aria-hidden="true"></i>');
         }
-        if($(this).text() == 'Publications'){
+        else if($(this).text() == 'Publications'){
             $(this).prepend('<i class="fa fa-newspaper-o" aria-hidden="true"></i>');
         }
-        if($(this).text() == 'Accountability'){
+        else if($(this).text() == 'Accountability'){
             $(this).prepend('<i class="fa fa-check-square-o" aria-hidden="true"></i>');
         }
-        if($(this).text() == 'Fact Book'){
+        else if($(this).text() == 'Fact Book'){
             $(this).prepend('<i class="fa fa-book" aria-hidden="true"></i>');
         }
-        if($(this).text() == 'About Us'){
+        else if($(this).text() == 'About Us'){
             $(this).prepend('<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>');
         }
-        if($(this).text() == 'Submit a Request'){
+        else if($(this).text() == 'Submit a Request'){
             $(this).prepend('<i class="fa fa-envelope" aria-hidden="true"></i>');
         }
     });
