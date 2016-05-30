@@ -133,7 +133,7 @@ if(isset($_POST['submit-request-nonce'])){
 
                         <input type="hidden" name="submitted" value="1">
 
-                        <p style="display:flex; flex:1; justify-content: flex-end; align-content: center;"><input type="submit" value="submit"></p>
+                        <p id="submit-button"style=""><input type="submit" value="submit"></p>
                         </div>
 
                         <input type="hidden" name="submit-request-nonce" value="<?php echo wp_create_nonce('submit-request-nonce')?>">

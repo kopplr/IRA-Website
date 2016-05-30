@@ -776,6 +776,13 @@ button.is-checked {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
+
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
 }
 .home-column div {
     padding: 10px;
@@ -1153,7 +1160,7 @@ li.active a, li.active a:hover {
     color: #1e252b;
 }
 #community-text h4 {
-    margin-top: 0;
+    margin: 0;
 }
 #community-text span {
     font-size: 80%;
@@ -1369,6 +1376,9 @@ input[type="submit"]:hover {
     background: #323e48;
 
 }
+#submit-button {
+    display:flex; flex:1; justify-content: flex-end; align-content: center;
+}
 
 /* Glossary *******************************************************************************************************/
 #archive-menu {
@@ -1551,6 +1561,36 @@ dd {
     overflow: hidden;
 }
 
+#our-community-small {
+    display: none;
+}
+
+@media (max-width: 450px) {
+    #submit-button {
+    }
+}
+
+@media (max-width: 1000px) {
+    #community-text {
+        margin-left: 0;
+    }
+}
+@media (max-width: 860px) {
+    #community-text {
+        display: none;
+    }
+    #tab3-content {
+        -webkit-box-pack: center;-webkit-justify-content: center;-ms-flex-pack: center;justify-content: center;
+    }
+}
+@media (max-width: 550px) {
+    #our-community-full {
+        display: none;
+    }
+    #our-community-small {
+        display: block;
+    }
+}
 @media (max-width: 750px) {
     .home-column, .home-split-column div{
         font-size: 16px;
@@ -1560,6 +1600,9 @@ dd {
     }
     .home-split-column i, #submit-request h3{
         font-size: 20px;
+    }
+    #mandate {
+        display:none;
     }
 }
 
