@@ -124,8 +124,8 @@ if(isset($_POST['submit-request-nonce'])){
                         <h3><label for="message-text-form">Message <span>*</span></label></h3>
                         <textarea id="message-text-form" class="required-field" rows="10" type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea>
 
-                        <div style="display:flex;">
-                            <div style="">
+                        <div style="display:flex; flex-wrap: wrap;">
+                            <div id="human-verification" style="">
                                 <h3><label for="human-verification-form">Human Verification <span>*</span></label></h3>
                                 <input id="human-verification-form" class="required-field" type="text" style="width: 60px;" name="message_human"> + 3 = 11
                             </div>

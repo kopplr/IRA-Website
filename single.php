@@ -84,7 +84,13 @@ global $wpdb
                                         $attachmentPath = wp_get_attachment_url($post_attachment->ID);
 
                                         if (wp_check_filetype($attachmentPath)['ext'] == 'pdf'){ // Checks for pdf so does not duplicate list
-                                            echo '<li data-id="' . $post_attachment->ID . '"' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . '>' . $post_attachment->post_title . '</li>'; // Highlights the selected year
+                                            echo '<li data-id="' . $post_attachment->ID . '"' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . 'onclick="ga(\'send\', {
+                                                                          hitType: \'event\',
+                                                                          eventCategory: \'AJAX Dropdown\',
+                                                                          eventAction: \'selected\',
+                                                                          eventLabel: \'' . $attachmentPath . '\'
+                                                                        });"'
+                                                . '>' . $post_attachment->post_title . '</li>'; // Highlights the selected year
                                         }
                                     }
                                 ?>

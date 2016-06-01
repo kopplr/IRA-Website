@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
             $(this).prepend('<i class="fa fa-book" aria-hidden="true"></i>');
         }
         else if($(this).text() == 'About Us'){
-            $(this).prepend('<i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>');
+            $(this).prepend('<i class="fa fa-info-circle" aria-hidden="true"></i>');
         }
         else if($(this).text() == 'Submit a Request'){
             $(this).prepend('<i class="fa fa-envelope" aria-hidden="true"></i>');
