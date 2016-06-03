@@ -69,7 +69,7 @@ $curr_cat = get_category($cat_id);
             </nav>
 
         </div>
-        <div class="main-column">
+        <div class="main-column main-column-category">
             <?php
 
 

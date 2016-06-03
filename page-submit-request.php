@@ -105,21 +105,37 @@ if(isset($_POST['submit-request-nonce'])){
                         <h3><label for="email-form">Email <span>*</span></label></h3>
                         <input id="email-form" class="required-field" type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>">
 
-<!--
                         <div class="not-required-fields">
+
                         <div class="form-entry">
-                            <h4><label for="department-form">Department and Relationship to McMaster</label></h4>
-                            <input id="department-form" class="required-field" type="text" name="message_department" value="<?php //echo ( isset( $_POST['message_department'] ) ) ? esc_attr($_POST['message_department']) : ''; ?>">
+                            <label for="phone-form">Phone Number</label>
+                            <input id="phone-form" type="text" name="message_phone" value="<?php //echo ( isset( $_POST['message_phone'] ) ) ? esc_attr($_POST['message_phone']) : ''; ?>">
                         </div>
 
                         <div class="form-entry">
-                            <h4><label for="purpose-form">Purpose and Who will be using the Report</label></h4>
-                            <input id="purpose-form" class="required-field" type="text" name="message_purpose" value="<?php
+                            <label for="department-form">Department and Relationship to McMaster</label>
+                            <input id="department-form" type="text" name="message_department" value="<?php //echo ( isset( $_POST['message_department'] ) ) ? esc_attr($_POST['message_department']) : ''; ?>">
+                        </div>
+
+                        <div class="form-entry">
+                            <label for="purpose-form">Purpose and Who will be using the Report</label>
+                            <input id="purpose-form" type="text" name="message_purpose" value="<?php
                             //echo ( isset( $_POST['message_purpose'] ) ) ? esc_attr($_POST['message_purpose']) : ''; ?>">
                         </div>
 
+                        <div class="form-entry">
+                            <label for="time-period-form">Time Period of Requested Data</label>
+                            <input id="time-period-form" type="text" name="message_time_period" value="<?php
+                            //echo ( isset( $_POST['message_time_period'] ) ) ? esc_attr($_POST['message_time_period']) : ''; ?>">
                         </div>
--->
+
+                        <div class="form-entry">
+                            <label for="delivery-form">Delivery Date and Format</label>
+                            <input id="delivery-form" type="text" name="message_delivery" value="<?php
+                            //echo ( isset( $_POST['message_delivery'] ) ) ? esc_attr($_POST['message_delivery']) : ''; ?>">
+                        </div>
+
+                        </div>
 
                         <h3><label for="message-text-form">Message <span>*</span></label></h3>
                         <textarea id="message-text-form" class="required-field" rows="10" type="text" name="message_text"><?php echo ( isset( $_POST['message_text'] ) ) ? esc_textarea($_POST['message_text']) : ''; ?></textarea>

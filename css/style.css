@@ -1305,46 +1305,6 @@ form h3 {
     text-transform: uppercase;
     font-weight: 300;
 }
-form h4 {
-    margin: 5px 0px 5px 20px;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 1 50%;
-    -ms-flex: 0 1 50%;
-    flex: 0 1 50%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-ordinal-group: 3;
-    -webkit-order: 2;
-    -ms-flex-order: 2;
-    order: 2;
-}
-.form-entry {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    margin-top: 10px;
-}
-.form-entry input {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    -webkit-box-ordinal-group: 2;
-    -webkit-order: 1;
-    -ms-flex-order: 1;
-    order: 1;
-}
 form > h3:nth-child(2) {
     margin: 0 0 5px 0;
 }
@@ -1379,6 +1339,44 @@ input[type="submit"]:hover {
     color: #f1f1f1;
     background: #323e48;
 
+}
+.not-required-fields {
+    margin-top: 20px;
+}
+.form-entry {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 10px;
+}
+.form-entry input {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 2 70%;
+    -ms-flex: 0 2 70%;
+    flex: 0 2 70%;
+    width: 70%;
+    height: 0.75em;
+}
+.form-entry label {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 30%;
+    -ms-flex: 0 1 30%;
+    flex: 0 1 30%;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-right: 10px;
+    width: 30%;
 }
 #human-verification {
     margin-right: 10px;
@@ -1575,7 +1573,11 @@ dd {
     display: none;
 }
 
-
+@media (max-width: 500px) {
+    .main-column-category article p {
+        display: none;
+    }
+}
 
 @media (max-width: 800px) and (min-width: 451px) {
     .site-header nav {

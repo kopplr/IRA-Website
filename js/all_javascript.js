@@ -186,7 +186,7 @@ jQuery(document).ready(function($) {
                 '<p>3rd Floor, Room 310</p>'+
                 '<p>Hamilton, Ontario</p>'+
                 '<p>Canada L8R 2K3</p>'+
-                '<p><a href="http://maps.google.ca/?daddr=43.257526,-79.869034" target="_blank">Get Directions</a></p>'
+                '<p><a href="http://maps.google.ca/?daddr=Institutional+Research+and+Analysis,+McMaster+University+1+James+Street+North" target="_blank">Get Directions</a></p>'
             ;
 
             var downtownInfowindow = new google.maps.InfoWindow({
