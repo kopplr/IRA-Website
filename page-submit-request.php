@@ -18,22 +18,35 @@ $not_human       = "Human verification incorrect.";
 $missing_content = "Please supply all information.";
 $nonce_unverified= "Sorry, your nonce did not verify. This is a secure Wordpress website.";
 $email_invalid   = "Email Address Invalid.";
-$message_unsent  = "Message was not sent. Try Again.";
+$message_unsent  = "Message was not sent. Try again or email irahelp@mcmaster.ca directly";
 $message_sent    = "Thanks! Your message has been sent.";
 
 //user posted variables
 $name = $_POST['message_name'];
 $email = $_POST['message_email'];
-$message = $_POST['message_text'];
+$message = PHP_EOL . $_POST['message_text'];
+
+$phone = $_POST['message_phone'];
+$department = $_POST['message_department'];
+$purpose = $_POST['message_purpose'];
+$time_period = $_POST['message_time_period'];
+$delivery = $_POST['message_delivery'];
+
 $human = $_POST['message_human'];
 
 //php mailer variables
-$to = get_option('admin_email');
+$to = 'irahelp@mcmaster.ca';
 $subject = $name . " sent a message to the " . get_bloginfo('name');
 $headers = 'From: '. $email . "\r\n" .
   'Reply-To: ' . $email . "\r\n";
 
 //validation
+if(!empty($delivery)){$message = 'Delivery Date and Format: ' . $delivery . PHP_EOL . $message;}
+if(!empty($time_period)){$message = 'Time Period of Requested Data: ' . $time_period . PHP_EOL . $message;}
+if(!empty($purpose)){$message = 'Purpose and Who will be using the Report: ' . $purpose . PHP_EOL . $message;}
+if(!empty($department)){$message = 'Department and Relationship to McMaster: ' . $department . PHP_EOL . $message;}
+if(!empty($phone)){$message = 'Phone Number: ' . $phone . PHP_EOL . $message;}
+
 if(isset($_POST['submit-request-nonce'])){
     if(wp_verify_nonce($_POST['submit-request-nonce'], 'submit-request-nonce')){
 
@@ -98,41 +111,47 @@ if(isset($_POST['submit-request-nonce'])){
                 <div id="respond">
                     <?php echo $response;  ?>
                     <form action="<?php the_permalink(); ?>" method="post">
+                        <div style="display:flex; flex-wrap: wrap; justify-content: space-between;">
 
-                        <h3><label for="name-form">Name <span>*</span></label></h3>
-                        <input id="name-form" class="required-field" type="text" name="message_name" value="<?php echo ( isset( $_POST['message_name'] )) ? esc_attr($_POST['message_name']) : ''; ?>">
+                        <div id="name">
+                            <h3><label for="name-form">Name <span>*</span></label></h3>
+                            <input id="name-form" class="required-field" type="text" name="message_name" value="<?php echo ( isset( $_POST['message_name'] )) ? esc_attr($_POST['message_name']) : ''; ?>">
+                        </div>
 
+                        <div id="email">
                         <h3><label for="email-form">Email <span>*</span></label></h3>
                         <input id="email-form" class="required-field" type="text" name="message_email" value="<?php echo ( isset( $_POST['message_email'] ) ) ? esc_attr($_POST['message_email']) : ''; ?>">
+                        </div>
 
+                        </div>
                         <div class="not-required-fields">
 
                         <div class="form-entry">
                             <label for="phone-form">Phone Number</label>
-                            <input id="phone-form" type="text" name="message_phone" value="<?php //echo ( isset( $_POST['message_phone'] ) ) ? esc_attr($_POST['message_phone']) : ''; ?>">
+                            <input id="phone-form" type="text" name="message_phone" value="<?php echo ( isset( $_POST['message_phone'] ) ) ? esc_attr($_POST['message_phone']) : ''; ?>">
                         </div>
 
                         <div class="form-entry">
                             <label for="department-form">Department and Relationship to McMaster</label>
-                            <input id="department-form" type="text" name="message_department" value="<?php //echo ( isset( $_POST['message_department'] ) ) ? esc_attr($_POST['message_department']) : ''; ?>">
+                            <input id="department-form" type="text" name="message_department" value="<?php echo ( isset( $_POST['message_department'] ) ) ? esc_attr($_POST['message_department']) : ''; ?>">
                         </div>
 
                         <div class="form-entry">
                             <label for="purpose-form">Purpose and Who will be using the Report</label>
                             <input id="purpose-form" type="text" name="message_purpose" value="<?php
-                            //echo ( isset( $_POST['message_purpose'] ) ) ? esc_attr($_POST['message_purpose']) : ''; ?>">
+                            echo ( isset( $_POST['message_purpose'] ) ) ? esc_attr($_POST['message_purpose']) : ''; ?>">
                         </div>
 
                         <div class="form-entry">
                             <label for="time-period-form">Time Period of Requested Data</label>
                             <input id="time-period-form" type="text" name="message_time_period" value="<?php
-                            //echo ( isset( $_POST['message_time_period'] ) ) ? esc_attr($_POST['message_time_period']) : ''; ?>">
+                            echo ( isset( $_POST['message_time_period'] ) ) ? esc_attr($_POST['message_time_period']) : ''; ?>">
                         </div>
 
                         <div class="form-entry">
                             <label for="delivery-form">Delivery Date and Format</label>
                             <input id="delivery-form" type="text" name="message_delivery" value="<?php
-                            //echo ( isset( $_POST['message_delivery'] ) ) ? esc_attr($_POST['message_delivery']) : ''; ?>">
+                            echo ( isset( $_POST['message_delivery'] ) ) ? esc_attr($_POST['message_delivery']) : ''; ?>">
                         </div>
 
                         </div>
@@ -156,7 +175,6 @@ if(isset($_POST['submit-request-nonce'])){
 
                     </form>
                 </div>
-
             </div><!-- .entry-content -->
 
             <?php endwhile; // end of the loop. ?>

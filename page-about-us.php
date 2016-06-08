@@ -23,19 +23,6 @@ get_header();
             the_content();
             ?>
 
-            <li>
-        sys_get_temp_dir: <?php echo sys_get_temp_dir() .
-            ', exists: ' . file_exists(sys_get_temp_dir()) .
-            ', writable: ' . is_writable(sys_get_temp_dir()); ?>
-    </li>
-    <li>
-        get_temp_dir: <?php echo get_temp_dir() .
-            ', exists: ' . file_exists(get_temp_dir()) .
-            ', writable: ' . is_writable(get_temp_dir()); ?>
-    </li>
-
-
-
         <div class="tabs">
             <ul class="tab-links">
                 <li class="active"><a href="#tab1"><h3>OUR STAFF</h3></a></li>

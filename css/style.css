@@ -1308,14 +1308,18 @@ form h3 {
 form > h3:nth-child(2) {
     margin: 0 0 5px 0;
 }
+#name, #email {
+    flex: 1 1 250px;
+/*    width: 45%;*/
+}
 input[type="text"], textarea {
     margin: 0;
-    width: 50%;
+    width: 90%;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1em;
     cursor: pointer;
     background: #f1f1f1;
-    border: 2px solid #323e48;
+    border: 2px solid #5B6770;
     padding: 10px;
 }
 textarea {
@@ -1325,7 +1329,7 @@ textarea {
 input[type="submit"] {
     display: inline-block;
     background: #e1e1e1;
-    border: 2px solid black;
+    border: 2px solid #5B6770;
     cursor: pointer;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.17em;
@@ -1340,8 +1344,9 @@ input[type="submit"]:hover {
     background: #323e48;
 
 }
+
 .not-required-fields {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .form-entry {
     display: -webkit-box;
@@ -1352,10 +1357,10 @@ input[type="submit"]:hover {
 }
 .form-entry input {
     -webkit-box-flex: 0;
-    -webkit-flex: 0 2 70%;
-    -ms-flex: 0 2 70%;
-    flex: 0 2 70%;
-    width: 70%;
+    -webkit-flex: 0 2 50%;
+    -ms-flex: 0 2 50%;
+    flex: 0 2 50%;
+    width: 60%;
     height: 0.75em;
 }
 .form-entry label {
