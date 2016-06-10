@@ -373,8 +373,10 @@
 
                     activeLegends.filter(function (x) {return self != this;})
                         .classed("active", false); // Set all other faculty filters to false
-               //     node.classed("baseNode", "false"); // Clear highlighted node
+
                     pinnedTooltip.style("opacity", 0);
+                //    zoomer.translate([20, 0]);
+
                     searchNode(d, this);
                 });
 
@@ -605,6 +607,21 @@
                 }
                 var link = d3.selectAll(".link");
                 if (!d3.select(gObject).classed("active")){
+                    var xAvg = 0, yAvg = 0;
+                    selectedNodes.each(function(d){
+                        xAvg += d.x;
+                        yAvg += d.y;
+                    });
+                    xAvg /= selectedNodes[0].length;
+                    yAvg /= selectedNodes[0].length;
+                    console.log(xAvg + " " + yAvg);
+                    var xTrans = (window.innerWidth + 355)/2-xAvg;
+                    var yTrans = (500)/2-yAvg;
+
+                    //zoomer.translate([xTrans,yTrans]);
+                    d3.select(".plotting-area")
+                        .transition()
+                        .attr("transform", "translate("+xTrans+","+yTrans+")");
 
                     selectedNodes
                         .style("stroke-opacity", 1)
