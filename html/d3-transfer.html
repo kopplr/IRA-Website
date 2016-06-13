@@ -206,7 +206,6 @@
             function dragstarted(d){
 
                 if(d3.select(this).classed("activeNode")){
-                    console.log("drag started!");
                     getMousePos = d3.mouse(vis.node());
                     mousePos[0] = getMousePos[0];
                     mousePos[1] = getMousePos[1];
@@ -236,12 +235,10 @@
                     newMousePos[1] = getMousePos[1];
                     var shortDrag = Math.abs(newMousePos[0] - mousePos[0]) < 5 && Math.abs(newMousePos[1] - mousePos[1]) < 5;
                     if(shortDrag){ // Short drag means click
-                        console.log('Short drag');
                         connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
                     }
 
                     d3.select(this).classed("dragging", false);
-                    console.log("normal drag resume");
                     if(!shortDrag){force.resume();} // Resume force layout only if not a short drag
                     isDrag = false;
                 }
@@ -278,6 +275,7 @@
                 .style("margin", "0 auto")
                 .style("fill", "none")
                 .style("pointer-events", "all")
+                .style("cursor", "move")
                 .on("click", function(){
                     if (d3.event.defaultPrevented) return;
                     showAllNodes();
@@ -435,14 +433,6 @@
                   })
                   .style("fill", function(d) {return color(lookupTable[d.name]);})
                   .classed("activeNode", true)
-//                  .on("click", function(d){
-//                      if (d3.event.defaultPrevented || !d3.select(this).classed("activeNode")){
-//                          console.log("click suppressed");
-//                          return; // click suppressed
-//                      }
-//                      console.log("did a click!");
-//                      connectedNodes(d, allShowing || facultySelected, this); // else highlight connected nodes
-//                  })
                   .on("mouseover", function(d){
                       if(d3.select(this).classed("activeNode") && !d3.select(this).classed("baseNode")){
                           force.stop();
@@ -456,7 +446,6 @@
                   })
                   .on("mouseout", function(d){
                       if(!isDrag && !nodeHighlighted){
-                            console.log("mouseout resume");
                             force.resume();
                       }
                       tooltip.transition()
@@ -476,12 +465,10 @@
 
             graph
                 .on("mouseleave", function(){
-                    console.log("svg stop");
                     force.stop();
                 })
                 .on("mouseenter", function(){
                     force.resume();
-                    console.log("svg resume");
                 });
 
             /* Configure highlighting of connected nodes */
@@ -607,21 +594,20 @@
                 }
                 var link = d3.selectAll(".link");
                 if (!d3.select(gObject).classed("active")){
-                    var xAvg = 0, yAvg = 0;
-                    selectedNodes.each(function(d){
-                        xAvg += d.x;
-                        yAvg += d.y;
-                    });
-                    xAvg /= selectedNodes[0].length;
-                    yAvg /= selectedNodes[0].length;
-                    console.log(xAvg + " " + yAvg);
-                    var xTrans = (window.innerWidth + 355)/2-xAvg;
-                    var yTrans = (500)/2-yAvg;
-
-                    //zoomer.translate([xTrans,yTrans]);
-                    d3.select(".plotting-area")
-                        .transition()
-                        .attr("transform", "translate("+xTrans+","+yTrans+")");
+//                    var xAvg = 0, yAvg = 0;
+//                    selectedNodes.each(function(d){
+//                        xAvg += d.x;
+//                        yAvg += d.y;
+//                    });
+//                    xAvg /= selectedNodes[0].length;
+//                    yAvg /= selectedNodes[0].length;
+//
+//                    var xTrans = (window.innerWidth + 355)/2-xAvg;
+//                    var yTrans = (500)/2-yAvg;
+//
+//                    d3.select(".plotting-area")
+//                        .transition()
+//                        .attr("transform", "translate("+xTrans+","+yTrans+")");
 
                     selectedNodes
                         .style("stroke-opacity", 1)
@@ -647,7 +633,6 @@
             // Show all nodes on click in empty space
             function showAllNodes(){
                 if(d3.event.stopPropagation){d3.event.stopPropagation();}
-                console.log("show all nodes resume");
                 force.resume();
                 //Put them back to opacity=1
                 node
