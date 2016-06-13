@@ -3,39 +3,20 @@
 get_header(); ?>
 <div id="front-page-container">
     <div id="background-pic" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/Arch_700.jpeg')">
-            <div class="flexslider" style="width: 80%">
+            <div class="flexslider">
                 <ul class="slides">
                     <li>
-                    <iframe src="<?php echo get_template_directory_uri(); ?>/html/d3-transfer.html" style="border: 0px; min-height: 100%" scrolling="no" width="100%"height="500px" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="<?php echo get_template_directory_uri(); ?>/html/d3-transfer.html" scrolling="no" width="100%"height="500px" frameborder="0" tabindex="-1" allowfullscreen></iframe>
                     </li>
                     <li>
-                    <iframe  src="<?php echo get_template_directory_uri(); ?>/html/d3-bubble.html" style="border: 0px; min-height: 100%" scrolling="no" width="100%"height="500px" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="<?php echo get_template_directory_uri(); ?>/html/d3-bubble.html" scrolling="no" width="100%"height="500px" frameborder="0" tabindex="-1" allowfullscreen></iframe>
                     </li>
                 </ul>
              </div>
 
-<!--
-        <div class="carousel-home" style="flex: 0 1 165px; order: -1;">
-            <i class="fa fa-angle-left vis-arrow arrow-prev"></i>
-        </div>
-        <div class="carousel-home" style="flex: 0 1 165px;">
-            <i class="fa fa-angle-right vis-arrow arrow-next"></i>
-        </div>
--->
-
     </div>
-    <!--
-    <div id="carousel-vis-group" style="">
-        <div style="height: 510px">
-            <iframe src="http://localhost/wordpress/wp-content/uploads/2016/03/d3-html.html" style="border: 0px; width:100%; height:100% min-height:100%;" scrolling="no" width="100%" height="100%"></iframe>
-        </div>
-        <div style="height: 100%;">
-            <img src="http://localhost/wordpress/wp-content/uploads/2016/03/jacy.png">
-        </div>
-    </div>
-    -->
 
-    <div id="home-menu" style="">
+    <div id="home-menu">
         <a  class="home-column" href="<?php echo bloginfo('url'); ?>/category/ira-portals/"><div  >IRA PORTALS<i class="fa fa-external-link" aria-hidden="true"></i></div></a>
 
         <a  class="home-column" href="<?php echo bloginfo('url'); ?>/category/data/"><div >DATA<i class="fa fa-bar-chart" aria-hidden="true"></i></div></a>
