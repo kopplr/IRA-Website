@@ -142,8 +142,14 @@ get_header();
 
                 <div id="tab3" class="tab">
                     <div id="tab3-content">
-                        <img id="our-community-full" src="<?php echo get_template_directory_uri(); ?>/images/OUAC-our-community.png">
-                        <img id="our-community-small" src="<?php echo get_template_directory_uri(); ?>/images/OUAC-our-community-small.png">
+                        <img id="our-community-full"
+                             src="<?php echo get_template_directory_uri(); ?>/images/Our-Community-full.svg"
+                             onerror="this.src='<?php echo get_template_directory_uri(); ?>/images/OUAC-our-community.png'"
+                             alt="IRA-connections-to-organizations">
+                        <img id="our-community-small"
+                             src="<?php echo get_template_directory_uri(); ?>/images/Our-Community-small.svg"
+                             onerror="this.src='<?php echo get_template_directory_uri(); ?>/images/OUAC-our-community-small.png'"
+                             alt="IRA-connections-to-organizations-small">
                         <div id="community-text">
                             <div style="display:flex;">
                                 <i class="fa fa-quote-left fa-3x fa-pull-left" aria-hidden="true"></i>
