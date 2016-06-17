@@ -16,7 +16,7 @@ get_header(); ?>
 
     </div>
 
-    <div id="home-menu">
+    <nav id="home-menu">
         <a  class="home-column" href="<?php echo bloginfo('url'); ?>/category/ira-portals/"><div  >IRA PORTALS<i class="fa fa-external-link" aria-hidden="true"></i></div></a>
 
         <a  class="home-column" href="<?php echo bloginfo('url'); ?>/category/data/"><div >DATA<i class="fa fa-bar-chart" aria-hidden="true"></i></div></a>
@@ -31,7 +31,7 @@ get_header(); ?>
             <a  href="<?php echo bloginfo('url'); ?>/glossary/"><div><i class="fa fa-question-circle fa-fw" aria-hidden="true"></i>GLOSSARY</div></a>
         </div>
 
-    </div>
+    </nav>
 </div>
 <nav class="home-nav" style="display:none;">
     <?php

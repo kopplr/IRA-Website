@@ -295,76 +295,7 @@ jQuery(document).ready(function($) {
         return false;
     });
 
-//    var animationOut = 'animated slideOutRight';
-//    var animationIn = 'animated slideInLeft';
-//    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-//
-//    var src, value, newSrc;
-//
-//    var visArray = ['d3-transfer.html', 'd3-bubble.html'];
-//    var currIndex = 0;
-//    var arrayLength = visArray.length;
-//    console.log($('iframe').width());
-//
-//    $('.carousel-home i').on("click", function(){
-//        $('iframe').addClass(animationOut).one(animationEnd, function(){
-//            $(this).removeClass(animationOut);
-//
-//            if(++currIndex > arrayLength - 1){ // End of array
-//                currIndex = 0;
-//            }
-//            console.log(currIndex);
-//            console.log()
-//            src = $('iframe').attr('src');
-//            value = src.substring(src.lastIndexOf('/') + 1);
-//            newSrc = src.replace(value, visArray[currIndex]);
-//
-//            $(this).attr('src', newSrc);
-//            $(this).addClass(animationIn).one(animationEnd, function(){
-//                $(this).removeClass(animationIn);
-//            });
-//        });
-//    });
 
-//    var theIframe = $('#viz iframe');
-//    $('#background-pic').load(function(){
-//        console.log("loaded: " + $('#background-pic').width());
-//    });
-//
-//    var theWidth = $('#background-pic').width() - 2*$('.carousel-home').width();
-//        //$('#viz').width();
-//    theIframe.each(function(){
-//        $(this).attr('width', theWidth);
-//    });
-//    console.log(theWidth);
-//
-//    $('#viz').wrap('<div id="mother" />');
-//
-//    $('#mother').css({
-//        width: function() {
-//        return theWidth;
-//      },
-//        height: function() {
-//        return '500px';
-//      },
-//        flex: '1',
-//        position: 'relative',
-//        overflow: 'hidden'
-//    });
-//        //get total of image sizes and set as width for ul
-//    var totalWidth = theIframe.length * theWidth;
-//    console.log(totalWidth);
-//    $('#viz').css({
-//        width: function(){
-//        return totalWidth;
-//    }
-//    });
-//
-//    $('.carousel-home i').on("click", function(){
-//            console.log("clicked!");
-//            $('#viz').animate({
-//               "margin-left": (-(1)*theWidth)}, 1000);
-//    });
 
     if($(window).width() > 750){ // Disable for small viewports
         $('.flexslider').flexslider({
@@ -373,8 +304,8 @@ jQuery(document).ready(function($) {
         });
     }
 
-
-
+    // Remove blue outline from slider navigation arrows
+    $('.flex-direction-nav li a').mouseup(function() { console.log("blur"); this.blur() });
 
 
     // Extra jQuery functions
@@ -384,6 +315,8 @@ jQuery(document).ready(function($) {
 
 
 });
+
+// Don't show viz when the screen is too narrow
 jQuery(window).resize(function(){
     if(jQuery(window).width() < 750){
         jQuery('.flexslider').hide();

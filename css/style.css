@@ -694,6 +694,10 @@ button.is-checked {
      -webkit-box-shadow: 0px 0px 5px  #4D90FE;
      box-shadow: 0px 0px 5px  #4D90FE;
 }
+.flex-direction-nav li a:active {
+    border: 0;
+    box-shadow: none;
+}
 
 /* Home Page Menu ************************************************************************************/
 #menu-home-page-menu-links {
