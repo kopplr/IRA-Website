@@ -737,6 +737,9 @@ button.is-checked {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
+#home-menu div {
+    text-transform: uppercase;
+}
 .home-column {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
@@ -775,10 +778,7 @@ button.is-checked {
 .home-column div {
     padding: 10px;
 }
-.home-column:last-child {
-    border-top: none;
-}
-.home-column:first-child:hover, .home-column:nth-child(2):hover, .home-column:nth-child(3):hover, .home-column:nth-child(4):hover, .home-column:nth-child(5):hover {
+.home-column:hover {
     background-color: rgba(0, 0, 0, 0.05);
     text-decoration: none;
     border-top-color: #ac1455;

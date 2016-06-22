@@ -299,6 +299,7 @@ function posts_orderby_lastname ($orderby_statement)
 
 // Custom nav walker
 class Nav_Footer_Walker extends Walker_Nav_Menu {
+    public static $counter = 0;
 	function start_lvl( &$output, $depth, $args = array() ) {
 		$indent = str_repeat("\t", $depth);
 		$output .= "\n$indent\n";
@@ -340,6 +341,7 @@ class Nav_Footer_Walker extends Walker_Nav_Menu {
 		$item_output .= '</div></a>';
 		$item_output .= $args->after;
 		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+
 	}
 
 	function end_el( &$output, $item, $depth, $args = array() ) {
