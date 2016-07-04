@@ -97,27 +97,19 @@ jQuery(document).ready(function($) {
 
     // Dropdown menu attachment
     $('.item-selected').on("click", function(){
+        console.log("click!");
         var options = $(this).siblings('.dropdown-options');
         if(options.css('display') == 'none'){
             options.slideDown(200);
+
+//                .show(function(){
+//                $(this).show();
+//            });
         }
         else {
             options.slideUp(200);
         }
     });
-
-    // Add in icons for home page
-    $('#menu-home-page-menu-links > li').each(function(){
-        if ($(this).text() == 'IRA Portals'){
-            $('a',this).append('<i class="fa fa-external-link" style="display:block;font-size:3em;padding: 10px 0 10px 0"></i>');
-        }
-        if ($(this).text() == 'Data'){
-            $('a',this).append('<i class="fa fa-bar-chart" style="display:block;font-size:3em;padding: 10px 0 10px 0"></i>');
-        }
-        if ($(this).text() == 'Publications'){
-            $('a',this).append('<i class="fa fa-newspaper-o" style="display:block;font-size:3em;padding: 10px 0 10px 0"></i>');
-        }
-    })
 
     // Tabs navigation
     $('.tabs .tab-links a').on('click', function(e)  {
@@ -253,10 +245,6 @@ jQuery(document).ready(function($) {
         return false;
     });
 
-//    $('.responsive').slick({
-//        speed: 300,
-//        adaptiveHeight: true,
-//    });
 
     // Tab allows focus outline, but button click does not
     document.addEventListener('keydown', function(e) {

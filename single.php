@@ -22,7 +22,7 @@ global $wpdb
     <div style="flex: 1;"  ></div>
     <div style="flex: 1; order: 99;"></div>
     <div class="site-content">
-        <div class="main-column">
+        <div class="main-column document-page">
 
 
                       <?php
@@ -46,6 +46,7 @@ global $wpdb
                                     <div><span class="fa fa-caret-down fa-fw"></span></div>
                                 </div>
                                 <ul class="dropdown-options">
+                                     <iframe class="cover" src="about:blank"></iframe>
                                     <?php
                                         $categories = get_the_category();
                                         $last_category = $categories[0];
@@ -75,7 +76,9 @@ global $wpdb
                                     <div id="current-year"><?php echo $myCurrentYear; ?></div>
                                     <div><span class="fa fa-caret-down fa-fw"></span></div>
                                 </div>
+<!--                                <div style="position:relative; z-index:1000">-->
                                 <ul class="dropdown-options">
+                                    <iframe class="cover" src="about:blank"></iframe>
                                 <?php
                                     $myYearsSelected = array();
                                     foreach ( $post_attachments as $post_attachment ) {
@@ -84,17 +87,19 @@ global $wpdb
                                         $attachmentPath = wp_get_attachment_url($post_attachment->ID);
 
                                         if (wp_check_filetype($attachmentPath)['ext'] == 'pdf'){ // Checks for pdf so does not duplicate list
-                                            echo '<li data-id="' . $post_attachment->ID . '"' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") . 'onclick="ga(\'send\', {
-                                                                          hitType: \'event\',
-                                                                          eventCategory: \'AJAX Dropdown\',
-                                                                          eventAction: \'selected\',
-                                                                          eventLabel: \'' . $attachmentPath . '\'
-                                                                        });"'
-                                                . '>' . $post_attachment->post_title . '</li>'; // Highlights the selected year
+                                            echo '<li data-id="' . $post_attachment->ID . '"' . (($myCurrentYear == $myYearSelected)?' class = "selected"':"") .
+//                                                'onclick="ga(\'send\', {
+//                                                                          hitType: \'event\',
+//                                                                          eventCategory: \'AJAX Dropdown\',
+//                                                                          eventAction: \'selected\',
+//                                                                          eventLabel: \'' . $attachmentPath . '\'
+//                                                                        });"' .
+                                                '>' . $post_attachment->post_title . '</li>'; // Highlights the selected year
                                         }
                                     }
                                 ?>
                                 </ul>
+<!--                                    </div>-->
                             </li>
                             <li id="downloads">
                                 <ul id="download-options">

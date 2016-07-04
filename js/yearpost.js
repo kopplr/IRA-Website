@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
                 })[0].nodeValue = data.post_title;
 
                 // Update iframe to show new PDF file
-                $('iframe').attr('src', data.url);
+                $('#my-container iframe').attr('src', data.url);
 
                 // Update the pdf link
                 $('#download-pdf a').attr('href', data.url);

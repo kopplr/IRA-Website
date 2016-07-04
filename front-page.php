@@ -3,7 +3,7 @@
 get_header(); ?>
 <div id="front-page-container">
     <div id="background-pic" style="background-image: url('<?php echo get_template_directory_uri(); ?>/images/Arch_700.jpeg')">
-            <div class="flexslider" style="display:none;">
+            <div class="flexslider">
                 <ul class="slides">
                     <li>
                     <iframe src="<?php echo get_template_directory_uri(); ?>/html/d3-transfer.html" scrolling="no" width="100%"height="500px" frameborder="0" tabindex="-1" allowfullscreen></iframe>

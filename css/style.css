@@ -433,13 +433,21 @@ article:hover .overlay {
 
 /* Main Column ***********************************************************************************/
 .main-column {
-    -webkit-box-flex: 4;
-    -webkit-flex: 4 0 0;
-    -ms-flex: 4 0 0;
-    flex: 4 0 0;
+    width: 100%;
     padding: 20px;
     background-color: #f1f1f1;
     min-height: 50vh;
+}
+.main-column.document-page {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
 .main-column a {
     text-decoration: none;
@@ -533,6 +541,8 @@ button.is-checked {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+/*    height: 40px;*/
+    z-index:1000;
 }
 .dropdown-list > li {
     -webkit-box-flex: 0;
@@ -549,12 +559,16 @@ button.is-checked {
     -ms-flex-direction: column;
     flex-direction: column;
     margin-right: 20px;
+    display: block;
+    position: relative;
+    z-index: 1;
 }
 #category-selection, #year-selection {
     border-style: solid solid none solid;
     border-width: 1px;
     border-radius: 5px 5px 0 0;
     background-color: white;
+    display: block;
 }
 #category-selection {
 }
@@ -563,13 +577,22 @@ button.is-checked {
     width: 100%;
 
 }
-
+.cover {
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
 .dropdown-options {
     display: none;
     position: absolute;
     background-color: white;
     width: 240px;
     border: 1px solid black;
+    z-index: 9999;
 }
 .dropdown-options > li {
     cursor: pointer;
@@ -641,23 +664,31 @@ button.is-checked {
     background-color: #c6cbce;
 
 }
+#downloads {
+    display: block;
+    height: 100%;
+}
 #download-options {
     font-size: 150%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+    height: 100%;
+    display: table;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
 }
-#download-options li {
-    display: inline-block;
+#download-pdf {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+#download-excel {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+#my-container {
+    z-index: 0;
 }
 .secondary-column > div {
     margin-top: 70px;
