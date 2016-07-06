@@ -349,3 +349,29 @@ class Nav_Footer_Walker extends Walker_Nav_Menu {
 	}
 }
 
+// Adding filename search to Media Library
+
+function search_filename( $search, $a_wp_query )
+{
+    global $wpdb;
+
+    // Original search string:
+    // AND (((wp_posts.post_title LIKE '%search-string%') OR (wp_posts.post_content LIKE '%search-string%')))
+
+    $search = str_replace(
+        'AND ((',
+        'AND (((' . $wpdb->prefix . 'posts.guid LIKE \'%' . $_GET['s'] . '%\') OR ',
+        $search
+    );
+
+    return $search;
+}
+
+// Hook action to admin_init
+function hook_new_search() {
+    add_filter( 'posts_search', 'search_filename', 10, 2 );
+}
+
+// Add action
+add_action( 'admin_init', 'hook_new_search' );
+
