@@ -106,11 +106,10 @@
 </style>
 
 <body>
-<!--    <div id="vis"></div>-->
     <script src="//d3js.org/d3.v3.min.js"></script>
-    <script src="../js/d3-legend.min.js"></script>
     <script src="https://d3js.org/queue.v1.min.js"></script>
     <script>
+
         // Function for moving nodes to front
         d3.selection.prototype.moveToFront = function () {
             return this.each(function () {
@@ -443,16 +442,14 @@
                 var legend = legendContainer.append("g")
                     .attr("class", "legendSymbol");
 
-                var colorScale = d3.scale.ordinal().domain(['Canada']).range(["#d62728"]);
-                var circle = d3.svg.symbol().type('circle')();
+                legend.append("circle")
+                    .attr("r", 10)
+                    .style("fill", "rgb(214, 39, 40)");
 
-                var legendSymbol = d3.legend.color()
-                    .scale(colorScale)
-                    .shape('circle')
-                    .labels(["Canadian Universities"]);
-
-                var entryLegend = legendContainer.select(".legendSymbol")
-                    .call(legendSymbol);
+                legend.append("text")
+                    .text("Canadian Universities")
+                    .attr("class", "label")
+                    .attr("transform", "translate(20,5)");
 
                 // Bind nodes data to what will become DOM elements to represent them.
                 bubbles = graph.selectAll('.bubble')
@@ -528,6 +525,7 @@
                 d3.select(window).on("resize", resize);
 
                 var xTotal, avgCount, yTotal
+
                 function resize() {
                     width = window.innerWidth, height = 500; //(window.innerHeight < 500 ? 500 : window.innerHeight);
                     d3.select("svg").attr("width", width).attr("height", height);
