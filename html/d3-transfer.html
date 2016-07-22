@@ -651,12 +651,12 @@
 
             // Update positions of nodes and links
             function tick() {
-                link.attr("x1", function(d) { return translation[0] + scaleFactor*d.source.x; })
+                link.attr("x1", function(d) { return translation[0] + scaleFactor*d.source.x + (minWidthPoly1+minWidthPoly2)/4; })
                     .attr("y1", function(d) { return translation[1] + scaleFactor*d.source.y; })
-                    .attr("x2", function(d) { return translation[0] + scaleFactor*d.target.x; })
+                    .attr("x2", function(d) { return translation[0] + scaleFactor*d.target.x + (minWidthPoly1+minWidthPoly2)/4; })
                     .attr("y2", function(d) { return translation[1] + scaleFactor*d.target.y; });
 
-                node.attr("cx", function(d) { return translation[0] + scaleFactor*d.x; })
+                node.attr("cx", function(d) { return translation[0] + scaleFactor*d.x + (minWidthPoly1+minWidthPoly2)/4; })
                     .attr("cy", function(d) { return translation[1] + scaleFactor*d.y; });
 
             }
@@ -666,7 +666,10 @@
             d3.select(window).on("resize", resize);
 
             function resize() {
-                width = window.innerWidth + minWidthPoly2, height = 500;//(window.innerHeight < 500 ? 500 : window.innerHeight);
+                width = window.innerWidth
+             //       + minWidthPoly2
+                    , height = 500;//(window.innerHeight < 500 ? 500 : window.innerHeight);
+                console.log("this is width: " + width);
                 d3.select("svg").attr("width", width).attr("height", height);
                 force.size([width, height]).resume();
 
